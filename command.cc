@@ -113,7 +113,7 @@ void Command::execute() {
         [](SimpleCommand smpCmd) {
             if (++count == 1) printf("First Command\n");
             if (count == _simpleCommands.size()) printf("Last Command\n");
-            print("%s", smpCmd);
+            smpCmd->print();
         }
     );
 
