@@ -1306,7 +1306,7 @@ yyreduce:
   case 12:
 #line 86 "shell.y" /* yacc.c:1646  */
     {
-    printf("GUARD")
+    printf("GUARD");
   }
 #line 1312 "y.tab.cc" /* yacc.c:1646  */
     break;
