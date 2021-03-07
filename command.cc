@@ -18,7 +18,6 @@
 #include <cstdlib>
 
 #include <iostream>
-#include <algorithm>
 #include "command.hh"
 #include "shell.hh"
 
@@ -108,14 +107,12 @@ void Command::execute() {
     // Setup i/o redirection
     // and call exec
 
-    int count = 0;
-    std::for_each(_simpleCommands.begin(), _simpleCommands.end(), 
-        [&count, &this](SimpleCommand smpCmd) {
-            if (++count == 1) printf("First Command\n");
-            if (count == _simpleCommands.size()) printf("Last Command\n");
-            smpCmd->print();
-        }
-    );
+    int i = 0;
+    for ( auto & simpleCommand : _simpleCommands ) {
+        if (++i == 1) printf("First Command\n");
+        if (i == _simpleCommands.size()) printf("Last Command\n");
+        simpleCommand->print();
+    }
 
 
 
