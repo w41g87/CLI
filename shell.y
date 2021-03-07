@@ -119,7 +119,7 @@ iomodifier_opt:
     Shell::_currentCommand._background = true;
   }
   | CONT {
-    printf("   The command will be ran in the background",);
+    printf("   The command will be ran in the background");
     Shell::_currentCommand._background = true;
   }
   | /* can be empty */ 
