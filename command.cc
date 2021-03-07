@@ -132,7 +132,7 @@ void Command::execute() {
 
     if (_inFile) {
         inF = open(_inFile->c_str(), O_RDONLY);
-        dups(inF, 0);
+        dup2(inF, 0);
         close(inF);
     } else dup2(defaultin, 0);
     close(defaultin);
