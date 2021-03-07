@@ -83,8 +83,8 @@ argument:
     printf("   Yacc: insert argument \"%s\"\n", $1->c_str());
     Command::_currentSimpleCommand->insertArgument( $1 );\
   }
-  | GUARD {
-    printf("GUARD");
+  | CONT {
+    printf("CONT");
   }
   ;
 
