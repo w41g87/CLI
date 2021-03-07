@@ -30,10 +30,11 @@ void SimpleCommand::print() {
   std::cout << std::endl;
 }
 
-string SimpleCommand::toString() {
+string[] SimpleCommand::toString() {
   string output[_arguments.size()];
+  int i = 0;
   for (auto & arg : _arguments) {
-    output.append(arg.c_str());
+    output[i++] = arg.c_str();
   }
   return output;
 }
