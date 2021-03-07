@@ -29,6 +29,7 @@
 
 %token <cpp_string> WORD
 %token NOTOKEN GREAT NEWLINE
+%token GREAT2 GGCONT GCONT LCONT GGREAT CONT LESS
 
 %{
 //#define yylex yylex
