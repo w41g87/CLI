@@ -48,7 +48,7 @@ goal:
   ;
 
 commands:
-  command iomodifier_opt NEWLINE {
+  command iomodifiers NEWLINE {
     printf("   Yacc: Execute command\n");
     Shell::_currentCommand.execute();
   }
@@ -93,18 +93,27 @@ command_word:
   }
   ;
 
-iomodifier_opt:
-  GREAT WORD {
-    printf("   Yacc: insert output \"%s\"\n", $2->c_str());
-    Shell::_currentCommand._outFile = $2;
-  }
-  | LESS WORD {
+iomodifiers:
+  iomodifier_in iomodifier_out iomodifier_err
+  | iomodifier_in iomodifier_err iomodifier_out
+  | iomodifier_out iomodifier_in iomodifier_err
+  | iomodifier_out iomodifier_err iomodifier_in
+  | iomodifier_err iomodifier_in iomodifier_out
+  | iomodifier_err iomodifier_out iomodifier_in
+  ;
+
+iomodifier_in:
+  LESS WORD {
     printf("   Yacc: insert input \"%s\"\n", $2->c_str());
     Shell::_currentCommand._inFile = $2;
   }
-  | GREAT2 WORD {
-    printf("   Yacc: insert error output \"%s\"\n", $2->c_str());
-    Shell::_currentCommand._errFile = $2;
+  | /*can be empty*/
+  ;
+
+iomodifier_out:
+  GREAT WORD {
+    printf("   Yacc: insert output \"%s\"\n", $2->c_str());
+    Shell::_currentCommand._outFile = $2;
   }
   | GCONT WORD {
     printf("   Yacc: insert background output \"%s\"\n", $2->c_str());
@@ -120,11 +129,23 @@ iomodifier_opt:
     Shell::_currentCommand._outFile = $2;
     Shell::_currentCommand._background = true;
   }
-  | CONT {
+  | /*can be empty*/
+  ;
+
+iomodifier_err:
+  GREAT2 WORD {
+    printf("   Yacc: insert error output \"%s\"\n", $2->c_str());
+    Shell::_currentCommand._errFile = $2;
+  }
+  | /*can be empty*/
+;
+
+bgmodifier:
+  CONT {
     printf("   The command will be ran in the background");
     Shell::_currentCommand._background = true;
   }
-  | /* can be empty */ 
+  | /*can be empty*/
   ;
 
 %%
