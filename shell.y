@@ -56,8 +56,8 @@ commands:
   | error NEWLINE { yyerrok; }
   ;
 
-command: simple_command
-        | command GUARD simple_command {
+command: simple_command {
+        /*| command GUARD simple_command {*/
           printf("   Yacc: Command pipeline\n");
         }
        ;
@@ -82,6 +82,9 @@ argument:
   WORD {
     printf("   Yacc: insert argument \"%s\"\n", $1->c_str());
     Command::_currentSimpleCommand->insertArgument( $1 );\
+  }
+  GUARD {
+    printf("GUARD")
   }
   ;
 
