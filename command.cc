@@ -31,7 +31,8 @@ Command::Command() {
     _inFile = NULL;
     _errFile = NULL;
     _background = false;
-    _append = false;
+    _appendO = false;
+    _appendE = false;
 }
 
 void Command::insertSimpleCommand( SimpleCommand * simpleCommand ) {
@@ -99,6 +100,11 @@ void Command::execute() {
         return;
     }
 
+    int defaultin = dup( 0 );
+	int defaultout = dup( 1 );
+	int defaulterr = dup( 2 );
+    int inF, outF, errF;
+
     // Print contents of Command data structure
     print();
 
@@ -107,14 +113,83 @@ void Command::execute() {
     // Setup i/o redirection
     // and call exec
 
-    unsigned int i = 0;
-    for ( auto & simpleCommand : _simpleCommands ) {
-        if (++i == 1) printf("First Command\n");
-        if (i == _simpleCommands.size()) printf("Last Command\n");
-        simpleCommand->print();
+    if (_errFile) {
+        if (_appendE) errF = open(_errFile->c_str(), O_CREAT|O_WRONLY|O_APPEND);
+        else errF = creat(_errFile->c_str());
+        dup2(errF, 2);
+        close(errF);
+    } else dup2(defaulterr, 2);
+    close(defaulterr);
+    if (_errFile < 0) {
+        perror( "shell: Failed to create the error output file.");
+		exit( 2 );
     }
 
+    if (_inFile) {
+        inF = open(_inFile->c_str(), O_RDONLY);
+        dups(inF, 0);
+        close(inF);
+    } else dup2(defaultin, 0);
+    close(defaultin);
+    if (inf < 0) {
+        perror( "shell: Failed to open the input file.");
+		exit( 2 );
+    }
 
+    if (_outFile) {
+        if (_appendO) outF = open(_outFile->c_str(), O_CREAT|O_WRONLY|O_APPEND);
+        else outF = creat(_outFile->c_str());
+    } else
+    if (outF < 0) {
+        perror( "shell: Failed to create the output file.");
+		exit( 2 );
+    }
+
+    unsigned int i = 0;
+    int fdpipe[2];
+    int pid;
+    if ( pipe(fdpipe) == -1) {
+		perror( "shell: pipe");
+		exit( 2 );
+	}
+
+    for ( auto & simpleCommand : _simpleCommands ) {
+        if (++i > 1) dup2(fdpipe[0], 0);
+        if (i == _simpleCommands.size()) {
+            if (_outFile) {
+                dup2(outF, 1);
+                close(outF);
+            }
+            else dup2(defaultout, 1);
+            close(defaultout);
+        } else dup2(fdpipe[1], 1);
+
+
+        pid = fork();
+        if ( pid == -1 ) {
+            perror( "shell: fork\n");
+            exit( 2 );
+        }
+
+        if (pid == 0) {
+            //Child
+            
+            // close file descriptors that are not needed
+            close(fdpipe[0]);
+            close(fdpipe[1]);
+            
+            close(outF);
+            // You can use execvp() instead if the arguments are stored in an array
+            execvp(simpleCommand->_arguments.front(), simpleCommand->_arguments);
+
+            // exec() is not suppose to return, something went wrong
+            perror( "shell: exec cat");
+            exit( 2 );
+        }
+
+    }
+
+    if (!_background) waitpid( pid, 0, 0 );
 
     // Clear to prepare for next command
     clear();

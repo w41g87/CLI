@@ -97,7 +97,7 @@ int main(int argc, char **argv)
 	int outfd = creat( argv[ 3 ], 0666 );
 
 	if ( outfd < 0 ) {
-		perror( "cat_grep: create outfile" );
+		perror( "cat_grep: creat outfile" );
 		exit( 2 );
 	}
 	

@@ -123,13 +123,14 @@ iomodifier_out:
   | GGREAT WORD {
     printf("   Yacc: insert append output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
-    Shell::_currentCommand._append = true;
+    Shell::_currentCommand._appendO = true;
   }
   | GGCONT WORD {
     printf("   Yacc: insert append background output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
     Shell::_currentCommand._errFile = $2;
-    Shell::_currentCommand._append = true;
+    Shell::_currentCommand._appendO = true;
+    Shell::_currentCommand._appendE = true;
   }
   | /*can be empty*/
   ;
