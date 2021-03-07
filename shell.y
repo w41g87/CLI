@@ -45,7 +45,6 @@ int yylex();
 
 goal:
   commands
-  | NEWLINE
   ;
 
 commands:
@@ -55,6 +54,7 @@ commands:
   }
   | NEWLINE 
   | error NEWLINE { yyerrok; }
+  |
   ;
 
 command: simple_command
@@ -124,10 +124,12 @@ iomodifier_out:
   | GGREAT WORD {
     printf("   Yacc: insert append output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
+    Shell::_currentCommand._append = true;
   }
   | GGCONT WORD {
     printf("   Yacc: insert append background output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
+    Shell::_currentCommand._append = true;
     Shell::_currentCommand._background = true;
   }
   | /*can be empty*/
