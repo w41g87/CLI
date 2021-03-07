@@ -65,7 +65,8 @@ extern int yydebug;
     LCONT = 265,
     GGREAT = 266,
     CONT = 267,
-    LESS = 268
+    LESS = 268, 
+    GUARD = 269
   };
 #endif
 /* Tokens.  */
@@ -80,6 +81,7 @@ extern int yydebug;
 #define GGREAT 266
 #define CONT 267
 #define LESS 268
+#define GUARD 269
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

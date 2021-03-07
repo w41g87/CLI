@@ -29,7 +29,7 @@
 
 %token <cpp_string> WORD
 %token NOTOKEN GREAT NEWLINE
-%token GREAT2 GGCONT GCONT LCONT GGREAT CONT LESS
+%token GREAT2 GGCONT GCONT LCONT GGREAT CONT LESS GUARD
 
 %{
 //#define yylex yylex
@@ -49,7 +49,7 @@ goal:
 
 commands:
   command
-  | commands command
+  | commands GUARD command
   ;
 
 command: simple_command

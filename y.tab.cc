@@ -1359,7 +1359,7 @@ yyreduce:
   case 20:
 #line 121 "shell.y" /* yacc.c:1646  */
     {
-    printf("   The command will be ran in the background",);
+    printf("   The command will be ran in the background");
     Shell::_currentCommand._background = true;
   }
 #line 1366 "y.tab.cc" /* yacc.c:1646  */

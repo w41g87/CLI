@@ -32,6 +32,10 @@ void myunputc(int c) {
   /* Discard spaces and tabs */
 }
 
+"|" {
+  return GUARD;
+}
+
 "2>" {
   return GREAT2;
 }
