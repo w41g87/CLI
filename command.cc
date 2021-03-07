@@ -110,7 +110,7 @@ void Command::execute() {
 
     int count = 0;
     std::for_each(_simpleCommands.begin(), _simpleCommands.end(), 
-        [&count, this](SimpleCommand smpCmd) {
+        [&count, &this](SimpleCommand smpCmd) {
             if (++count == 1) printf("First Command\n");
             if (count == _simpleCommands.size()) printf("Last Command\n");
             smpCmd->print();
