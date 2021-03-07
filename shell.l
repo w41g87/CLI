@@ -15,7 +15,7 @@
 static  void yyunput (int c,char *buf_ptr  );
 
 void myunputc(int c) {
-  //unput(c);
+  unput(c);
 }
 
 %}
