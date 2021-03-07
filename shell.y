@@ -84,7 +84,7 @@ argument:
     Command::_currentSimpleCommand->insertArgument( $1 );\
   }
   GUARD {
-    printf("GUARD")
+    printf("GUARD");
   }
   ;
 
