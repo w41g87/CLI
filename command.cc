@@ -108,6 +108,15 @@ void Command::execute() {
     // Setup i/o redirection
     // and call exec
 
+    int count = 0;
+    std::for_each(_simpleCommands.begin(), _simpleCommands.end(), 
+        [](SimpleCommand smpCmd) {
+            if (++count == 1) printf("First Command\n");
+            if (count == _simpleCommands.size()) printf("Last Command\n");
+            print(smpCmd);
+        }
+    );
+
 
 
     // Clear to prepare for next command

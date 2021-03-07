@@ -54,7 +54,6 @@ commands:
   }
   | NEWLINE 
   | error NEWLINE { yyerrok; }
-  |
   ;
 
 command: simple_command
@@ -119,7 +118,7 @@ iomodifier_out:
   | GCONT WORD {
     printf("   Yacc: insert background output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
-    Shell::_currentCommand._background = true;
+    Shell::_currentCommand._errFile = $2;
   }
   | GGREAT WORD {
     printf("   Yacc: insert append output \"%s\"\n", $2->c_str());
@@ -129,8 +128,8 @@ iomodifier_out:
   | GGCONT WORD {
     printf("   Yacc: insert append background output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
+    Shell::_currentCommand._errFile = $2;
     Shell::_currentCommand._append = true;
-    Shell::_currentCommand._background = true;
   }
   | /*can be empty*/
   ;
