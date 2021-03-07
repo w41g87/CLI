@@ -29,3 +29,13 @@ void SimpleCommand::print() {
   // effectively the same as printf("\n\n");
   std::cout << std::endl;
 }
+
+char ** SimpleCommand::toString() {
+  char ** output = malloc(_arguments.size());
+  int i = 0;
+  for (auto & arg : _arguments) {
+    *(output + i) = malloc(arg.length() + 1);
+    strcpy(*(output + i), arg.c_str());
+  }
+  return output;
+}
