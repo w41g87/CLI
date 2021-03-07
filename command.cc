@@ -107,7 +107,7 @@ void Command::execute() {
     // Setup i/o redirection
     // and call exec
 
-    int i = 0;
+    unsigned int i = 0;
     for ( auto & simpleCommand : _simpleCommands ) {
         if (++i == 1) printf("First Command\n");
         if (i == _simpleCommands.size()) printf("Last Command\n");
