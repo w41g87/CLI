@@ -415,7 +415,7 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  11
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   23
+#define YYLAST   21
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  15
@@ -500,10 +500,10 @@ static const yytype_uint16 yytoknum[] =
 };
 # endif
 
-#define YYPACT_NINF -5
+#define YYPACT_NINF -6
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-5)))
+  (!!((Yystate) == (-6)))
 
 #define YYTABLE_NINF -1
 
@@ -514,10 +514,10 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-       9,     0,    -5,    -5,     2,    -5,    -4,    -5,    -5,    -5,
-      -5,    -5,    10,    11,    13,    14,    15,    -5,    16,    17,
-      -3,    -5,    -5,    -5,    -5,    -5,    -5,    -5,    -5,    -5,
-      -5
+      12,    -5,    -6,    -6,     2,    -6,    -1,    -6,    -6,    -6,
+      -6,    -6,     0,    11,    13,    14,    16,    -6,    17,    15,
+      -3,    -6,    -6,    -6,    -6,    -6,    -6,    -6,    -6,    -6,
+      -6
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -534,7 +534,7 @@ static const yytype_uint8 yydefact[] =
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -5,    -5,    -5,    -5,    -5,    -5,    -5,    -5,    -5,    -5
+      -6,    -6,    -6,    -6,    -6,    -6,    -6,    -6,    -6,    -6
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
@@ -548,16 +548,16 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-      28,    12,    11,    13,    14,    15,    10,    16,    17,    18,
-       1,    29,     2,    21,    22,     3,    23,    24,    25,    26,
-       0,     0,     0,    27
+      28,    10,    11,    21,    12,     0,    13,    14,    15,    29,
+      16,    17,    18,     1,    22,     2,    23,    24,     3,    25,
+      26,    27
 };
 
 static const yytype_int8 yycheck[] =
 {
-       3,     5,     0,     7,     8,     9,     6,    11,    12,    13,
-       1,    14,     3,     3,     3,     6,     3,     3,     3,     3,
-      -1,    -1,    -1,     6
+       3,     6,     0,     3,     5,    -1,     7,     8,     9,    12,
+      11,    12,    13,     1,     3,     3,     3,     3,     6,     3,
+       3,     6
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -566,7 +566,7 @@ static const yytype_uint8 yystos[] =
 {
        0,     1,     3,     6,    16,    17,    18,    19,    20,    23,
        6,     0,     5,     7,     8,     9,    11,    12,    13,    24,
-      21,     3,     3,     3,     3,     3,     3,     6,     3,    14,
+      21,     3,     3,     3,     3,     3,     3,     6,     3,    12,
       22
 };
 
@@ -1304,7 +1304,7 @@ yyreduce:
   case 12:
 #line 86 "shell.y" /* yacc.c:1646  */
     {
-    printf("GUARD");
+    printf("CONT");
   }
 #line 1310 "y.tab.cc" /* yacc.c:1646  */
     break;
