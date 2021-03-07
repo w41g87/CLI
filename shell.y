@@ -57,7 +57,7 @@ commands:
   ;
 
 command: simple_command
-        | command GUARD simple_command{
+        | command GUARD simple_command {
           printf("   Yacc: Command pipeline\n");
         }
        ;
