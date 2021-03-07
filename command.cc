@@ -19,6 +19,9 @@
 #include <wait.h>
 #include <iostream>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include "command.hh"
 #include "shell.hh"
 
