@@ -30,12 +30,10 @@ void SimpleCommand::print() {
   std::cout << std::endl;
 }
 
-char ** SimpleCommand::toString() {
-  char ** output = malloc(_arguments.size());
-  int i = 0;
+string SimpleCommand::toString() {
+  string output[_arguments.size()];
   for (auto & arg : _arguments) {
-    *(output + i) = malloc(arg.length() + 1);
-    strcpy(*(output + i), arg.c_str());
+    output.append(arg.c_str());
   }
   return output;
 }
