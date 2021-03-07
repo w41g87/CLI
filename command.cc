@@ -119,8 +119,8 @@ void Command::execute() {
     // and call exec
 
     if (_errFile) {
-        if (_appendE) errF = open(_errFile->c_str(), O_CREAT|O_WRONLY|O_APPEND);
-        else errF = creat(_errFile->c_str());
+        if (_appendE) errF = open(_errFile->c_str(), O_CREAT|O_WRONLY|O_APPEND, 0666);
+        else errF = creat(_errFile->c_str(), 0666);
         dup2(errF, 2);
         close(errF);
     } else dup2(defaulterr, 2);
@@ -142,8 +142,8 @@ void Command::execute() {
     }
 
     if (_outFile) {
-        if (_appendO) outF = open(_outFile->c_str(), O_CREAT|O_WRONLY|O_APPEND);
-        else outF = creat(_outFile->c_str());
+        if (_appendO) outF = open(_outFile->c_str(), O_CREAT|O_WRONLY|O_APPEND, 0666);
+        else outF = creat(_outFile->c_str(), 0666);
     } else
     if (outF < 0) {
         perror( "shell: Failed to create the output file.");
