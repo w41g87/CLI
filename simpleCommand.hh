@@ -13,6 +13,7 @@ struct SimpleCommand {
   ~SimpleCommand();
   void insertArgument( std::string * argument );
   void print();
+  string[] toString();
 };
 
 #endif
