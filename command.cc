@@ -32,6 +32,7 @@ Command::Command() {
     _inFile = NULL;
     _errFile = NULL;
     _background = false;
+    _append = false;
 }
 
 void Command::insertSimpleCommand( SimpleCommand * simpleCommand ) {
@@ -106,6 +107,8 @@ void Command::execute() {
     // For every simple command fork a new process
     // Setup i/o redirection
     // and call exec
+
+
 
     // Clear to prepare for next command
     clear();
