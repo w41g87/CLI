@@ -65,7 +65,7 @@ extern int yydebug;
     LCONT = 265,
     GGREAT = 266,
     CONT = 267,
-    LESS = 268, 
+    LESS = 268,
     GUARD = 269
   };
 #endif
@@ -94,7 +94,7 @@ union YYSTYPE
   // Example of using a c++ type in yacc
   std::string *cpp_string;
 
-#line 96 "y.tab.hh" /* yacc.c:1909  */
+#line 98 "y.tab.hh" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

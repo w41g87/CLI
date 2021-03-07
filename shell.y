@@ -48,20 +48,22 @@ goal:
   ;
 
 commands:
-  command
-  | commands GUARD command
-  ;
-
-command: simple_command
-       ;
-
-simple_command:	
-  command_and_args iomodifier_opt NEWLINE {
+  command iomodifier_opt NEWLINE {
     printf("   Yacc: Execute command\n");
     Shell::_currentCommand.execute();
   }
   | NEWLINE 
   | error NEWLINE { yyerrok; }
+  ;
+
+command: simple_command
+        | command GUARD simple_command {
+          printf("   Yacc: Command pipeline\n");
+        }
+       ;
+
+simple_command:	
+  command_and_args 
   ;
 
 command_and_args:
