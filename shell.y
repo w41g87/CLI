@@ -100,8 +100,28 @@ iomodifier_opt:
     printf("   Yacc: insert input \"%s\"\n", $2->c_str());
     Shell::_currentCommand._inFile = $2;
   }
-
-
+  | GREAT2 WORD {
+    printf("   Yacc: insert error output \"%s\"\n", $2->c_str());
+    Shell::_currentCommand._errFile = $2;
+  }
+  | GCONT WORD {
+    printf("   Yacc: insert background output \"%s\"\n", $2->c_str());
+    Shell::_currentCommand._outFile = $2;
+    Shell::_currentCommand._background = true;
+  }
+  | GGREAT WORD {
+    printf("   Yacc: insert append output \"%s\"\n", $2->c_str());
+    Shell::_currentCommand._outFile = $2;
+  }
+  | GGCONT WORD {
+    printf("   Yacc: insert append background output \"%s\"\n", $2->c_str());
+    Shell::_currentCommand._outFile = $2;
+    Shell::_currentCommand._background = true;
+  }
+  | CONT {
+    printf("   The command will be ran in the background",);
+    Shell::_currentCommand._background = true;
+  }
   | /* can be empty */ 
   ;
 

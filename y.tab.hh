@@ -58,13 +58,13 @@ extern int yydebug;
     WORD = 258,
     NOTOKEN = 259,
     GREAT = 260,
-    NEWLINE = 261, 
-    GREAT2 = 262, 
-    GGCONT = 263, 
-    GCONT = 264, 
-    LCONT = 265
-    GGREAT = 266, 
-    CONT = 267, 
+    NEWLINE = 261,
+    GREAT2 = 262,
+    GGCONT = 263,
+    GCONT = 264,
+    LCONT = 265,
+    GGREAT = 266,
+    CONT = 267,
     LESS = 268
   };
 #endif
@@ -92,7 +92,7 @@ union YYSTYPE
   // Example of using a c++ type in yacc
   std::string *cpp_string;
 
-#line 82 "y.tab.hh" /* yacc.c:1909  */
+#line 96 "y.tab.hh" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
