@@ -185,7 +185,7 @@ void Command::execute() {
             
             close(outF);
             // You can use execvp() instead if the arguments are stored in an array
-            execvp(simpleCommand->_arguments.front(), simpleCommand->_arguments);
+            execvp(simpleCommand->_arguments.front().toString(), simpleCommand->_arguments);
 
             // exec() is not suppose to return, something went wrong
             perror( "shell: exec cat");
