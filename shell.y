@@ -45,6 +45,7 @@ int yylex();
 
 goal:
   commands
+  | NEWLINE
   ;
 
 commands:
@@ -142,7 +143,7 @@ iomodifier_err:
 
 bgmodifier:
   CONT {
-    printf("   The command will be ran in the background");
+    printf("   Yacc: The command will be ran in the background\n");
     Shell::_currentCommand._background = true;
   }
   | /*can be empty*/
