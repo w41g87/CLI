@@ -2,7 +2,7 @@
 #include <cstdlib>
 
 #include <iostream>
-
+#include <bits/stdc++.h>
 #include "simpleCommand.hh"
 
 SimpleCommand::SimpleCommand() {
