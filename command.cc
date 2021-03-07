@@ -22,6 +22,7 @@
 #include "command.hh"
 #include "shell.hh"
 
+int yyparse(void);
 
 Command::Command() {
     // Initialize a new vector of Simple Commands
