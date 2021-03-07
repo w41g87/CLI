@@ -108,7 +108,9 @@ void Command::execute() {
     int defaultin = dup( 0 );
 	int defaultout = dup( 1 );
 	int defaulterr = dup( 2 );
-    int inF, outF, errF;
+    int inF = 0
+    int outF = 0
+    int errF = 0;
 
     // Print contents of Command data structure
     print();
@@ -184,11 +186,18 @@ void Command::execute() {
             close(fdpipe[1]);
             
             close(outF);
+
+            printf("Params:\n");
+            for ( auto & str : simpleCommand->toString()) {
+                printf("%s\n", str);
+            }
             // You can use execvp() instead if the arguments are stored in an array
             execvp(simpleCommand->_arguments.front()->c_str(), simpleCommand->toString());
 
+            
+
             // exec() is not suppose to return, something went wrong
-            perror( "shell: exec cat");
+            perror( "shell: execution error");
             exit( 2 );
         }
 
