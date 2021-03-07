@@ -5,7 +5,7 @@
 int yyparse(void);
 
 void Shell::prompt() {
-  printf("λ>");
+  printf("λ > ");
   fflush(stdout);
 }
 
