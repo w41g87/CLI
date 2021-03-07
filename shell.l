@@ -33,7 +33,7 @@ void myunputc(int c) {
 }
 
 "2>" {
-  return 2GREAT;
+  return GREAT2;
 }
 
 ">>&" {
@@ -44,12 +44,20 @@ void myunputc(int c) {
   return GCONT;
 }
 
+"<&" {
+  return LCONT;
+}
+
 ">>" {
   return GGREAT;
 }
 
 ">" {
   return GREAT;
+}
+
+"<" {
+  return LESS;
 }
 
 "&" {
