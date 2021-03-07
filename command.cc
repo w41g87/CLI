@@ -125,7 +125,7 @@ void Command::execute() {
         close(errF);
     } else dup2(defaulterr, 2);
     close(defaulterr);
-    if (_errFile < 0) {
+    if (errF < 0) {
         perror( "shell: Failed to create the error output file.");
 		exit( 2 );
     }
@@ -136,7 +136,7 @@ void Command::execute() {
         close(inF);
     } else dup2(defaultin, 0);
     close(defaultin);
-    if (inf < 0) {
+    if (inF < 0) {
         perror( "shell: Failed to open the input file.");
 		exit( 2 );
     }
