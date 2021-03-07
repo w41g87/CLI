@@ -16,10 +16,14 @@
 
 #include <cstdio>
 #include <cstdlib>
-
+#include <wait.h>
 #include <iostream>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include "command.hh"
 #include "shell.hh"
+
 
 int yyparse(void);
 
