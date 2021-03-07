@@ -48,7 +48,7 @@ goal:
   ;
 
 commands:
-  command iomodifiers NEWLINE {
+  command iomodifiers bgmodifier NEWLINE {
     printf("   Yacc: Execute command\n");
     Shell::_currentCommand.execute();
   }
