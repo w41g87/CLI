@@ -18,7 +18,7 @@
 #include <cstdlib>
 
 #include <iostream>
-
+#include <algorithm>
 #include "command.hh"
 #include "shell.hh"
 
