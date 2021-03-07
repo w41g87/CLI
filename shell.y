@@ -56,7 +56,7 @@ commands:
   | error NEWLINE { yyerrok; }
   ;
 
-command: simple_command {
+command: simple_command
         | command GUARD {
           printf("   Yacc: Command pipeline\n");
         }
