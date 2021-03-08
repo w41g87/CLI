@@ -154,19 +154,19 @@ void Command::execute() {
 
     unsigned int i = 0;
     int pid;
-    int fdpipe[2];
+    int fdpipe[_simpleCommands.size()][2];
 
     for ( auto & simpleCommand : _simpleCommands ) {
         //printf("%d, %s", i, simpleCommand->_arguments.front()->c_str());
 
-        if ( pipe(fdpipe) == -1) {
+        if ( pipe(fdpipe[i]) == -1) {
             perror( "shell: pipe");
             exit( 2 );
         }
 
         if (++i > 1) {
-            dup2(fdpipe[0], 0);
-            close(fdpipe[0]);
+            dup2(fdpipe[i - 2][0], 0);
+            close(fdpipe[i - 2][0][0]);
         }
         if (i == _simpleCommands.size()) {
             if (_outFile) {
@@ -175,8 +175,8 @@ void Command::execute() {
             }
             else dup2(defaultout, 1);
         } else {
-            dup2(fdpipe[1], 1);
-            close(fdpipe[1]);
+            dup2(fdpipe[i - 1][1], 1);
+            close(fdpipe[i - 1][1]);
         }
 
         //printf("Forking...\n");
