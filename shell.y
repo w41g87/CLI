@@ -53,8 +53,6 @@ commands:
     Shell::_currentCommand.execute();
   }
   | NEWLINE { 
-    Command::_currentSimpleCommand = new SimpleCommand();
-    Command::_currentSimpleCommand->insertArgument( $1 );
     Shell::_currentCommand.execute(); 
   }
   | error NEWLINE { yyerrok; }
