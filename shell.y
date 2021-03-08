@@ -52,8 +52,7 @@ commands:
     //printf("   Yacc: Execute command\n");
     Shell::_currentCommand.execute();
   }
-  | NEWLINE
-  | commands NEWLINE
+  | NEWLINE { Shell::_currentCommand.execute(); }
   | error NEWLINE { yyerrok; }
   ;
 
