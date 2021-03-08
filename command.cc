@@ -201,6 +201,11 @@ void Command::execute() {
     }
 
     if (!_background) waitpid( pid, 0, 0 );
+    close(fdpipe[0]);
+	close(fdpipe[1]);
+	close( defaultin );
+	close( defaultout );
+	close( defaulterr );
 
     // Clear to prepare for next command
     clear();
