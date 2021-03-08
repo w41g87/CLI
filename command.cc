@@ -166,7 +166,7 @@ void Command::execute() {
         if (i == _simpleCommands.size()) {
             if (_outFile) {
                 dup2(outF, 1);
-                close(outF);
+                if (outF != errF) close(outF);
             }
             else dup2(defaultout, 1);
         } else {
