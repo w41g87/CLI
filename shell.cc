@@ -6,10 +6,9 @@ int yyparse(void);
 
 void Shell::prompt() {
   if ( isatty(0) ) {
-    printf("λ> ");
-    
+    printf("shell>");
+    fflush(stdout);
   }
-  fflush(stdout);
 }
 
 int main() {
