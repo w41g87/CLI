@@ -63,6 +63,7 @@ command: simple_command
         | command GUARD simple_command {
           //printf("   Yacc: Command pipeline\n");
         }
+        | NEWLINE
        ;
 
 simple_command:	
