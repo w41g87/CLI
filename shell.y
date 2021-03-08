@@ -52,7 +52,7 @@ commands:
     //printf("   Yacc: Execute command\n");
     Shell::_currentCommand.execute();
   }
-  command iomodifiers bgmodifier {
+  | command iomodifiers bgmodifier {
     //printf("   Yacc: Execute command\n");
     Shell::_currentCommand.execute();
   }
