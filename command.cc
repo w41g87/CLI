@@ -126,7 +126,6 @@ void Command::execute() {
         dup2(errF, 2);
         close(errF);
     } else dup2(defaulterr, 2);
-    close(defaulterr);
     if (errF < 0) {
         perror( "shell: Failed to create the error output file.");
 		exit( 2 );
@@ -137,7 +136,6 @@ void Command::execute() {
         dup2(inF, 0);
         close(inF);
     } else dup2(defaultin, 0);
-    close(defaultin);
     if (inF < 0) {
         perror( "shell: Failed to open the input file.");
 		exit( 2 );
@@ -153,23 +151,28 @@ void Command::execute() {
     }
 
     unsigned int i = 0;
-    int fdpipe[2];
     int pid;
-    if ( pipe(fdpipe) == -1) {
-		perror( "shell: pipe");
-		exit( 2 );
-	}
 
     for ( auto & simpleCommand : _simpleCommands ) {
-        if (++i > 1) dup2(fdpipe[0], 0);
+        int fdpipe[2];
+        if ( pipe(fdpipe) == -1) {
+            perror( "shell: pipe");
+            exit( 2 );
+        }
+        if (++i > 1) {
+            dup2(fdpipe[0], 0);
+            close(fdpipe[0]);
+        }
         if (i == _simpleCommands.size()) {
             if (_outFile) {
                 dup2(outF, 1);
                 close(outF);
             }
             else dup2(defaultout, 1);
-            close(defaultout);
-        } else dup2(fdpipe[1], 1);
+        } else {
+            dup2(fdpipe[1], 1);
+            close(fdpipe[1]);
+        }
 
 
         pid = fork();
@@ -185,7 +188,6 @@ void Command::execute() {
             close(fdpipe[0]);
             close(fdpipe[1]);
             
-            close(outF);
             printf("Params:\n");
             for ( int j = 0; j < simpleCommand->_arguments.size(); j++) {
                 printf("%d: %s\n", j, *(simpleCommand->toString() + j));
