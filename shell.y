@@ -45,17 +45,12 @@ int yylex();
 
 goal:
   commandline
+  | goal commandline
   ;
 
-commandline:
-  commands
-  | commandline commands {
-    printf("multiple commmands.\n");
-  }
-;
 
-commands:
-  command iomodifiers bgmodifier NEWLINE {
+commandline:
+  commands iomodifiers bgmodifier NEWLINE {
     printf("   Yacc: Execute command\n");
     Shell::_currentCommand.execute();
   }
@@ -66,17 +61,13 @@ commands:
   | error NEWLINE { yyerrok; }
   ;
 
-command: simple_command
-        | command GUARD simple_command {
+commands: simple_command
+        | commands GUARD simple_command {
           //printf("   Yacc: Command pipeline\n");
         }
        ;
 
 simple_command:	
-  command_and_args 
-  ;
-
-command_and_args:
   command_word argument_list {
     Shell::_currentCommand.
     insertSimpleCommand( Command::_currentSimpleCommand );
