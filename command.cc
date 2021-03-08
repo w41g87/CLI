@@ -107,6 +107,10 @@ void Command::execute() {
         return;
     }
 
+    if ( strcmp(simpleCommand->_arguments.front()->c_str(), "exit") == 0) {
+        exit(0);
+    }
+
     int defaultin = dup( 0 );
 	int defaultout = dup( 1 );
 	int defaulterr = dup( 2 );
