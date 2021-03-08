@@ -11,6 +11,7 @@
 
 #include <cstring>
 #include "y.tab.hh"
+#define yywrap() 1
 
 static  void yyunput (int c,char *buf_ptr  );
 
