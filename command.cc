@@ -202,7 +202,14 @@ void Command::execute() {
 
     if (!_background) waitpid( pid, 0, 0 );
 
-    exit(2);
+    close(fdpipe[0]);
+	close(fdpipe[1]);
+	close( defaultin );
+	close( defaultout );
+	close( defaulterr );
+    close(inF);
+    close(outF);
+    close(errF);
 
     // Clear to prepare for next command
     clear();
