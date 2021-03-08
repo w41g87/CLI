@@ -211,9 +211,9 @@ void Command::execute() {
 	close( defaultin );
 	close( defaultout );
 	close( defaulterr );
-    close(inF);
+    //close(inF);
     close(outF);
-    close(errF);
+    //close(errF);
 
 
     // Clear to prepare for next command
