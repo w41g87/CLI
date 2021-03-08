@@ -64,7 +64,6 @@ command: simple_command
 
 simple_command:	
   command_and_args 
-  | NEWLINE
   ;
 
 command_and_args:
