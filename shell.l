@@ -25,7 +25,7 @@ void myunputc(int c) {
 %%
 
 \n {
-  yy_flush_buffer;
+  YY_FLUSH_BUFFER;
   return NEWLINE;
 }
 
