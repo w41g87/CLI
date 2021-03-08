@@ -65,7 +65,7 @@ void Command::clear() {
     }
     _inFile = NULL;
 
-    if ( _errFile ) {
+    if ( _errFile && _errFile != _outFile) {
         delete _errFile;
     }
     _errFile = NULL;
@@ -122,9 +122,9 @@ void Command::execute() {
 
     if (_errFile) {
         if (_appendE) errF = open(_errFile->c_str(), O_CREAT|O_WRONLY|O_APPEND, 0666);
-        //else errF = creat(_errFile->c_str(), 0666);
+        else errF = creat(_errFile->c_str(), 0666);
         dup2(errF, 2);
-        //close(errF);
+        close(errF);
     } else dup2(defaulterr, 2);
     if (errF < 0) {
         perror( "shell: Failed to create the error output file.");
