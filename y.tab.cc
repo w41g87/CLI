@@ -1286,7 +1286,7 @@ yyreduce:
 #line 57 "shell.y" /* yacc.c:1646  */
     { 
     //printf("   Yacc: Empty Line\n");
-    //Shell::_currentCommand.execute(); 
+    Shell::_currentCommand.execute(); 
   }
 #line 1292 "y.tab.cc" /* yacc.c:1646  */
     break;
