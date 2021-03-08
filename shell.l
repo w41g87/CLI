@@ -77,3 +77,4 @@ void myunputc(int c) {
 . {
   printf("%d", yytext);
 }
+;
