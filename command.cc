@@ -204,16 +204,13 @@ void Command::execute() {
 
     close(fdpipe[0]);
 	close(fdpipe[1]);
-	close( defaultin );
-	close( defaultout );
-	close( defaulterr );
+	//close( defaultin );
+	//close( defaultout );
+	//close( defaulterr );
     close(inF);
     close(outF);
     close(errF);
 
-    dup2(defaultin, 0);
-    dup2(defaultout, 1);
-    dup2(defaulterr, 2);
 
     // Clear to prepare for next command
     clear();
