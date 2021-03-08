@@ -55,7 +55,7 @@ void Command::clear() {
     // (basically just sets the size to 0)
     _simpleCommands.clear();
 
-    if ( _outFile ) {
+    if ( _outFile && _errFile != _outFile) {
         delete _outFile;
     }
     _outFile = NULL;
@@ -65,7 +65,7 @@ void Command::clear() {
     }
     _inFile = NULL;
 
-    if ( _errFile && _errFile != _outFile) {
+    if ( _errFile ) {
         delete _errFile;
     }
     _errFile = NULL;
