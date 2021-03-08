@@ -53,6 +53,7 @@ commands:
     Shell::_currentCommand.execute();
   }
   | NEWLINE { 
+    yy_flush_buffer;
     Shell::_currentCommand.execute(); 
   }
   | error NEWLINE { yyerrok; }
