@@ -166,6 +166,7 @@ yyerror(const char * s)
 #if 0
 main()
 {
+  yy_flush_buffer;
   yyparse();
 }
 #endif

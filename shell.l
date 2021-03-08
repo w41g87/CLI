@@ -73,9 +73,3 @@ void myunputc(int c) {
   yylval.cpp_string = new std::string(yytext);
   return WORD;
 }
-
-%%
-
-int main() {
-  yy_flush_buffer;
-}

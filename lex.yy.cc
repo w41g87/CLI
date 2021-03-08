@@ -341,6 +341,8 @@ void yyfree ( void *  );
 	}
 #define YY_AT_BOL() (YY_CURRENT_BUFFER_LVALUE->yy_at_bol)
 
+/* Begin user sect3 */
+
 #define yywrap() (/*CONSTCOND*/1)
 #define YY_SKIP_YYWRAP
 typedef flex_uint8_t YY_CHAR;
@@ -488,13 +490,13 @@ char *yytext_ptr;
 #include "y.tab.hh"
 
 static  void yyunput (int c,char *buf_ptr  );
-yy_flush_buffer;
+
 void myunputc(int c) {
   unput(c);
 }
 
-#line 497 "lex.yy.cc"
-#line 498 "lex.yy.cc"
+#line 499 "lex.yy.cc"
+#line 500 "lex.yy.cc"
 
 #define INITIAL 0
 
@@ -714,7 +716,7 @@ YY_DECL
 #line 25 "shell.l"
 
 
-#line 718 "lex.yy.cc"
+#line 720 "lex.yy.cc"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -870,10 +872,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 76 "shell.l"
+#line 77 "shell.l"
 ECHO;
 	YY_BREAK
-#line 877 "lex.yy.cc"
+#line 879 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1890,4 +1892,9 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 76 "shell.l"
+#line 77 "shell.l"
+
+
+int main() {
+  yy_flush_buffer;
+}
