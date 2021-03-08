@@ -228,7 +228,7 @@ void Command::execute() {
 
     // Print new prompt
     Shell::prompt();
-    //yyparse();
+    yyparse();
 }
 
 SimpleCommand * Command::_currentSimpleCommand;
