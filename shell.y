@@ -44,11 +44,18 @@ int yylex();
 %%
 
 goal:
-  commands
+  commandline
   ;
 
+commandline:
+  commands
+  | commandline commands {
+    printf("multiple commmands: %s\n", $1);
+  }
+;
+
 commands:
-  command bgmodifier NEWLINE {
+  command iomodifiers bgmodifier NEWLINE {
     printf("   Yacc: Execute command\n");
     Shell::_currentCommand.execute();
   }
