@@ -52,7 +52,11 @@ commands:
     //printf("   Yacc: Execute command\n");
     Shell::_currentCommand.execute();
   }
-  | NEWLINE { Shell::_currentCommand.execute(); }
+  | NEWLINE { 
+    Command::_currentSimpleCommand = new SimpleCommand();
+    Command::_currentSimpleCommand->insertArgument( $1 );
+    Shell::_currentCommand.execute(); 
+  }
   | error NEWLINE { yyerrok; }
   ;
 
@@ -60,7 +64,6 @@ command: simple_command
         | command GUARD simple_command {
           //printf("   Yacc: Command pipeline\n");
         }
-        | NEWLINE
        ;
 
 simple_command:	
