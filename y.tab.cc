@@ -1286,7 +1286,7 @@ yyreduce:
   case 4:
 #line 55 "shell.y" /* yacc.c:1646  */
     { 
-    fflush(stdin);
+    yy_flush_buffer;
     Shell::_currentCommand.execute(); 
   }
 #line 1293 "y.tab.cc" /* yacc.c:1646  */

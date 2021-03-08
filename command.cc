@@ -228,6 +228,7 @@ void Command::execute() {
 
     // Print new prompt
     Shell::prompt();
+    yy_flush_buffer();
     yyparse();
 }
 
