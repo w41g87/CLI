@@ -56,7 +56,7 @@ commands:
     fflush(stdin);
     Shell::_currentCommand.execute(); 
   }
-  | error NEWLINE { yyerrok; }
+  | error { yyerrok; }
   ;
 
 command: simple_command
