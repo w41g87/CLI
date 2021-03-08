@@ -157,6 +157,8 @@ void
 yyerror(const char * s)
 {
   fprintf(stderr,"%s", s);
+  Shell::prompt();
+  yyparse();
 }
 
 #if 0
