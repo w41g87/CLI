@@ -161,7 +161,7 @@ void Command::execute() {
     }
 
     for ( auto & simpleCommand : _simpleCommands ) {
-        printf("%s", simpleCommand->_arguments.front()->c_str());
+        printf("%d, %s", i, simpleCommand->_arguments.front()->c_str());
 
         int fdpipe[2];
         if ( pipe(fdpipe) == -1) {
