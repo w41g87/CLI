@@ -71,6 +71,8 @@ void Command::clear() {
     _errFile = NULL;
 
     _background = false;
+    _appendO = false;
+    _appendE = false;
 }
 
 void Command::print() {
@@ -161,7 +163,7 @@ void Command::execute() {
         }
         if (++i > 1) {
             dup2(fdpipe[0], 0);
-            //close(fdpipe[0]);
+            close(fdpipe[0]);
         }
         if (i == _simpleCommands.size()) {
             if (_outFile) {
@@ -171,7 +173,7 @@ void Command::execute() {
             else dup2(defaultout, 1);
         } else {
             dup2(fdpipe[1], 1);
-            //close(fdpipe[1]);
+            close(fdpipe[1]);
         }
 
         printf("Forking...\n");
