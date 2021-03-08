@@ -174,7 +174,7 @@ void Command::execute() {
             close(fdpipe[1]);
         }
 
-        prinf("Forking...\n");
+        printf("Forking...\n");
         pid = fork();
         if ( pid == -1 ) {
             perror( "shell: fork\n");
