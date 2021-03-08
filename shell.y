@@ -48,7 +48,7 @@ goal:
   ;
 
 commands:
-  command iomodifiers bgmodifier NEWLINE {
+  command bgmodifier NEWLINE {
     printf("   Yacc: Execute command\n");
     Shell::_currentCommand.execute();
   }
@@ -84,7 +84,7 @@ argument_list:
 argument:
   WORD {
     printf("   Yacc: insert argument \"%s\"\n", $1->c_str());
-    Command::_currentSimpleCommand->insertArgument( $1 );\
+    Command::_currentSimpleCommand->insertArgument( $1 );
   }
   ;
 
