@@ -163,11 +163,6 @@ void Command::execute() {
     for ( auto & simpleCommand : _simpleCommands ) {
         printf("%d, %s", i, simpleCommand->_arguments.front()->c_str());
 
-        int fdpipe[2];
-        if ( pipe(fdpipe) == -1) {
-            perror( "shell: pipe");
-            exit( 2 );
-        }
         if (++i > 1) {
             dup2(fdpipe[0], 0);
             close(fdpipe[0]);
@@ -198,7 +193,7 @@ void Command::execute() {
             //close(fdpipe[1]);
             
             printf("Params:\n");
-            for ( int j = 0; j < simpleCommand->_arguments.size(); j++) {
+            for (unsigned int j = 0; j < simpleCommand->_arguments.size(); j++) {
                 printf("%d: %s\n", j, *(simpleCommand->toString() + j));
             }
             // You can use execvp() instead if the arguments are stored in an array
