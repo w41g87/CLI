@@ -223,7 +223,7 @@ void Command::execute() {
 
     // Print new prompt
     Shell::prompt();
-    fflush(stdin);
+    cin.sync();
     yyparse();
 }
 
