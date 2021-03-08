@@ -28,6 +28,7 @@
 
 
 int yyparse(void);
+extern yy_flush_buffer;
 
 Command::Command() {
     // Initialize a new vector of Simple Commands
@@ -228,7 +229,7 @@ void Command::execute() {
 
     // Print new prompt
     Shell::prompt();
-
+    yy_flush_buffer();
     yyparse();
 }
 

@@ -25,7 +25,6 @@ void myunputc(int c) {
 %%
 
 \n {
-  yypop_buffer_state();
   return NEWLINE;
 }
 
