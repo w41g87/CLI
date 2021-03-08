@@ -56,7 +56,7 @@ commandline:
   }
   | NEWLINE { 
     //printf("   Yacc: Empty Line\n");
-    //Shell::_currentCommand.execute(); 
+    Shell::_currentCommand.execute(); 
   }
   | error NEWLINE { yyerrok; }
   ;
