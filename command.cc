@@ -154,12 +154,11 @@ void Command::execute() {
 
     unsigned int i = 0;
     int pid;
-    
+    int fdpipe[2];
 
     for ( auto & simpleCommand : _simpleCommands ) {
         //printf("%d, %s", i, simpleCommand->_arguments.front()->c_str());
 
-        int fdpipe[2];
         if ( pipe(fdpipe) == -1) {
             perror( "shell: pipe");
             exit( 2 );
