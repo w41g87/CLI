@@ -786,7 +786,7 @@ case 1:
 YY_RULE_SETUP
 #line 27 "shell.l"
 {
-  YY_FLUSH_BUFFER;
+  //YY_FLUSH_BUFFER;
   return NEWLINE;
 }
 	YY_BREAK
