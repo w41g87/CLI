@@ -53,6 +53,7 @@ commands:
     Shell::_currentCommand.execute();
   }
   | NEWLINE { 
+    getchar();
     Shell::_currentCommand.execute(); 
   }
   | error NEWLINE { yyerrok; }

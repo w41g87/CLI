@@ -223,7 +223,6 @@ void Command::execute() {
 
     // Print new prompt
     Shell::prompt();
-    getchar();
     yyparse();
 }
 
