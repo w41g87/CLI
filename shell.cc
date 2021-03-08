@@ -1,5 +1,5 @@
 #include <cstdio>
-
+#include <unistd.h>
 #include "shell.hh"
 
 int yyparse(void);
