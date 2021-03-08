@@ -25,7 +25,6 @@ void myunputc(int c) {
 %%
 
 \n {
-  printf("NL\n");
   return NEWLINE;
 }
 
