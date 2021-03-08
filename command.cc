@@ -109,7 +109,7 @@ void Command::execute() {
 	int defaultout = dup( 1 );
 	int defaulterr = dup( 2 );
     int inF = 0;
-    int outF = 0
+    int outF = 0;
     int errF = 0;
 
     // Print contents of Command data structure
