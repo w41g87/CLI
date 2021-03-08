@@ -185,7 +185,7 @@ void Command::execute() {
         }
 
         //printf("Forking...\n");
-        pid = fork();
+        /*pid = fork();
         if ( pid == -1 ) {
             perror( "shell: fork\n");
             exit( 2 );
@@ -209,10 +209,10 @@ void Command::execute() {
             perror( "shell: Execution error");
             exit( 2 );
         }
-
+*/
     }
 
-    if (!_background) waitpid( pid, 0, 0 );
+    //if (!_background) waitpid( pid, 0, 0 );
     //printf("terminated\n");
     dup2( defaultin , 0);
 	dup2( defaultout , 1);
