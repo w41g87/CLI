@@ -107,7 +107,7 @@ void Command::execute() {
         return;
     }
 
-    if ( strcmp(simpleCommand->_arguments.front()->c_str(), "exit") == 0) {
+    if ( strcmp(_simpleCommands.front()->_arguments.front()->c_str(), "exit") == 0) {
         exit(0);
     }
 
