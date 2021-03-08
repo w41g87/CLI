@@ -36,6 +36,7 @@ char ** SimpleCommand::toString() {
   for (auto & arg : _arguments) {
     *(output + i) = (char*)malloc(arg->length() + 1);
     strcpy(*(output + i), arg->c_str());
+    i++;
   }
   return output;
 }
