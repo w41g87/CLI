@@ -166,7 +166,7 @@ void Command::execute() {
         if (i == _simpleCommands.size()) {
             if (_outFile) {
                 dup2(outF, 1);
-                if (outF != errF) close(outF);
+                close(outF);
             }
             else dup2(defaultout, 1);
         } else {
@@ -185,8 +185,8 @@ void Command::execute() {
             //Child
             
             // close file descriptors that are not needed
-            close(fdpipe[0]);
-            close(fdpipe[1]);
+            //close(fdpipe[0]);
+            //close(fdpipe[1]);
             
             printf("Params:\n");
             for ( int j = 0; j < simpleCommand->_arguments.size(); j++) {
