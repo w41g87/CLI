@@ -158,8 +158,8 @@ void
 yyerror(const char * s)
 {
   fprintf(stderr,"%s\n", s);
-  //Shell::prompt();
-  //yyparse();
+  Shell::prompt();
+  yyparse();
 }
 
 #if 0
