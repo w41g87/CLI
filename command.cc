@@ -154,14 +154,16 @@ void Command::execute() {
 
     unsigned int i = 0;
     int pid;
-    int fdpipe[2];
-    if ( pipe(fdpipe) == -1) {
-        perror( "shell: pipe");
-        exit( 2 );
-    }
+    
 
     for ( auto & simpleCommand : _simpleCommands ) {
         //printf("%d, %s", i, simpleCommand->_arguments.front()->c_str());
+
+        int fdpipe[2];
+        if ( pipe(fdpipe) == -1) {
+            perror( "shell: pipe");
+            exit( 2 );
+        }
 
         if (++i > 1) {
             dup2(fdpipe[0], 0);
