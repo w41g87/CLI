@@ -208,14 +208,9 @@ void Command::execute() {
 	dup2( defaultout , 1);
 	dup2( defaulterr , 2);
 
-    //close(fdpipe[0]);
-	//close(fdpipe[1]);
 	close( defaultin );
 	close( defaultout );
 	close( defaulterr );
-    //close(inF);
-    close(outF);
-    //close(errF);
 
 
     // Clear to prepare for next command
