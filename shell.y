@@ -49,10 +49,11 @@ goal:
 
 commands:
   command iomodifiers bgmodifier NEWLINE {
-    //printf("   Yacc: Execute command\n");
+    printf("   Yacc: Execute command\n");
     Shell::_currentCommand.execute();
   }
   | NEWLINE { 
+    printf("   Yacc: Empty Line\n");
     Shell::_currentCommand.execute(); 
   }
   | error NEWLINE { yyerrok; }
