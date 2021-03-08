@@ -212,7 +212,7 @@ void Command::execute() {
 
     }
 
-    //if (!_background) waitpid( pid, 0, 0 );
+    if (!_background) waitpid( pid, 0, 0 );
     //printf("terminated\n");
     dup2( defaultin , 0);
 	dup2( defaultout , 1);
