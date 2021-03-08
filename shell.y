@@ -50,7 +50,7 @@ goal:
 commandline:
   commands
   | commandline commands {
-    printf("multiple commmands: %s\n", $1->c_str());
+    printf("multiple commmands.\n");
   }
 ;
 
