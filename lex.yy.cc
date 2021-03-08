@@ -488,7 +488,7 @@ char *yytext_ptr;
 #include "y.tab.hh"
 
 static  void yyunput (int c,char *buf_ptr  );
-
+yy_flush_buffer;
 void myunputc(int c) {
   unput(c);
 }

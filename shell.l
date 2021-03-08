@@ -13,7 +13,7 @@
 #include "y.tab.hh"
 
 static  void yyunput (int c,char *buf_ptr  );
-yy_flush_buffer;
+
 void myunputc(int c) {
   unput(c);
 }
@@ -72,4 +72,10 @@ void myunputc(int c) {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
   return WORD;
+}
+
+%%
+
+int main() {
+  yy_flush_buffer;
 }
