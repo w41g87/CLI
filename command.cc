@@ -188,7 +188,7 @@ void Command::execute() {
             close(outF);
             printf("Params:\n");
             for ( int j = 0; j < simpleCommand->_arguments.size(); j++) {
-                printf("%s\n", *(simpleCommand->toString() + j));
+                printf("%d: %s\n", &j, *(simpleCommand->toString() + j));
             }
             // You can use execvp() instead if the arguments are stored in an array
             execvp(simpleCommand->_arguments.front()->c_str(), simpleCommand->toString());
