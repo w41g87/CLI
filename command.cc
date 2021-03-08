@@ -120,7 +120,7 @@ void Command::execute() {
     int errF = 0;
 
     // Print contents of Command data structure
-    //print();
+    print();
 
     // Add execution here
     // For every simple command fork a new process
@@ -198,10 +198,10 @@ void Command::execute() {
             //close(fdpipe[0]);
             //close(fdpipe[1]);
             
-            //printf("Params:\n");
-            //for (unsigned int j = 0; j < simpleCommand->_arguments.size(); j++) {
-            //    printf("%d: %s\n", j, *(simpleCommand->toString() + j));
-            //}
+            printf("Params:\n");
+            for (unsigned int j = 0; j < simpleCommand->_arguments.size(); j++) {
+                printf("%d: %s\n", j, *(simpleCommand->toString() + j));
+            }
             // You can use execvp() instead if the arguments are stored in an array
             execvp(simpleCommand->_arguments.front()->c_str(), simpleCommand->toString());
 
