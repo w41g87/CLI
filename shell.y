@@ -49,7 +49,7 @@ goal:
 
 commands:
   command iomodifiers bgmodifier NEWLINE {
-    printf("   Yacc: Execute command\n");
+    //printf("   Yacc: Execute command\n");
     Shell::_currentCommand.execute();
   }
   | NEWLINE
@@ -58,7 +58,7 @@ commands:
 
 command: simple_command
         | command GUARD simple_command {
-          printf("   Yacc: Command pipeline\n");
+          //printf("   Yacc: Command pipeline\n");
         }
        ;
 
@@ -80,14 +80,14 @@ argument_list:
 
 argument:
   WORD {
-    printf("   Yacc: insert argument \"%s\"\n", $1->c_str());
+    //printf("   Yacc: insert argument \"%s\"\n", $1->c_str());
     Command::_currentSimpleCommand->insertArgument( $1 );\
   }
   ;
 
 command_word:
   WORD {
-    printf("   Yacc: insert command \"%s\"\n", $1->c_str());
+    //printf("   Yacc: insert command \"%s\"\n", $1->c_str());
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument( $1 );
   }
@@ -104,7 +104,7 @@ iomodifiers:
 
 iomodifier_in:
   LESS WORD {
-    printf("   Yacc: insert input \"%s\"\n", $2->c_str());
+    //printf("   Yacc: insert input \"%s\"\n", $2->c_str());
     Shell::_currentCommand._inFile = $2;
   }
   | /*can be empty*/
@@ -112,21 +112,21 @@ iomodifier_in:
 
 iomodifier_out:
   GREAT WORD {
-    printf("   Yacc: insert output \"%s\"\n", $2->c_str());
+    //printf("   Yacc: insert output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
   }
   | GCONT WORD {
-    printf("   Yacc: insert background output \"%s\"\n", $2->c_str());
+    //printf("   Yacc: insert background output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
     Shell::_currentCommand._errFile = $2;
   }
   | GGREAT WORD {
-    printf("   Yacc: insert append output \"%s\"\n", $2->c_str());
+    //printf("   Yacc: insert append output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
     Shell::_currentCommand._appendO = true;
   }
   | GGCONT WORD {
-    printf("   Yacc: insert append background output \"%s\"\n", $2->c_str());
+    //printf("   Yacc: insert append background output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
     Shell::_currentCommand._errFile = $2;
     Shell::_currentCommand._appendO = true;
@@ -137,7 +137,7 @@ iomodifier_out:
 
 iomodifier_err:
   GREAT2 WORD {
-    printf("   Yacc: insert error output \"%s\"\n", $2->c_str());
+    //printf("   Yacc: insert error output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._errFile = $2;
   }
   | /*can be empty*/
@@ -145,7 +145,7 @@ iomodifier_err:
 
 bgmodifier:
   CONT {
-    printf("   Yacc: The command will be ran in the background\n");
+    //printf("   Yacc: The command will be ran in the background\n");
     Shell::_currentCommand._background = true;
   }
   | /*can be empty*/
