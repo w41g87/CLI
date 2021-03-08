@@ -166,7 +166,7 @@ void Command::execute() {
 
         if (++i > 1) {
             dup2(fdpipe[i - 2][0], 0);
-            close(fdpipe[i - 2][0][0]);
+            close(fdpipe[i - 2][0]);
         }
         if (i == _simpleCommands.size()) {
             if (_outFile) {
