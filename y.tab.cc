@@ -1294,7 +1294,7 @@ yyreduce:
 
   case 7:
 #line 61 "shell.y" /* yacc.c:1646  */
-    { yyerrok; }
+    { printf("%s", error); yyerrok; }
 #line 1299 "y.tab.cc" /* yacc.c:1646  */
     break;
 

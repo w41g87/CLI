@@ -52,13 +52,8 @@ commands:
     //printf("   Yacc: Execute command\n");
     Shell::_currentCommand.execute();
   }
-  | command iomodifiers bgmodifier {
-    //printf("   Yacc: Execute command\n");
-    Shell::_currentCommand.execute();
-  }
   | NEWLINE
-  |
-  | error NEWLINE { printf("%s", error); yyerrok; }
+  | error NEWLINE { yyerrok; }
   ;
 
 command: simple_command
