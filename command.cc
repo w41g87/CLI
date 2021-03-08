@@ -103,7 +103,7 @@ void Command::print() {
 
 void Command::execute() {
     // Don't do anything if there are no simple commands
-    if ( _simpleCommands.size() == 0 ) {
+    /*if ( _simpleCommands.size() == 0 ) {
         Shell::prompt();
         return;
     }
@@ -118,7 +118,7 @@ void Command::execute() {
     int inF = 0;
     int outF = 0;
     int errF = 0;
-
+*/
     // Print contents of Command data structure
     print();
 
@@ -126,7 +126,7 @@ void Command::execute() {
     // For every simple command fork a new process
     // Setup i/o redirection
     // and call exec
-
+/*
     if (_errFile) {
         if (_appendE) errF = open(_errFile->c_str(), O_CREAT|O_WRONLY|O_APPEND, 0666);
         else errF = creat(_errFile->c_str(), 0666);
@@ -185,7 +185,7 @@ void Command::execute() {
         }
 
         //printf("Forking...\n");
-        /*pid = fork();
+        pid = fork();
         if ( pid == -1 ) {
             perror( "shell: fork\n");
             exit( 2 );
@@ -209,7 +209,7 @@ void Command::execute() {
             perror( "shell: Execution error");
             exit( 2 );
         }
-*/
+
     }
 
     //if (!_background) waitpid( pid, 0, 0 );
@@ -222,7 +222,7 @@ void Command::execute() {
 	close( defaultout );
 	close( defaulterr );
 
-
+*/
     // Clear to prepare for next command
     clear();
 
