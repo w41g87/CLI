@@ -122,7 +122,7 @@ void Command::execute() {
 
     if (_errFile) {
         if (_appendE) errF = open(_errFile->c_str(), O_CREAT|O_WRONLY|O_APPEND, 0666);
-        else errF = creat(_errFile->c_str(), 0666);
+        //else errF = creat(_errFile->c_str(), 0666);
         dup2(errF, 2);
         //close(errF);
     } else dup2(defaulterr, 2);
