@@ -58,7 +58,7 @@ commands:
   }
   | NEWLINE
   |
-  | error NEWLINE { yyerrok; }
+  | error NEWLINE { printf("%s", error); yyerrok; }
   ;
 
 command: simple_command
