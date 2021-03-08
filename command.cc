@@ -202,9 +202,7 @@ void Command::execute() {
 
     if (!_background) waitpid( pid, 0, 0 );
 
-    dup2(defaultin, 0);
-    dup2(defaultout, 1);
-    dup2(defaulterr, 2);
+    exit(2);
 
     // Clear to prepare for next command
     clear();
