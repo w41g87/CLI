@@ -7,6 +7,8 @@ struct Shell {
 
   static void prompt();
 
+  static void termination();
+
   static Command _currentCommand;
 };
 
