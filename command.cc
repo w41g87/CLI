@@ -211,7 +211,7 @@ void Command::execute() {
         }
 
     }
-
+    printf("pid: %d", pid);
     if (!_background) waitpid( pid, 0, 0 );
     //printf("terminated\n");
     dup2( defaultin , 0);
