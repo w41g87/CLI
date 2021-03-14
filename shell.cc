@@ -13,7 +13,7 @@ void Shell::prompt() {
 }
 
 void Shell::termination(int signum) {
-  Command::clear();
+  _currentCommand->clear();
   Shell::prompt();
 }
 
