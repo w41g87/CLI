@@ -14,6 +14,7 @@ void Shell::prompt() {
 
 void Shell::termination(int signum) {
   _currentCommand.clear();
+  printf("kfc");
   Shell::prompt();
 }
 
