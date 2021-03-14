@@ -14,6 +14,10 @@ void Shell::prompt() {
 
 void Shell::termination(int signum) {
   //_currentCommand.clear();
+  if ( isatty(0) ) {
+    printf("\n");
+    fflush(stdout);
+  }
   Shell::prompt();
 }
 
