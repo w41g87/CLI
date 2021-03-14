@@ -21,7 +21,7 @@ int main()
     struct sigaction sa;
     sa.sa_handler = disp;
     sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;
+    sa.sa_flags = SA_RESTART;
 
     if(sigaction(SIGINT, &sa, NULL)){
         perror("sigaction");

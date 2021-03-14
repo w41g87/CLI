@@ -19,7 +19,6 @@ void Shell::termination(int signum) {
     fflush(stdout);
   }
   Shell::prompt();
-  yyparse();
 }
 
 int main() {
