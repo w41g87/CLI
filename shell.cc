@@ -24,7 +24,7 @@ void Shell::termination(int signum) {
 int main() {
   
   struct sigaction sa;
-  sa.sa_handler = SIG_IGN;
+  sa.sa_handler = termination;
   sigemptyset(&sa.sa_mask);
   sa.sa_flags = 0;
 
