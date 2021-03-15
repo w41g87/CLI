@@ -23,10 +23,11 @@ void Shell::termination(int signum) {
 }
 
 void Shell::elimination(int signum) {
-  int i;
-  while((i = wait(NULL)) > 0) {
-    printf("%d exited", i);
-  }
+  // int i;
+  // while((i = wait(NULL)) > 0) {
+  //   printf("%d exited", i);
+  // }
+  printf("%d exited", wait(NULL));
 }
 
 int main() {
