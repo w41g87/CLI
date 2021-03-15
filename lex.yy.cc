@@ -826,7 +826,7 @@ case 2:
 YY_RULE_SETUP
 #line 38 "shell.l"
 {
-  yylval.cpp_string = removeE(yytext);
+  *(yylval.cpp_string) = removeE(yytext);
   return WORD;
 }
 	YY_BREAK

@@ -194,9 +194,9 @@ void Command::execute() {
         if (_pid == 0) {
             //Child
             
-            close file descriptors that are not needed
-            close(fdpipe[0]);
-            close(fdpipe[1]);
+            //close file descriptors that are not needed
+            // close(fdpipe[0]);
+            // close(fdpipe[1]);
             
             printf("Params:\n");
             for (unsigned int j = 0; j < simpleCommand->_arguments.size(); j++) {
