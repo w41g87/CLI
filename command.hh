@@ -14,7 +14,7 @@ struct Command {
   bool _appendO;
   bool _appendE;
   int _pid;
-  
+
   Command();
   void insertSimpleCommand( SimpleCommand * simpleCommand );
 
@@ -24,5 +24,18 @@ struct Command {
 
   static SimpleCommand *_currentSimpleCommand;
 };
+
+struct YY_BUFFER_STATE {
+  FILE * 	yy_input_file
+  char * 	yy_ch_buf
+  char * 	yy_buf_pos
+  yy_size_t 	yy_buf_size
+  int 	yy_n_chars
+  int 	yy_is_our_buffer
+  int 	yy_is_interactive
+  int 	yy_at_bol
+  int 	yy_fill_buffer
+  int 	yy_buffer_status=
+}
 
 #endif

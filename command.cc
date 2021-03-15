@@ -30,7 +30,7 @@
 #include "shell.hh"
 
 using namespace std;
-using namespace lang::lexyacc;
+
 extern char ** environ;
 
 Command::Command() {
