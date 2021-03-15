@@ -130,7 +130,7 @@ void Command::execute() {
         std::transform(_simpleCommands.front()->_arguments.front()->begin(), 
             _simpleCommands.front()->_arguments.front()->end(), 
             cmd, ::tolower);
-        printf("%s", cmd);
+        printf("Lower case: %s", cmd);
         if (!strcmp(cmd, "exit")) exit(0);
         if (!strcmp(cmd, "printenv")) {
             while(environ[i]) cout << environ[i++] << endl;
