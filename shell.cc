@@ -20,7 +20,9 @@ void Shell::termination(int signum) {
 }
 
 void Shell::elimination(int signum) {
-  while(wait(NULL) > 0);
+  while((int i = wait(NULL)) > 0) {
+    print("%d exited", i);
+  }
 }
 
 int main() {
@@ -37,7 +39,7 @@ int main() {
 
   d.sa_handler = Shell::elimination;
   sigemptyset(&d.sa_mask);
-  //c.sa_flags = SA_RESTART;
+  c.sa_flags = SA_RESTART;
 
   if(sigaction(SIGCHLD, &d, NULL)){
       perror("sigaction");
