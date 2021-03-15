@@ -114,9 +114,6 @@ void Command::execute() {
     }
     // If exit is entered then exit shell
 
-
-    char * cmd;
-    int i = 0;
     int defaultin = dup( 0 );
 	int defaultout = dup( 1 );
 	int defaulterr = dup( 2 );
@@ -127,13 +124,16 @@ void Command::execute() {
     // Print contents of Command data structure
     print();
 
-        
-    std::transform(_simpleCommands.front()->_arguments.front()->begin(), 
-        _simpleCommands.front()->_arguments.front()->end(), 
-        cmd, ::tolower);
-    if (!strcmp(cmd, "exit")) exit(0);
-    if (!strcmp(cmd, "printenv")) {
-        while(environ[i]) cout << environ[i++] << endl;
+    {    
+        char * cmd;
+        int i = 0;
+        std::transform(_simpleCommands.front()->_arguments.front()->begin(), 
+            _simpleCommands.front()->_arguments.front()->end(), 
+            cmd, ::tolower);
+        if (!strcmp(cmd, "exit")) exit(0);
+        if (!strcmp(cmd, "printenv")) {
+            while(environ[i]) cout << environ[i++] << endl;
+        }
     }
 
     // Add execution here
