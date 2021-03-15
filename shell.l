@@ -20,8 +20,9 @@ void myunputc(int c) {
 
 
 static void source (FILE * file) {
-  //YY_BUFFER_STATE ybs = yy_create_buffer(file, YY_BUF_SIZE);
-  //yypush_buffer_state(ybs);
+  printf("Source called\n");
+  YY_BUFFER_STATE ybs = yy_create_buffer(file, YY_BUF_SIZE);
+  yypush_buffer_state(ybs);
 }
 
 std::string * removeE(char * s) {
