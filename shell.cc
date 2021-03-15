@@ -47,7 +47,13 @@ int main() {
       perror("sigaction");
       exit(2);
   }
-  
+
+  Command::_currentSimpleCommand = new SimpleCommand();
+  Command::_currentSimpleCommand->insertArgument( "source" );
+  Command::_currentSimpleCommand->insertArgument( ".shellrc" );
+  _currentCommand.insertSimpleCommand( Command::_currentSimpleCommand );
+  Command::execute();
+
   Shell::prompt();
   yyparse();
 }
