@@ -48,7 +48,7 @@ int main() {
       exit(2);
   }
 
-  _currentSimpleCommand = new SimpleCommand();
+  Command::_currentSimpleCommand = new SimpleCommand();
   _currentSimpleCommand->insertArgument( "source" );
   _currentSimpleCommand->insertArgument( ".shellrc" );
   Shell::_currentCommand._simpleCommands.insertSimpleCommand( Command::_currentSimpleCommand );
