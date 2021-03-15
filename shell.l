@@ -29,7 +29,8 @@ void myunputc(int c) {
 }
 
 \".*\" {
-  yylval.cpp_string = (char *) malloc(strlen(yytext) - 1, sizeof(char));
+  void * s = malloc(strlen(yytext) - 1, sizeof(char));
+  yylval.cpp_string = new std::string(s);
   strcpy(yylval.string, yytext + 1, strlen(yytext) - 2);
   yylval.string[strlen(yytext) - 2] = "\0";
   return WORD;
