@@ -76,10 +76,13 @@ int subshell (char ** input) {
 }
 
 """$(".*")""" {
-  char * temp = (char *)malloc(strlen(yytext) - 2);
-  memcpy(temp, yytext + 2, strlen(yytext) - 3);
-  temp[strlen(yytext) - 2] = '\0';
+  char ** temp = (char**) malloc(2);
+  *(temp + 1) = 0;
+  *temp = (char *)malloc(strlen(yytext) - 2);
+  memcpy(*temp, yytext + 2, strlen(yytext) - 3);
+  temp[0][strlen(yytext) - 2] = '\0';
   subshell(temp);
+  free(*temp);
   free(temp);
 }
 
@@ -90,6 +93,7 @@ int subshell (char ** input) {
   memcpy(*temp, yytext + 1, strlen(yytext) - 2);
   temp[0][strlen(yytext) - 1] = '\0';
   subshell(temp);
+  free(*temp)
   free(temp);
 }
 

@@ -623,7 +623,7 @@ std::string * removeE(char * s) {
   return str;
 }
 
-int subshell (char * input) {
+int subshell (char ** input) {
   int pin[2], pout[2];
   if ( pipe(pin) == -1 || pipe(pout) == -1) {
     perror( "shell: pipe");
