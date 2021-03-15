@@ -24,15 +24,15 @@ void Shell::termination(int signum) {
 
 int main() {
   
-  // struct sigaction sa;
-  // sa.sa_handler = Shell::termination;
-  // sigemptyset(&sa.sa_mask);
-  // sa.sa_flags = SA_RESTART;
+  struct sigaction sa;
+  sa.sa_handler = Shell::termination;
+  sigemptyset(&sa.sa_mask);
+  sa.sa_flags = SA_RESTART;
 
-  // if(sigaction(SIGINT, &sa, NULL)){
-  //     perror("sigaction");
-  //     exit(2);
-  // }
+  if(sigaction(SIGINT, &sa, NULL)){
+      perror("sigaction");
+      exit(2);
+  }
   
   Shell::prompt();
   yyparse();
