@@ -20,7 +20,7 @@ void myunputc(int c) {
 }
 
 
-static void source (int i) {
+static void source (File * file) {
   //YY_BUFFER_STATE ybs = yy_create_buffer(file, YY_BUF_SIZE);
   //yypush_buffer_state(ybs);
 }
