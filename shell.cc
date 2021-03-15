@@ -14,7 +14,7 @@ void Shell::prompt() {
 }
 
 void Shell::termination(int signum) {
-  kill(_currentCommand._pid, SIGINT);
+  if (_currentCommand._pid != 0) kill(_currentCommand._pid, SIGINT);
   printf("\n");
   _currentCommand.clear();
   Shell::prompt();
