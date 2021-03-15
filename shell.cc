@@ -15,9 +15,10 @@ void Shell::prompt() {
 void Shell::termination(int signum) {
   _currentCommand.clear();
   if ( isatty(0) ) {
-    printf("\n");
+    printf("current pid: %d\n", _currentCommand._pid);
     fflush(stdout);
   }
+
   Shell::prompt();
 }
 

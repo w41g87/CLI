@@ -28,6 +28,11 @@ void myunputc(int c) {
   return NEWLINE;
 }
 
+[^\\]\".*\" {
+  yylval.cpp_string = new std::string(yytext);
+  return WORD;
+}
+
 [ \t] {
   /* Discard spaces and tabs */
 }
