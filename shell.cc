@@ -37,7 +37,7 @@ int main() {
 
   d.sa_handler = Shell::elimination;
   sigemptyset(&d.sa_mask);
-  c.sa_flags = SA_RESTART;
+  //c.sa_flags = SA_RESTART;
 
   if(sigaction(SIGCHLD, &d, NULL)){
       perror("sigaction");
