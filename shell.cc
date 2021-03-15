@@ -6,6 +6,8 @@
 
 int yyparse(void);
 
+Command Shell::_currentCommand;
+
 void Shell::prompt() {
   if ( isatty(0) ) {
     printf("λ> ");
@@ -58,4 +60,3 @@ int main() {
   yyparse();
 }
 
-Command Shell::_currentCommand;
