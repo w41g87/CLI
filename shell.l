@@ -18,13 +18,6 @@ void myunputc(int c) {
   unput(c);
 }
 
-std::string removeE(char * s) {
-  std::string str;
-  for(int i = 0; i < strlen(s); i++) {
-    if (i > 0 && s[i - 1] == '\') || (s[i] != '\\"' || s[i] != '\\\\') str.push_back(s[i]);
-  }
-  return str;
-}
 
 %}
 
@@ -85,4 +78,13 @@ std::string removeE(char * s) {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
   return WORD;
+}
+
+%%
+std::string removeE(char * s) {
+  std::string str;
+  for(int i = 0; i < strlen(s); i++) {
+    if (i > 0 && s[i - 1] == '\') || (s[i] != '\"' || s[i] != '\\') str.push_back(s[i]);
+  }
+  return str;
 }
