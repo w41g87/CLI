@@ -48,12 +48,12 @@ int subshell (char * input) {
     exit( 2 );
   }
   int pid = fork();
-  if ( _pid == -1 ) {
+  if ( pid == -1 ) {
     perror( "shell: fork");
     exit( 2 );
   }
 
-  if (_pid == 0) {
+  if (pid == 0) {
     execvp("/proc/self/exe", &input);
   }
 }
