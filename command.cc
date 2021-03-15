@@ -25,7 +25,6 @@
 #include <iostream>
 #include <string.h>
 #include <string>
-#include <stdio.h>
 #include <algorithm>
 #include "command.hh"
 #include "shell.hh"
