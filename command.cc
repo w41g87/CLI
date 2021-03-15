@@ -156,6 +156,7 @@ void Command::execute() {
         }
         if (!strcmp(cmd, "cd")) {
             char ** arg = _simpleCommands.front()->toString();
+            printf("%d\n", strlen((char*)arg));
             if (strlen((char*)arg) > 2) cout << "cd: too many arguments." << endl;
             else if (strlen((char*)arg) == 1) chdir(getenv("HOME"));
             else if (unsetenv(arg[1]) != 0) perror("cd");
