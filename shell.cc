@@ -53,7 +53,7 @@ int main() {
   Command::_currentSimpleCommand = new SimpleCommand();
   Command::_currentSimpleCommand->insertArgument( new std::string("source") );
   Command::_currentSimpleCommand->insertArgument( new std::string(".shellrc") );
-  Shell::_currentCommand._simpleCommands->insertSimpleCommand( Command::_currentSimpleCommand );
+  Shell::_currentCommand->insertSimpleCommand( Command::_currentSimpleCommand );
   Shell::_currentCommand.execute();
 
   Shell::prompt();
