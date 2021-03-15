@@ -20,7 +20,8 @@ void Shell::termination(int signum) {
 }
 
 void Shell::elimination(int signum) {
-  while((int i = wait(NULL)) > 0) {
+  int i;
+  while((i = wait(NULL)) > 0) {
     print("%d exited", i);
   }
 }
