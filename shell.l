@@ -19,7 +19,7 @@ void myunputc(int c) {
 }
 
 std::string * removeE(char * s) {
-  str = new std::string();
+  std::string str = new std::string();
   for(int i = 0; i < strlen(s); i++) {
     if ((i > 0 && s[i - 1] == '\\') || (s[i] != '\"' && s[i] != '\\')) {
       str.push_back(s[i]);

@@ -520,7 +520,7 @@ void myunputc(int c) {
 }
 
 std::string * removeE(char * s) {
-  std::string str;
+  str = new std::string();
   for(int i = 0; i < strlen(s); i++) {
     if ((i > 0 && s[i - 1] == '\\') || (s[i] != '\"' && s[i] != '\\')) {
       str.push_back(s[i]);
@@ -908,7 +908,7 @@ YY_RULE_SETUP
 #line 86 "shell.l"
 {
   /* Assume that file names have only alpha chars */
-  yylval.cpp_string = new std::string(yytext);
+  yylval.cpp_string = removeE(yytext);
   return WORD;
 }
 	YY_BREAK
