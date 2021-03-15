@@ -30,7 +30,7 @@ void myunputc(int c) {
 
 [^ \t\n]*\".*\"[^ \t\n]* {
   yylval.cpp_string = new std::string(yytext);
-  yylval.cpp_string.erase(remove(yylval.cpp_string.begin(), yylval.cpp_string.end(), '\"'), yylval.cpp_string.end());
+  yylval.cpp_string->erase(remove(yylval.cpp_string->begin(), yylval.cpp_string->end(), '\"'), yylval.cpp_string->end());
   return WORD;
 }
 
