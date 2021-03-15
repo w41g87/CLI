@@ -13,7 +13,8 @@ struct Command {
   bool _background;
   bool _appendO;
   bool _appendE;
-
+  int _pid;
+  
   Command();
   void insertSimpleCommand( SimpleCommand * simpleCommand );
 
