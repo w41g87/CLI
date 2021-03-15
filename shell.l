@@ -99,9 +99,10 @@ std::string * removeE(char * s) {
 }
 
 <<EOF>> {
-  YY_FLUSH_BUFFER;
   yypop_buffer_state();
-  YY_FLUSH_BUFFER;
+  if ( !YY_CURRENT_BUFFER ) {
+    yyterminate();
+  }
 }
 
 %%
