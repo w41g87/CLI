@@ -23,6 +23,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <iostream>
+#include <string>
 #include "command.hh"
 #include "shell.hh"
 
@@ -109,7 +110,7 @@ void Command::execute() {
     }
     // If exit is entered then exit shell
 
-    switch(_simpleCommands.front()->_arguments.front()->toLower()) {
+    switch(tolower(_simpleCommands.front()->_arguments.front())) {
         case "exit":
             exit(0);
         case "printenv":
