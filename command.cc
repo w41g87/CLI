@@ -130,10 +130,26 @@ void Command::execute() {
         std::transform(_simpleCommands.front()->_arguments.front()->begin(), 
             _simpleCommands.front()->_arguments.front()->end(), 
             cmd, ::tolower);
-        printf("Lower case: %s", cmd);
+        printf("Lower case: %s\n", cmd);
         if (!strcmp(cmd, "exit")) exit(0);
         if (!strcmp(cmd, "printenv")) {
             while(environ[i]) cout << environ[i++] << endl;
+            clear();
+            return;
+        }
+        if (!strcmp(cmd, "setenv")) {
+            char ** arg = simpleCommand->toString();
+            if strlen(arg != 3) perror("shell: argument number mismatch.");
+            else if (setenv(arg[1], arg[2], 1) != 0) perror("setenv:");
+            clear();
+            return;
+        }
+        if (!strcmp(cmd, "unsetenv")) {
+            char ** arg = simpleCommand->toString();
+            if strlen(arg != 2) perror("shell: argument number mismatch.");
+            else if (unsetenv(arg[1]) != 0) perror("unsetenv:");
+            clear();
+            return;
         }
     }
 
