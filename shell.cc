@@ -27,7 +27,7 @@ void Shell::elimination(int signum) {
   // while((i = wait(NULL)) > 0) {
   //   printf("%d exited", i);
   // }
-  printf("%d exited", wait(NULL));
+  printf("%d exited", waitpid(0, NULL, 0));
 }
 
 int main() {
