@@ -173,9 +173,7 @@ void Command::execute() {
             while(arg[i++]);
             if (i != 3) cout << "source: argument number mismatch." << endl;
             else {
-                YY_BUFFER_STATE ybs = yy_create_buffer(arg[1], YY_BUF_SIZE);
-                clear();
-                yypush_buffer_state(ybs);
+                source(open(arg[1], O_RDONLY));
             }
             clear();
             Shell::prompt();
