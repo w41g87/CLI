@@ -37,7 +37,7 @@ void removeE(char * s) {
 }
 
 ((([^ \t\n]*[^\\ \t\n])|"")\"(([^\n]*[^\\\n])|"")\"[^ \t\n]*)+ {
-  yylval.cpp_string = std::string;
+  yylval.cpp_string = std::string();
   remove(yytext);
   return WORD;
 }
