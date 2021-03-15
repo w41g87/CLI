@@ -31,7 +31,9 @@ int main(int argc, char* argv[], char* envp[]) {
   
   {
     int i = 0;
+    printf("envp:\n");
     while (envp[i]) printf("%s\n", envp[i++]);
+    printf("args:\n");
     for (i = 0; i < argc ; i++) printf("%s\n", argv[i]);
   }
 

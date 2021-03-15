@@ -969,7 +969,7 @@ YY_RULE_SETUP
   memcpy(*temp, yytext + 1, strlen(yytext) - 2);
   temp[0][strlen(yytext) - 1] = '\0';
   subshell(temp);
-  free(*temp)
+  free(*temp);
   free(temp);
 }
 	YY_BREAK
