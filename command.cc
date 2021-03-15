@@ -111,7 +111,7 @@ void Command::execute() {
         return;
     }
     // If exit is entered then exit shell
-    std::string * cmd = std::transform(_simpleCommands.front()->_arguments.front()->begin(), 
+    std::string cmd = std::transform(_simpleCommands.front()->_arguments.front()->begin(), 
         _simpleCommands.front()->_arguments.front()->end(), 
         _simpleCommands.front()->_arguments.front()->begin(), 
         ::tolower);
