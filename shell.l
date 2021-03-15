@@ -57,6 +57,14 @@ std::string * removeE(char * s) {
   return WORD;
 }
 
+"""$(".*")""" {
+  printf("$ subshell");
+}
+
+"""`".*"`""" {
+  printf("` subshell");
+}
+
 [ \t] {
   /* Discard spaces and tabs */
 }
