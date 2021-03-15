@@ -120,7 +120,7 @@ void Command::execute() {
     int errF = 0;
 
     // Print contents of Command data structure
-    //print();
+    print();
 
     // Add execution here
     // For every simple command fork a new process
