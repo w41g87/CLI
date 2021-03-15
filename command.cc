@@ -33,6 +33,8 @@ using namespace std;
 
 extern char ** environ;
 
+void source(FILE * file);
+
 Command::Command() {
     // Initialize a new vector of Simple Commands
     _simpleCommands = std::vector<SimpleCommand *>();
