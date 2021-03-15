@@ -23,7 +23,8 @@ void Shell::termination(int signum) {
 }
 
 void Shell::elimination(int signum) {
-  printf("%d exited\n", waitpid(0, NULL, 0));
+  int e;
+  if ((e = waitpid(0, NULL, 0)) != -1) printf("%d exited\n", e);
 }
 
 int main() {

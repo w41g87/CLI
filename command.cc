@@ -136,15 +136,17 @@ void Command::execute() {
         //printf("Lower case: %s\n", cmd);
         printf("%s %d\n", cmd, strcmp(cmd, "exit"));
         if (!strcmp(cmd, "exit")) exit(0);
+        
         if (!strcmp(cmd, "printenv")) {
             while(environ[i]) cout << environ[i++] << endl;
             clear();
             Shell::prompt();
             return;
         }
+
+        char ** arg = _simpleCommands.front()->toString();
+        while(arg[i++]);
         if (!strcmp(cmd, "setenv")) {
-            char ** arg = _simpleCommands.front()->toString();
-            while(arg[i++]);
             if (i != 4) cout << "setenv: argument number mismatch." << endl;
             else if (setenv(arg[1], arg[2], 1) != 0) perror("setenv");
             clear();
@@ -152,8 +154,6 @@ void Command::execute() {
             return;
         }
         if (!strcmp(cmd, "unsetenv")) {
-            char ** arg = _simpleCommands.front()->toString();
-            while(arg[i++]);
             if (i != 3) cout << "unsetenv: argument number mismatch." << endl;
             else if (unsetenv(arg[1]) != 0) perror("unsetenv");
             clear();
@@ -161,8 +161,6 @@ void Command::execute() {
             return;
         }
         if (!strcmp(cmd, "cd")) {
-            char ** arg = _simpleCommands.front()->toString();
-            while(arg[i++]);
             printf("%d\n", i);
             if (i > 3) cout << "cd: too many arguments." << endl;
             else if (i == 2) chdir(getenv("HOME"));
@@ -172,14 +170,11 @@ void Command::execute() {
             return;
         }
         if (!strcmp(cmd, "source")) {
-            char ** arg = _simpleCommands.front()->toString();
-            while(arg[i++]);
             if (i != 3) cout << "source: argument number mismatch." << endl;
             else {
                 clear();
                 source(arg[1]);
             }
-
             clear();
             Shell::prompt();
             return;
