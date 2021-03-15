@@ -28,7 +28,7 @@ void myunputc(int c) {
   return NEWLINE;
 }
 
-[^\\]\".*\" {
+(["'])(?:(?=(\\?))\2.)*?\1 {
   yylval.cpp_string = new std::string(yytext);
   return WORD;
 }
