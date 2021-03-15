@@ -30,6 +30,7 @@
 #include "shell.hh"
 
 using namespace std;
+extern char ** environ;
 
 Command::Command() {
     // Initialize a new vector of Simple Commands
