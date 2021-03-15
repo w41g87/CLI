@@ -26,7 +26,7 @@ void source(char * file) {
     return;
   }
   
-  YY_BUFFER_STATE ybs = yy_create_buffer(, YY_BUF_SIZE);
+  YY_BUFFER_STATE ybs = yy_create_buffer(fp, YY_BUF_SIZE);
   yypush_buffer_state(ybs);
 }
 
