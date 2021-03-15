@@ -11,12 +11,19 @@
 
 #include <cstring>
 #include "y.tab.hh"
-#include <algorithm>
 
 static  void yyunput (int c,char *buf_ptr  );
-int yyudebug = 1;
+
 void myunputc(int c) {
   unput(c);
+}
+
+std::string removeE(char * s) {
+  std::string str;
+  for(int i = 0; i < strlen(s); i++) {
+    if (i > 0 && s[i - 1] == '\') || (s[i] != '\"' || s[i] != '\\') str.push_back(s[i]);
+  }
+  return str;
 }
 
 %}
@@ -30,8 +37,7 @@ void myunputc(int c) {
 }
 
 ((([^ \t\n]*[^\\ \t\n])|"")\"(([^\n]*[^\\\n])|"")\"[^ \t\n]*)+ {
-  yylval.cpp_string = new std::string(yytext);
-  yylval.cpp_string->erase(std::remove(yylval.cpp_string->begin(), yylval.cpp_string->end(), '\"'), yylval.cpp_string->end());
+  yylval.cpp_string = removeE(s);
   return WORD;
 }
 
