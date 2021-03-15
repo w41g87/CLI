@@ -134,7 +134,7 @@ void Command::execute() {
             _simpleCommands.front()->_arguments.front()->end(), 
             cmd, ::tolower);
         //printf("Lower case: %s\n", cmd);
-        printf("%d", strcmp(cmd, "exit"));
+        printf("%s %d\n", cmd, strcmp(cmd, "exit"));
         if (!strcmp(cmd, "exit")) exit(0);
         if (!strcmp(cmd, "printenv")) {
             while(environ[i]) cout << environ[i++] << endl;
@@ -175,7 +175,10 @@ void Command::execute() {
             char ** arg = _simpleCommands.front()->toString();
             while(arg[i++]);
             if (i != 3) cout << "source: argument number mismatch." << endl;
-            else source(arg[1]);
+            else {
+                clear();
+                source(arg[1]);
+            }
 
             clear();
             Shell::prompt();
