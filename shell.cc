@@ -54,7 +54,7 @@ int main() {
   Shell::_currentCommand.insertSimpleCommand( Command::_currentSimpleCommand );
   Shell::_currentCommand.execute();
 
-  Shell::prompt();
+  //Shell::prompt();
   yyparse();
 }
 

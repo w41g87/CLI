@@ -22,7 +22,7 @@ void myunputc(int c) {
 void source(char * file) {
   FILE * fp;
   if (!(fp = fopen(file, "r"))) {
-    perror("File IO:");
+    perror("IO");
     return;
   }
   
