@@ -28,8 +28,10 @@ void myunputc(int c) {
   return NEWLINE;
 }
 
-(["'])(?:(?=(\\?))\2.)*?\1 {
-  yylval.cpp_string = new std::string(yytext);
+\".*\" {
+  yylval.cpp_string = malloc(strlen(yytext) - 1, sizeof(char));
+  strcpy(yylval.string, yytext + 1, strlen(yytext) - 2);
+  yylval.string[strlen(yytext) - 2] = "\0";
   return WORD;
 }
 
