@@ -108,8 +108,13 @@ void Command::execute() {
         return;
     }
     // If exit is entered then exit shell
-    if ( strcmp(_simpleCommands.front()->_arguments.front()->c_str(), "exit") == 0) {
-        exit(0);
+
+    switch(_simpleCommands.front()->_arguments.front()->toLower()) {
+        case "exit":
+            exit(0);
+        case "printenv":
+            for (auto str : environ) cout << str << endl;
+            break;
     }
 
     int defaultin = dup( 0 );
