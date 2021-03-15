@@ -23,7 +23,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <iostream>
-#include <string>
+#include <string.h>
 #include <algorithm>
 #include "command.hh"
 #include "shell.hh"
