@@ -111,10 +111,7 @@ void Command::execute() {
     }
     // If exit is entered then exit shell
 
-    switch(std::transform(_simpleCommands.front()->_arguments.front()->begin(), 
-        _simpleCommands.front()->_arguments.back()->end(), 
-        _simpleCommands.front()->_arguments.front()->begin(), 
-        ::tolower)) {
+    switch("exit") {
             case "exit":
                 exit(0);
             case "printenv":
