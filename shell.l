@@ -30,7 +30,7 @@ void myunputc(int c) {
 
 \".*\" {
   yylval.cpp_string = new std::string(yytext);
-  yylval.cpp_string = yylval.cpp_string->substr(1, strlen(yylval.cpp_string->c_str()) - 2);
+  yylval.cpp_string = yylval.cpp_string->substr(1, strlen(yylval.cpp_string->c_str - 2);
   return WORD;
 }
 
