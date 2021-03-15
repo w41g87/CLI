@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include "shell.hh"
 #include <signal.h>
+#include <wait.h>
 
 int yyparse(void);
 
@@ -14,7 +15,7 @@ void Shell::prompt() {
 
 void Shell::termination(int signum) {
   printf("\n");
-  _currentCommand->clear();
+  _currentCommand.clear();
   Shell::prompt();
 }
 
