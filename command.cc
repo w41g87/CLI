@@ -161,7 +161,7 @@ void Command::execute() {
             while(arg[i++]);
             printf("%d\n", i);
             if (i > 3) cout << "cd: too many arguments." << endl;
-            else if (strlen((char*)arg) == 2) chdir(getenv("HOME"));
+            else if (i == 2) chdir(getenv("HOME"));
             else if (chdir(arg[1]) != 0) perror("cd");
             clear();
             Shell::prompt();
