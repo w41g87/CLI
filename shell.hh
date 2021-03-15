@@ -9,6 +9,8 @@ struct Shell {
 
   static void termination(int);
 
+  static void elimination(int);
+
   static Command _currentCommand;
 };
 

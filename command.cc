@@ -37,6 +37,7 @@ Command::Command() {
     _background = false;
     _appendO = false;
     _appendE = false;
+    _pid = 0;
 }
 
 void Command::insertSimpleCommand( SimpleCommand * simpleCommand ) {
@@ -72,6 +73,7 @@ void Command::clear() {
     _background = false;
     _appendO = false;
     _appendE = false;
+    _pid = 0;
 }
 
 void Command::print() {

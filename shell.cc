@@ -13,14 +13,13 @@ void Shell::prompt() {
 }
 
 void Shell::termination(int signum) {
-  // _currentCommand.clear();
   printf("\n");
-  // if ( isatty(0) ) {
-  //   printf("current pid: %d\n", _currentCommand._pid);
-  //   fflush(stdout);
-  // }
+  _currentCommand->clear();
+  Shell::prompt();
+}
 
-  // Shell::prompt();
+void Shell::elimination(int signum) {
+  while(wait(NULL) > 0);
 }
 
 int main() {
