@@ -25,12 +25,21 @@ void Shell::elimination(int signum) {
 
 int main() {
   
-  struct sigaction sa;
-  sa.sa_handler = Shell::termination;
-  sigemptyset(&sa.sa_mask);
-  sa.sa_flags = SA_RESTART;
+  struct sigaction c, d;
+  c.sa_handler = Shell::termination;
+  sigemptyset(&c.sa_mask);
+  c.sa_flags = SA_RESTART;
 
-  if(sigaction(SIGINT, &sa, NULL)){
+  if(sigaction(SIGINT, &c, NULL)){
+      perror("sigaction");
+      exit(2);
+  }
+
+  d.sa_handler = Shell::elimination;
+  sigemptyset(&d.sa_mask);
+  c.sa_flags = SA_RESTART;
+
+  if(sigaction(SIGCHLD, &d, NULL)){
       perror("sigaction");
       exit(2);
   }
