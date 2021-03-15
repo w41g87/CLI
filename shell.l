@@ -14,7 +14,7 @@
 #include <algorithm>
 
 static  void yyunput (int c,char *buf_ptr  );
-
+int yyudebug = 1;
 void myunputc(int c) {
   unput(c);
 }
@@ -29,7 +29,7 @@ void myunputc(int c) {
   return NEWLINE;
 }
 
-((([^ \t\n]*[^\\ \t\n])|"")\"(([^\n]*[^\\])|"")\"[^ \t\n]*)+ {
+((([^ \t\n]*[^\\ \t\n])|"")\"((.*[^\\])|"")\"[^ \t\n]*)+ {
   yylval.cpp_string = new std::string(yytext);
   yylval.cpp_string->erase(std::remove(yylval.cpp_string->begin(), yylval.cpp_string->end(), '\"'), yylval.cpp_string->end());
   return WORD;
