@@ -34,7 +34,7 @@ using namespace std;
 
 extern char ** environ;
 
-void source(FILE * file);
+void source(char * file);
 
 Command::Command() {
     // Initialize a new vector of Simple Commands
@@ -175,7 +175,7 @@ void Command::execute() {
             char ** arg = _simpleCommands.front()->toString();
             while(arg[i++]);
             if (i != 3) cout << "source: argument number mismatch." << endl;
-            else source(fopen(arg[1], "r"));
+            else source(arg[1]);
 
             clear();
             Shell::prompt();

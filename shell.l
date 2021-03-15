@@ -19,9 +19,9 @@ void myunputc(int c) {
 }
 
 
-static void source (FILE * file) {
+static void source (char * file) {
   printf("Source called\n");
-  YY_BUFFER_STATE ybs = yy_create_buffer(file, YY_BUF_SIZE);
+  YY_BUFFER_STATE ybs = yy_create_buffer(fopen(file, "r"), YY_BUF_SIZE);
   yypush_buffer_state(ybs);
 }
 
