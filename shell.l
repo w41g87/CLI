@@ -20,8 +20,13 @@ void myunputc(int c) {
 
 
 void source(char * file) {
-  printf("Source called\n");
-  YY_BUFFER_STATE ybs = yy_create_buffer(fopen(file, "r"), YY_BUF_SIZE);
+  FILE * fp;
+  if (!(fp = fopen(file, "r"))) {
+    perror("File IO:");
+    return;
+  }
+  
+  YY_BUFFER_STATE ybs = yy_create_buffer(, YY_BUF_SIZE);
   yypush_buffer_state(ybs);
 }
 
