@@ -167,6 +167,19 @@ void Command::execute() {
             Shell::prompt();
             return;
         }
+        if (!strcmp(cmd, "source")) {
+            char ** arg = _simpleCommands.front()->toString();
+            while(arg[i++]);
+            if (i != 3) cout << "source: argument number mismatch." << endl;
+            else {
+                YY_BUFFER_STATE ybs = yy_create_buffer(arg[1], YY_BUF_SIZE);
+                clear();
+                yypush_buffer_state(ybs);
+            }
+            clear();
+            Shell::prompt();
+            return;
+        }
     }
 
     // Add execution here
