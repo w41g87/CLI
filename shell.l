@@ -55,7 +55,7 @@ int subshell (char * input) {
   }
 
   if (pid == 0) {
-    execvp("/proc/self/exe", &input);
+    execvp("/proc/self/exe", input);
   }
 }
 
@@ -84,9 +84,11 @@ int subshell (char * input) {
 }
 
 """`".*"`""" {
-  char * temp = (char *)malloc(strlen(yytext) - 1);
-  memcpy(temp, yytext + 1, strlen(yytext) - 2);
-  temp[strlen(yytext) - 1] = '\0';
+  char ** temp = (char**) malloc(2);
+  *(temp + 1) = 0;
+  *temp = (char *)malloc(strlen(yytext) - 1);
+  memcpy(*temp, yytext + 1, strlen(yytext) - 2);
+  temp[0][strlen(yytext) - 1] = '\0';
   subshell(temp);
   free(temp);
 }

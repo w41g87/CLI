@@ -950,7 +950,7 @@ YY_RULE_SETUP
 #line 78 "shell.l"
 {
   char * temp = (char *)malloc(strlen(yytext) - 2);
-  memcpy(temp, yytext + 2, malloc(strlen(yytext) - 3);
+  memcpy(temp, yytext + 2, strlen(yytext) - 3);
   temp[strlen(yytext) - 2] = '\0';
   subshell(temp);
   free(temp);
@@ -961,7 +961,7 @@ YY_RULE_SETUP
 #line 86 "shell.l"
 {
   char * temp = (char *)malloc(strlen(yytext) - 1);
-  memcpy(temp, yytext + 1, malloc(strlen(yytext) - 2);
+  memcpy(temp, yytext + 1, strlen(yytext) - 2);
   temp[strlen(yytext) - 1] = '\0';
   subshell(temp);
   free(temp);
