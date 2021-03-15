@@ -134,10 +134,8 @@ void Command::execute() {
             _simpleCommands.front()->_arguments.front()->end(), 
             cmd, ::tolower);
         //printf("Lower case: %s\n", cmd);
-        if (!strcmp(cmd, "exit")) {
-            printf("exiting shell");
-            exit(0);
-        }
+        printf("%d", strcmp(cmd, "exit"));
+        if (!strcmp(cmd, "exit")) exit(0);
         if (!strcmp(cmd, "printenv")) {
             while(environ[i]) cout << environ[i++] << endl;
             clear();
