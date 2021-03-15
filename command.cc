@@ -27,8 +27,6 @@
 #include "shell.hh"
 
 
-int yyparse(void);
-
 Command::Command() {
     // Initialize a new vector of Simple Commands
     _simpleCommands = std::vector<SimpleCommand *>();
@@ -158,7 +156,7 @@ void Command::execute() {
     }
 
     unsigned int i = 0;
-    int pid;
+
     int fdpipe[_simpleCommands.size()][2];
 
     for ( auto & simpleCommand : _simpleCommands ) {
@@ -185,13 +183,13 @@ void Command::execute() {
         }
 
         //printf("Forking...\n");
-        pid = fork();
-        if ( pid == -1 ) {
+        _pid = fork();
+        if ( _pid == -1 ) {
             perror( "shell: fork\n");
             exit( 2 );
         }
 
-        if (pid == 0) {
+        if (_pid == 0) {
             //Child
             
             // close file descriptors that are not needed
@@ -211,8 +209,8 @@ void Command::execute() {
         }
 
     }
-    printf("pid: %d", pid);
-    if (!_background) waitpid( pid, 0, 0 );
+    printf("pid: %d", _pid);
+    if (!_background) waitpid( _pid, 0, 0 );
     //printf("terminated\n");
     dup2( defaultin , 0);
 	dup2( defaultout , 1);
