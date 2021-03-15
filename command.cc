@@ -135,20 +135,23 @@ void Command::execute() {
         if (!strcmp(cmd, "printenv")) {
             while(environ[i]) cout << environ[i++] << endl;
             clear();
+            Shell::prompt();
             return;
         }
         if (!strcmp(cmd, "setenv")) {
             char ** arg = _simpleCommands.front()->toString();
-            if (strlen((char*)arg) != 3) perror("shell: argument number mismatch.");
+            if (strlen((char*)arg) != 3) cout << "shell: argument number mismatch." << endl;
             else if (setenv(arg[1], arg[2], 1) != 0) perror("setenv:");
             clear();
+            Shell::prompt();
             return;
         }
         if (!strcmp(cmd, "unsetenv")) {
             char ** arg = _simpleCommands.front()->toString();
-            if (strlen((char*)arg) != 2) perror("shell: argument number mismatch.");
+            if (strlen((char*)arg) != 2) cout << "shell: argument number mismatch." << endl;
             else if (unsetenv(arg[1]) != 0) perror("unsetenv:");
             clear();
+            Shell::prompt();
             return;
         }
     }
