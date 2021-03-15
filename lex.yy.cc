@@ -519,7 +519,7 @@ void myunputc(int c) {
   unput(c);
 }
 
-std::string removeE(char * s) {
+std::string * removeE(char * s) {
   std::string str;
   for(int i = 0; i < strlen(s); i++) {
     if ((i > 0 && s[i - 1] == '\\') || (s[i] != '\"' && s[i] != '\\')) {
@@ -527,7 +527,7 @@ std::string removeE(char * s) {
       printf("%c", s[i]);
     }
   }
-  return str;
+  return &str;
 }
 #line 533 "lex.yy.cc"
 #line 534 "lex.yy.cc"
@@ -829,7 +829,7 @@ case 2:
 YY_RULE_SETUP
 #line 41 "shell.l"
 {
-  *(yylval.cpp_string) = removeE(yytext);
+  yylval.cpp_string = removeE(yytext);
   return WORD;
 }
 	YY_BREAK

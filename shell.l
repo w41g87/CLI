@@ -18,15 +18,13 @@ void myunputc(int c) {
   unput(c);
 }
 
-std::string * removeE(char * s) {
-  std::string str;
+void removeE(char * s) {
   for(int i = 0; i < strlen(s); i++) {
     if ((i > 0 && s[i - 1] == '\\') || (s[i] != '\"' && s[i] != '\\')) {
-      str.push_back(s[i]);
+      yylval.cpp_string->push_back(s[i]);
       printf("%c", s[i]);
     }
   }
-  return &str;
 }
 %}
 
@@ -39,7 +37,8 @@ std::string * removeE(char * s) {
 }
 
 ((([^ \t\n]*[^\\ \t\n])|"")\"(([^\n]*[^\\\n])|"")\"[^ \t\n]*)+ {
-  yylval.cpp_string = removeE(yytext);
+  yylval.cpp_string = std::string;
+  remove(yytext);
   return WORD;
 }
 
