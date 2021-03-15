@@ -125,7 +125,7 @@ void Command::execute() {
     print();
 
     {    
-        char * cmd = (char *) malloc(_simpleCommands.front()->_arguments.front()->length(), sizeof(char));
+        char * cmd = (char *) malloc(_simpleCommands.front()->_arguments.front()->length());
         int i = 0;
         std::transform(_simpleCommands.front()->_arguments.front()->begin(), 
             _simpleCommands.front()->_arguments.front()->end(), 
