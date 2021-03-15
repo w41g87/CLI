@@ -27,7 +27,7 @@ int main() {
   struct sigaction sa;
   sa.sa_handler = Shell::termination;
   sigemptyset(&sa.sa_mask);
-  sigaddset(&sa.sa_mask, SIGTERM);
+  //sigaddset(&sa.sa_mask, SIGTERM);
   sa.sa_flags = SA_RESTART;
 
   if(sigaction(SIGINT, &sa, NULL)){
