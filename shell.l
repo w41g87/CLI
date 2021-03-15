@@ -29,7 +29,7 @@ void myunputc(int c) {
   return NEWLINE;
 }
 
-((([^ \t\n]*[^\\ \t\n])|"")\"((.*[^\\])|"")\"[^ \t\n]*)+ {
+((([^ \t\n]*[^\\ \t\n])|"")\"(([^\n]*[^\\\n])|"")\"[^ \t\n]*)+ {
   yylval.cpp_string = new std::string(yytext);
   yylval.cpp_string->erase(std::remove(yylval.cpp_string->begin(), yylval.cpp_string->end(), '\"'), yylval.cpp_string->end());
   return WORD;
@@ -75,7 +75,7 @@ void myunputc(int c) {
   return CONT;
 }
 
-[^ \t\n][^ \t\n]*  {
+[^ \t\n]+  {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
   return WORD;

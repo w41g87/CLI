@@ -518,7 +518,7 @@ char *yytext_ptr;
 #include <algorithm>
 
 static  void yyunput (int c,char *buf_ptr  );
-
+int yyudebug = 1;
 void myunputc(int c) {
   unput(c);
 }
