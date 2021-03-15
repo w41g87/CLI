@@ -11,6 +11,7 @@
 
 #include <cstring>
 #include "y.tab.hh"
+#include <algorithm.h>
 
 static  void yyunput (int c,char *buf_ptr  );
 
@@ -28,7 +29,7 @@ void myunputc(int c) {
   return NEWLINE;
 }
 
-[^ \t\n]*\".*\"[^ \t\n]* {
+([^ \t\n]*\".*\"[^ \t\n]*)+ {
   yylval.cpp_string = new std::string(yytext);
   yylval.cpp_string->erase(std::remove(yylval.cpp_string->begin(), yylval.cpp_string->end(), '\"'), yylval.cpp_string->end());
   return WORD;

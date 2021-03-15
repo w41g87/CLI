@@ -805,7 +805,7 @@ YY_RULE_SETUP
 #line 31 "shell.l"
 {
   yylval.cpp_string = new std::string(yytext);
-  yylval.cpp_string->erase(remove(yylval.cpp_string->begin(), yylval.cpp_string->end(), '\"'), yylval.cpp_string->end());
+  yylval.cpp_string->erase(std::remove(yylval.cpp_string->begin(), yylval.cpp_string->end(), '\"'), yylval.cpp_string->end());
   return WORD;
 }
 	YY_BREAK
