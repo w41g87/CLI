@@ -6,8 +6,6 @@
 
 int yyparse(void);
 
-Command Shell::_currentCommand;
-
 void Shell::prompt() {
   if ( isatty(0) ) {
     printf("λ> ");
@@ -53,10 +51,11 @@ int main() {
   Command::_currentSimpleCommand = new SimpleCommand();
   Command::_currentSimpleCommand->insertArgument( "source" );
   Command::_currentSimpleCommand->insertArgument( ".shellrc" );
-  _currentCommand.insertSimpleCommand( Command::_currentSimpleCommand );
+  Shell::_currentCommand.insertSimpleCommand( Command::_currentSimpleCommand );
   Command::execute();
 
   Shell::prompt();
   yyparse();
 }
 
+Command Shell::_currentCommand;
