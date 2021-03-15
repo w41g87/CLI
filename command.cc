@@ -141,7 +141,7 @@ void Command::execute() {
         if (!strcmp(cmd, "setenv")) {
             char ** arg = _simpleCommands.front()->toString();
             if (strlen((char*)arg) != 3) cout << "setenv: argument number mismatch." << endl;
-            else if (setenv(arg[1], arg[2], 1) != 0) perror("setenv:");
+            else if (setenv(arg[1], arg[2], 1) != 0) perror("setenv");
             clear();
             Shell::prompt();
             return;
@@ -149,7 +149,7 @@ void Command::execute() {
         if (!strcmp(cmd, "unsetenv")) {
             char ** arg = _simpleCommands.front()->toString();
             if (strlen((char*)arg) != 2) cout << "unsetenv: argument number mismatch." << endl;
-            else if (unsetenv(arg[1]) != 0) perror("unsetenv:");
+            else if (unsetenv(arg[1]) != 0) perror("unsetenv");
             clear();
             Shell::prompt();
             return;
@@ -158,7 +158,7 @@ void Command::execute() {
             char ** arg = _simpleCommands.front()->toString();
             if (strlen((char*)arg) > 2) cout << "cd: too many arguments." << endl;
             else if (strlen((char*)arg) == 1) chdir(getenv("HOME"));
-            else if (unsetenv(arg[1]) != 0) perror("cd:");
+            else if (unsetenv(arg[1]) != 0) perror("cd");
             clear();
             Shell::prompt();
             return;
