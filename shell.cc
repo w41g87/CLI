@@ -28,7 +28,7 @@ int main() {
   sa.sa_handler = Shell::termination;
   sigemptyset(&sa.sa_mask);
   sigaddset(&sa.sa_mask, SIGTERM);
-  sa.sa_flags = 0;
+  sa.sa_flags = SA_RESTART;
 
   if(sigaction(SIGINT, &sa, NULL)){
       perror("sigaction");
