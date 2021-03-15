@@ -827,7 +827,7 @@ case 2:
 YY_RULE_SETUP
 #line 39 "shell.l"
 {
-  yylval.cpp_string = std::string;
+  yylval.cpp_string = std::string();
   remove(yytext);
   return WORD;
 }
