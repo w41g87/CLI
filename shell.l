@@ -30,7 +30,7 @@ std::string * removeE(char * s) {
   return str;
 }
 
-void source(File * file) {
+void src(File * file) {
   YY_BUFFER_STATE ybs = yy_create_buffer(file, YY_BUF_SIZE);
   yypush_buffer_state(ybs);
 }
