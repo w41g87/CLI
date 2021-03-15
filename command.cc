@@ -29,6 +29,7 @@
 #include "command.hh"
 #include "shell.hh"
 
+using namespace std;
 
 Command::Command() {
     // Initialize a new vector of Simple Commands
