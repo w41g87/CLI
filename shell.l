@@ -18,7 +18,13 @@ void myunputc(int c) {
   unput(c);
 }
 
-
+std::string removeE(char * s) {
+  std::string str;
+  for(int i = 0; i < strlen(s); i++) {
+    if ((i > 0 && s[i - 1] == '\\') || (s[i] != '\"' || s[i] != '\\')) str.push_back(s[i]);
+  }
+  return str;
+}
 %}
 
 %option noyywrap
@@ -81,10 +87,3 @@ void myunputc(int c) {
 }
 
 %%
-std::string removeE(char * s) {
-  std::string str;
-  for(int i = 0; i < strlen(s); i++) {
-    if ((i > 0 && s[i - 1] == '\\') || (s[i] != '\"' || s[i] != '\\')) str.push_back(s[i]);
-  }
-  return str;
-}
