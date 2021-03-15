@@ -111,12 +111,15 @@ void Command::execute() {
     }
     // If exit is entered then exit shell
 
-    switch(std::transform(_simpleCommands.front()->_arguments.front()->begin(), _simpleCommands.front()->_arguments.back()->end(), ::tolower)) {
-        case "exit":
-            exit(0);
-        case "printenv":
-            for (auto str : environ) cout << str << endl;
-            break;
+    switch(std::transform(_simpleCommands.front()->_arguments.front()->begin(), 
+        _simpleCommands.front()->_arguments.back()->end(), 
+        _simpleCommands.front()->_arguments.front()->begin(), 
+        ::tolower)) {
+            case "exit":
+                exit(0);
+            case "printenv":
+                for (auto str : environ) cout << str << endl;
+                break;
     }
 
     int defaultin = dup( 0 );
