@@ -636,7 +636,7 @@ int subshell (char * input) {
   }
 
   if (pid == 0) {
-    execvp("/proc/self/exe", &input);
+    execvp("/proc/self/exe", input);
   }
 }
 
@@ -960,86 +960,88 @@ case 4:
 YY_RULE_SETUP
 #line 86 "shell.l"
 {
-  char * temp = (char *)malloc(strlen(yytext) - 1);
-  memcpy(temp, yytext + 1, strlen(yytext) - 2);
-  temp[strlen(yytext) - 1] = '\0';
+  char ** temp = (char**) malloc(2);
+  *(temp + 1) = 0;
+  *temp = (char *)malloc(strlen(yytext) - 1);
+  memcpy(*temp, yytext + 1, strlen(yytext) - 2);
+  temp[0][strlen(yytext) - 1] = '\0';
   subshell(temp);
   free(temp);
 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 94 "shell.l"
+#line 96 "shell.l"
 {
   /* Discard spaces and tabs */
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 98 "shell.l"
+#line 100 "shell.l"
 {
   return GUARD;
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 102 "shell.l"
+#line 104 "shell.l"
 {
   return GREAT2;
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 106 "shell.l"
+#line 108 "shell.l"
 {
   return GGCONT;
 }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 110 "shell.l"
+#line 112 "shell.l"
 {
   return GCONT;
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 114 "shell.l"
+#line 116 "shell.l"
 {
   return LCONT;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 118 "shell.l"
+#line 120 "shell.l"
 {
   return GGREAT;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 122 "shell.l"
+#line 124 "shell.l"
 {
   return GREAT;
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 126 "shell.l"
+#line 128 "shell.l"
 {
   return LESS;
 }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 130 "shell.l"
+#line 132 "shell.l"
 {
   return CONT;
 }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 134 "shell.l"
+#line 136 "shell.l"
 {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = removeE(yytext);
@@ -1047,7 +1049,7 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 140 "shell.l"
+#line 142 "shell.l"
 {
   yypop_buffer_state();
   YY_FLUSH_BUFFER;
@@ -1059,10 +1061,10 @@ case YY_STATE_EOF(INITIAL):
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 149 "shell.l"
+#line 151 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1066 "lex.yy.cc"
+#line 1068 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2077,6 +2079,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 149 "shell.l"
+#line 151 "shell.l"
 
 
