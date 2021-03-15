@@ -100,6 +100,7 @@ std::string * removeE(char * s) {
 
 <<EOF>> {
   yypop_buffer_state();
+  YY_FLUSH_BUFFER;
 }
 
 %%
