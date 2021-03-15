@@ -174,7 +174,7 @@ void Command::execute() {
             char ** arg = _simpleCommands.front()->toString();
             while(arg[i++]);
             if (i != 3) cout << "source: argument number mismatch." << endl;
-            else source(open(arg[1], O_RDONLY));
+            else source(fopen(arg[1], "r"));
 
             clear();
             Shell::prompt();
