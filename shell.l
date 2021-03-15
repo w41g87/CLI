@@ -30,7 +30,7 @@ void myunputc(int c) {
 }
 
 ((([^ \t\n]*[^\\ \t\n])|"")\"(([^\n]*[^\\\n])|"")\"[^ \t\n]*)+ {
-  yylval.cpp_string = removeE(s);
+  yylval.cpp_string = removeE(yytext);
   return WORD;
 }
 
