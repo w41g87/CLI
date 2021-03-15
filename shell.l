@@ -41,6 +41,23 @@ std::string * removeE(char * s) {
   return str;
 }
 
+int subshell (char * input) {
+  int pin[2], pout[2];
+  if ( pipe(pin) == -1 || pipe(pout) == -1) {
+    perror( "shell: pipe");
+    exit( 2 );
+  }
+  int pid = fork();
+  if ( _pid == -1 ) {
+    perror( "shell: fork");
+    exit( 2 );
+  }
+
+  if (_pid == 0) {
+    execvp("/proc/self/exe", &input);
+  }
+}
+
 
 %}
 
@@ -58,11 +75,19 @@ std::string * removeE(char * s) {
 }
 
 """$(".*")""" {
-  printf("$ subshell");
+  char * temp = malloc(strlen(yytext) - 2);
+  memcpy(temp, yytext + 2, malloc(strlen(yytext) - 3);
+  temp[strlen(yytext) - 2] = '\0';
+  subshell(temp);
+  free(temp);
 }
 
 """`".*"`""" {
-  printf("` subshell");
+  char * temp = malloc(strlen(yytext) - 1);
+  memcpy(temp, yytext + 1, malloc(strlen(yytext) - 2);
+  temp[strlen(yytext) - 1] = '\0';
+  subshell(temp);
+  free(temp);
 }
 
 [ \t] {

@@ -27,8 +27,14 @@ void Shell::elimination(int signum) {
   if ((e = waitpid(0, NULL, 0)) != -1) printf("%d exited\n", e);
 }
 
-int main() {
+int main(int argc, char* argv[], char* envp[]) {
   
+  {
+    int i = 0;
+    while (envp[i]) printf("%s\n", envp[i++]);
+    for (i = 0; i < argc ; i++) printf("%s\n", argv[i]);
+  }
+
   struct sigaction c, d;
   c.sa_handler = Shell::termination;
   sigemptyset(&c.sa_mask);
