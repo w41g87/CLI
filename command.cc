@@ -24,6 +24,7 @@
 #include <fcntl.h>
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include "command.hh"
 #include "shell.hh"
 
