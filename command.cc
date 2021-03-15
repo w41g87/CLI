@@ -128,11 +128,12 @@ void Command::execute() {
     print();
 
     {    
-        char * cmd = (char *) malloc(_simpleCommands.front()->_arguments.front()->length());
+        char * cmd = (char *) malloc(_simpleCommands.front()->_arguments.front()->length() + 1);
         int i = 0;
         std::transform(_simpleCommands.front()->_arguments.front()->begin(), 
             _simpleCommands.front()->_arguments.front()->end(), 
             cmd, ::tolower);
+        
         //printf("Lower case: %s\n", cmd);
         printf("%s %d\n", cmd, strcmp(cmd, "exit"));
         if (!strcmp(cmd, "exit")) exit(0);
