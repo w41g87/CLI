@@ -10,6 +10,7 @@
 %{
 
 #include <cstring>
+#include <unistd.h>
 #include "y.tab.hh"
 
 static  void yyunput (int c,char *buf_ptr  );
@@ -75,7 +76,7 @@ int subshell (char * input) {
 }
 
 """$(".*")""" {
-  char * temp = malloc(strlen(yytext) - 2);
+  char * temp = (char *)malloc(strlen(yytext) - 2);
   memcpy(temp, yytext + 2, malloc(strlen(yytext) - 3);
   temp[strlen(yytext) - 2] = '\0';
   subshell(temp);
@@ -83,7 +84,7 @@ int subshell (char * input) {
 }
 
 """`".*"`""" {
-  char * temp = malloc(strlen(yytext) - 1);
+  char * temp = (char *)malloc(strlen(yytext) - 1);
   memcpy(temp, yytext + 1, malloc(strlen(yytext) - 2);
   temp[strlen(yytext) - 1] = '\0';
   subshell(temp);
