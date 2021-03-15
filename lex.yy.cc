@@ -1940,7 +1940,7 @@ void yyfree (void * ptr )
 #line 95 "shell.l"
 
 
-static void source(File * file) {
+static void source (File * file) {
   YY_BUFFER_STATE ybs = yy_create_buffer(file, YY_BUF_SIZE);
   yypush_buffer_state(ybs);
 }

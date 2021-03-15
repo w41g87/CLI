@@ -19,6 +19,12 @@ void myunputc(int c) {
   unput(c);
 }
 
+
+static void source (File * file) {
+  //YY_BUFFER_STATE ybs = yy_create_buffer(file, YY_BUF_SIZE);
+  //yypush_buffer_state(ybs);
+}
+
 std::string * removeE(char * s) {
   std::string* str = new std::string();
   for(int i = 0; i < strlen(s); i++) {
@@ -93,8 +99,3 @@ std::string * removeE(char * s) {
 }
 
 %%
-
-static void source (File * file) {
-  YY_BUFFER_STATE ybs = yy_create_buffer(file, YY_BUF_SIZE);
-  yypush_buffer_state(ybs);
-}
