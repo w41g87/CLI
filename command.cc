@@ -136,7 +136,7 @@ void Command::execute() {
             cmd, ::tolower);
         
         //printf("Lower case: %s\n", cmd);
-        printf("%s %d\n", cmd, strcmp(cmd, "exit"));
+        //printf("%s %d\n", cmd, strcmp(cmd, "exit"));
         if (!strcmp(cmd, "exit")) exit(0);
         
         if (!strcmp(cmd, "printenv")) {
