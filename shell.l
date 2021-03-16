@@ -160,6 +160,11 @@ int subshell (char ** input) {
   return WORD;
 }
 
+"\0" {
+  yypop_buffer_state();
+  return NEWLINE;
+}
+
 <<EOF>> {
   yypop_buffer_state();
   YY_FLUSH_BUFFER;
