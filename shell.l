@@ -183,8 +183,10 @@ char * subshell (char ** input) {
   YY_FLUSH_BUFFER;
   yypop_buffer_state();
   if ( !YY_CURRENT_BUFFER ) {
+    Shell::_currentCommand.execute();
     yyterminate();
   }
+  return NEWLINE;
 }
 
 %%
