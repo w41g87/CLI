@@ -21,8 +21,7 @@ void myunputc(int c) {
 
 void swtchBfr(char * input) {
   YY_BUFFER_STATE ybs = yy_scan_string(input);
-  yypop_buffer_state();
-  yypush_buffer_state(ybs);
+  yy_switch_to_buffer(ybs);
 }
 
 void source(char * file) {
@@ -68,6 +67,7 @@ int subshell (char ** input) {
     read(p[1], buf, 8191);
     close(p[0]);
     close(p[1]);
+    printf("%s", buf);
   }
 }
 
