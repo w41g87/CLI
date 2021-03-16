@@ -40,7 +40,8 @@ char ** SimpleCommand::toString() {
     //printf("%s | %s\n", arg->c_str(), *(output + i));
     i++;
   }
-  printf("i = %d\n", i);
+  //printf("i = %d\n", i);
+  *(output + i) = 0;
   //for (int j = 0; j < i; j++) printf("output[%d]: %s\n", j, output[j]);
   return output;
 }
