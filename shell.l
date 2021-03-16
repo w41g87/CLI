@@ -65,7 +65,6 @@ char * subshell (char ** input) {
   //printf("subshell function call: %s\n", input[0]);
   int size = 8;
   char* out = (char*)malloc(size);
-  for (int i = 0; i < size; i++) out[i] = 0;
   int p[2];
   if ( pipe(p) == -1) {
     perror( "shell: pipe");
@@ -88,16 +87,16 @@ char * subshell (char ** input) {
   close(p[1]);
   waitpid(pid, 0, 0);
 
-  int j, c;
+  int i, c;
   FILE* file = fdopen (p[0], "r");
   while ((c = fgetc (file)) != EOF) {
-    if (j == size) {
+    if (i == size - 1) {
       size *= 2;
       out = (char*)realloc(out, size);
-      for (int i = size / 2; i < size; i++) out[i] = 0;
     }
-    out[j++] = c;
+    out[i++] = c;
   }
+  out[i] = 0;
   fflush(file);
   fclose (file);
   close(p[0]);
