@@ -10,7 +10,7 @@ void swtchBfr(char*);
 void initBfr();
 
 void Shell::prompt() {
-  if ( isatty(0) && isatty(1) && isPrompt) {
+  if ( isatty(0) && isatty(1) && Shell::isPrompt) {
     printf("λ> ");
     fflush(stdout);
   }
@@ -41,7 +41,7 @@ int main(int argc, char* argv[], char* envp[]) {
   // }
 
   if (argc > 1) {
-    isPrompt = false;
+    Shell::isPrompt = false;
     char * input = (char *) malloc(strlen(argv[1]) + 2);
     strcpy(input, argv[1]);
     input[strlen(argv[1])] = '\n';
@@ -82,4 +82,4 @@ int main(int argc, char* argv[], char* envp[]) {
 }
 
 Command Shell::_currentCommand;
-bool isPrompt = true;
+bool Shell::isPrompt = true;
