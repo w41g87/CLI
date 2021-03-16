@@ -73,10 +73,10 @@ int main(int argc, char* argv[], char* envp[]) {
   Command::_currentSimpleCommand->insertArgument( new std::string("source") );
   Command::_currentSimpleCommand->insertArgument( new std::string(".shellrc") );
   Shell::_currentCommand.insertSimpleCommand( Command::_currentSimpleCommand );
+  Shell::_currentCommand.execute();
 
   //Shell::prompt();
   yyparse();
-  Shell::_currentCommand.execute();
 
 }
 
