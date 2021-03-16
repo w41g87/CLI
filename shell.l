@@ -94,6 +94,7 @@ char * subshell (char ** input) {
   //read(p[0], out, 99);
   //close(p[0]);
   //close(p[1]);
+  strcpy(out, "kfc");
   return out;
 }
 
