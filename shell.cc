@@ -39,9 +39,9 @@ int main(int argc, char* argv[], char* envp[]) {
   //   for (i = 0; i < argc ; i++) printf("%s\n", argv[i]);
   // }
 
-  if (strcmp(argv[0], "shell")) {
-    printf("subshell: %s\n", argv[0]);
-    swtchBfr(argv[0]);
+  if (strcmp(argv[1], "shell")) {
+    printf("subshell: %s\n", argv[1]);
+    swtchBfr(argv[1]);
     yyparse();
     exit(0);
   }
