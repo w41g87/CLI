@@ -49,6 +49,7 @@ void unputStr(char * input) {
   int i = 0;
   while(input[i] != '\0') {
     if (input[i] == '\n') input[i] = ' ';
+    printf("%c", input[i]);
     i++;
   }
   if (i == 0) printf("shell: subshell execution error\n");
