@@ -127,11 +127,15 @@ void Command::execute() {
     // Print contents of Command data structure
     //print();
 
+    // Embedded commands
+
     {    
         char * cmd = (char *) malloc(_simpleCommands.front()->_arguments.front()->length() + 1);
         int i = 0;
-        strcpy(cmd, _simpleCommands.front()->_arguments.front()->c_str());
         *(cmd + _simpleCommands.front()->_arguments.front()->length()) = '\0';
+        std::transform(_simpleCommands.front()->_arguments.front()->begin(), 
+            _simpleCommands.front()->_arguments.front()->end(), 
+            cmd, ::tolower);
         
         //printf("Lower case: %s\n", cmd);
         //printf("%s %d\n", cmd, strcmp(cmd, "exit"));
@@ -144,150 +148,152 @@ void Command::execute() {
             return;
         }
 
-        //char ** arg = _simpleCommands.front()->toString();
-        
-        // while(arg[i++]);
-        // if (!strcmp(cmd, "setenv")) {
-        //     if (i != 4) cout << "setenv: argument number mismatch." << endl;
-        //     else if (setenv(arg[1], arg[2], 1) != 0) perror("setenv");
-        //     clear();
-        //     Shell::prompt();
-        //     return;
-        // }
-        // if (!strcmp(cmd, "unsetenv")) {
-        //     if (i != 3) cout << "unsetenv: argument number mismatch." << endl;
-        //     else if (unsetenv(arg[1]) != 0) perror("unsetenv");
-        //     clear();
-        //     Shell::prompt();
-        //     return;
-        // }
-        // if (!strcmp(cmd, "cd")) {
-        //     //printf("%d\n", i);
-        //     if (i > 3) cout << "cd: too many arguments." << endl;
-        //     else if (i == 2) chdir(getenv("HOME"));
-        //     else if (chdir(arg[1]) != 0) perror("cd");
-        //     clear();
-        //     Shell::prompt();
-        //     return;
-        // }
-        // if (!strcmp(cmd, "source")) {
-        //     if (i != 3) cout << "source: argument number mismatch." << endl;
-        //     else {
-        //         clear();
-        //         source(arg[1]);
-        //     }
-        //     clear();
-        //     Shell::prompt();
-        //     return;
-        // }
+        char ** arg = _simpleCommands.front()->toString();
+        while(arg[i++]);
+        if (!strcmp(cmd, "setenv")) {
+            if (i != 4) cout << "setenv: argument number mismatch." << endl;
+            else if (setenv(arg[1], arg[2], 1) != 0) perror("setenv");
+            clear();
+            Shell::prompt();
+            return;
+        }
+        if (!strcmp(cmd, "unsetenv")) {
+            if (i != 3) cout << "unsetenv: argument number mismatch." << endl;
+            else if (unsetenv(arg[1]) != 0) perror("unsetenv");
+            clear();
+            Shell::prompt();
+            return;
+        }
+        if (!strcmp(cmd, "cd")) {
+            //printf("%d\n", i);
+            if (i > 3) cout << "cd: too many arguments." << endl;
+            else if (i == 2) chdir(getenv("HOME"));
+            else if (chdir(arg[1]) != 0) perror("cd");
+            clear();
+            Shell::prompt();
+            return;
+        }
+        if (!strcmp(cmd, "source")) {
+            if (i != 3) cout << "source: argument number mismatch." << endl;
+            else {
+                clear();
+                source(arg[1]);
+            }
+            clear();
+            Shell::prompt();
+            return;
+        }
     }
-    printf("First Time\n");
-    _simpleCommands.front()->toString();
-    printf("Second Time\n");
-    _simpleCommands.front()->toString();
+
     // Add execution here
     // For every simple command fork a new process
     // Setup i/o redirection
     // and call exec
 
-    if (_errFile) {
-        if (_appendE) errF = open(_errFile->c_str(), O_CREAT|O_WRONLY|O_APPEND, 0666);
-        else errF = creat(_errFile->c_str(), 0666);
-        dup2(errF, 2);
-        close(errF);
-    } else dup2(defaulterr, 2);
-    if (errF < 0) {
-        perror( "shell: Failed to create the error output file.");
-		exit( 2 );
-    }
-
-    if (_inFile) {
-        inF = open(_inFile->c_str(), O_RDONLY);
-        dup2(inF, 0);
-        close(inF);
-    } else dup2(defaultin, 0);
-    if (inF < 0) {
-        perror( "shell: Failed to open the input file.");
-		exit( 2 );
-    }
-
-    if (_outFile) {
-        if (_appendO) outF = open(_outFile->c_str(), O_CREAT|O_WRONLY|O_APPEND, 0666);
-        else outF = creat(_outFile->c_str(), 0666);
-    } else
-    if (outF < 0) {
-        perror( "shell: Failed to create the output file.");
-		exit( 2 );
-    }
-
-    unsigned int i = 0;
-
-    int fdpipe[_simpleCommands.size()][2];
-
-    for ( auto & simpleCommand : _simpleCommands ) {
-        //printf("%d, %s", i, simpleCommand->_arguments.front()->c_str());
-
-        if ( pipe(fdpipe[i]) == -1) {
-            perror( "shell: pipe");
+    // IO modification
+    {
+        if (_errFile) {
+            if (_appendE) errF = open(_errFile->c_str(), O_CREAT|O_WRONLY|O_APPEND, 0666);
+            else errF = creat(_errFile->c_str(), 0666);
+            dup2(errF, 2);
+            close(errF);
+        } else dup2(defaulterr, 2);
+        if (errF < 0) {
+            perror( "shell: Failed to create the error output file.");
             exit( 2 );
         }
 
-        if (++i > 1) {
-            dup2(fdpipe[i - 2][0], 0);
-            close(fdpipe[i - 2][0]);
+        if (_inFile) {
+            inF = open(_inFile->c_str(), O_RDONLY);
+            dup2(inF, 0);
+            close(inF);
+        } else dup2(defaultin, 0);
+        if (inF < 0) {
+            perror( "shell: Failed to open the input file.");
+            exit( 2 );
         }
-        if (i == _simpleCommands.size()) {
-            if (_outFile) {
-                dup2(outF, 1);
-                close(outF);
+
+        if (_outFile) {
+            if (_appendO) outF = open(_outFile->c_str(), O_CREAT|O_WRONLY|O_APPEND, 0666);
+            else outF = creat(_outFile->c_str(), 0666);
+        } else
+        if (outF < 0) {
+            perror( "shell: Failed to create the output file.");
+            exit( 2 );
+        }
+    }
+
+
+    // Execution
+    {
+        unsigned int i = 0;
+
+        int fdpipe[_simpleCommands.size()][2];
+
+        for ( auto & simpleCommand : _simpleCommands ) {
+            //printf("%d, %s", i, simpleCommand->_arguments.front()->c_str());
+
+            if ( pipe(fdpipe[i]) == -1) {
+                perror( "shell: pipe");
+                exit( 2 );
             }
-            else dup2(defaultout, 1);
-        } else {
-            dup2(fdpipe[i - 1][1], 1);
-            close(fdpipe[i - 1][1]);
-        }
 
-        //printf("Forking...\n");
-        _pid = fork();
-        if ( _pid == -1 ) {
-            perror( "shell: fork\n");
-            exit( 2 );
-        }
-
-        if (_pid == 0) {
-            //Child
-            
-            //close file descriptors that are not needed
-            // close(fdpipe[0]);
-            // close(fdpipe[1]);
-            
-            printf("Params:\n");
-            printf("cmd: %s\n", simpleCommand->_arguments.front()->c_str());
-
-            for (unsigned int j = 0; j < simpleCommand->_arguments.size(); j++) {
-                printf("%d: %s\n", j, *(simpleCommand->toString() + j));
+            if (++i > 1) {
+                dup2(fdpipe[i - 2][0], 0);
+                close(fdpipe[i - 2][0]);
             }
-            // You can use execvp() instead if the arguments are stored in an array
-            execvp(simpleCommand->_arguments.front()->c_str(), simpleCommand->toString());
+            if (i == _simpleCommands.size()) {
+                if (_outFile) {
+                    dup2(outF, 1);
+                    close(outF);
+                }
+                else dup2(defaultout, 1);
+            } else {
+                dup2(fdpipe[i - 1][1], 1);
+                close(fdpipe[i - 1][1]);
+            }
 
-            // exec() is not suppose to return, something went wrong
-            perror( "shell: Execution error");
-            exit( 2 );
+            //printf("Forking...\n");
+            _pid = fork();
+            if ( _pid == -1 ) {
+                perror( "shell: fork\n");
+                exit( 2 );
+            }
+
+            if (_pid == 0) {
+                //Child
+                
+                //close file descriptors that are not needed
+                // close(fdpipe[0]);
+                // close(fdpipe[1]);
+                
+                printf("Params:\n");
+                printf("cmd: %s\n", simpleCommand->_arguments.front()->c_str());
+
+                for (unsigned int j = 0; j < simpleCommand->_arguments.size(); j++) {
+                    printf("%d: %s\n", j, *(simpleCommand->toString() + j));
+                }
+                // You can use execvp() instead if the arguments are stored in an array
+                execvp(simpleCommand->_arguments.front()->c_str(), simpleCommand->toString());
+
+                // exec() is not suppose to return, something went wrong
+                perror( "shell: Execution error");
+                exit( 2 );
+            }
+
         }
+        //printf("pid: %d", _pid);
+        if (!_background) waitpid( _pid, 0, 0 );
+        //printf("terminated\n");
+        dup2( defaultin , 0);
+        dup2( defaultout , 1);
+        dup2( defaulterr , 2);
+
+        close( defaultin );
+        close( defaultout );
+        close( defaulterr );
 
     }
-    //printf("pid: %d", _pid);
-    if (!_background) waitpid( _pid, 0, 0 );
-    //printf("terminated\n");
-    dup2( defaultin , 0);
-	dup2( defaultout , 1);
-	dup2( defaulterr , 2);
-
-	close( defaultin );
-	close( defaultout );
-	close( defaulterr );
-
-
     // Clear to prepare for next command
     clear();
 
