@@ -22,8 +22,11 @@ void myunputc(int c) {
 }
 
 void swtchBfr(char * input) {
-  YY_BUFFER_STATE ybs = yy_scan_string(input);
-  yy_switch_to_buffer(ybs);
+  yy_switch_to_buffer(yy_scan_string(input));
+}
+
+void delBfr() {
+  yylex_destroy();
 }
 
 void source(char * file) {
