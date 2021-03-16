@@ -84,19 +84,20 @@ char * subshell (char ** input) {
     execvp("/proc/self/exe", input);
     perror("child");
   }
+  close(p[1]);
   waitpid(pid, 0, 0);
+
   FILE *stream;
   int c;
-  //close(p[1]);
   stream = fdopen (p[0], "r");
   while ((c = fgetc (stream)) != EOF)
     putchar (c);
   fclose (stream);
-  //read(p[0], out, 99);
-  //close(p[0]);
+
+  read(p[0], out, 99);
+  close(p[0]);
   
-  strcpy(out, "kfc");
-  printf("print ended");
+  //printf("print ended\n");
   return out;
 }
 

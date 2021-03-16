@@ -668,7 +668,7 @@ char * subshell (char ** input) {
   waitpid(pid, 0, 0);
   FILE *stream;
   int c;
-  close(p[1]);
+  //close(p[1]);
   stream = fdopen (p[0], "r");
   while ((c = fgetc (stream)) != EOF)
     putchar (c);
