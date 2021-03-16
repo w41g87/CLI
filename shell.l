@@ -119,11 +119,13 @@ char * subshell (char ** input) {
 }
 
 """`"(([^\n]*[^\\\n])|"")"`" {
-  char ** word = (char**) malloc(2);
-  *(word + 1) = 0;
-  *word = (char *)malloc(strlen(yytext) - 1);
-  memcpy(*word, yytext + 1, strlen(yytext) - 2);
-  word[0][strlen(yytext) - 2] = '\0';
+  char ** word = (char**) malloc(3);
+  *(word + 2) = 0;
+  *(word + 1) = (char *)malloc(strlen(yytext) - 1);
+  memcpy(*(word + 1), yytext + 1, strlen(yytext) - 2);
+  word[1][strlen(yytext) - 2] = '\0';
+  word[0] = (char *)malloc(6);
+  strcpy(*word, "shell\0");
   printf("yytext: %s\n", yytext);
   char * buf = subshell(word);
   unputStr(buf);
