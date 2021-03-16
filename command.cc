@@ -147,40 +147,40 @@ void Command::execute() {
         //char ** arg = _simpleCommands.front()->toString();
         printf("First Time\n");
         _simpleCommands.front()->toString();
-        while(arg[i++]);
-        if (!strcmp(cmd, "setenv")) {
-            if (i != 4) cout << "setenv: argument number mismatch." << endl;
-            else if (setenv(arg[1], arg[2], 1) != 0) perror("setenv");
-            clear();
-            Shell::prompt();
-            return;
-        }
-        if (!strcmp(cmd, "unsetenv")) {
-            if (i != 3) cout << "unsetenv: argument number mismatch." << endl;
-            else if (unsetenv(arg[1]) != 0) perror("unsetenv");
-            clear();
-            Shell::prompt();
-            return;
-        }
-        if (!strcmp(cmd, "cd")) {
-            //printf("%d\n", i);
-            if (i > 3) cout << "cd: too many arguments." << endl;
-            else if (i == 2) chdir(getenv("HOME"));
-            else if (chdir(arg[1]) != 0) perror("cd");
-            clear();
-            Shell::prompt();
-            return;
-        }
-        if (!strcmp(cmd, "source")) {
-            if (i != 3) cout << "source: argument number mismatch." << endl;
-            else {
-                clear();
-                source(arg[1]);
-            }
-            clear();
-            Shell::prompt();
-            return;
-        }
+        // while(arg[i++]);
+        // if (!strcmp(cmd, "setenv")) {
+        //     if (i != 4) cout << "setenv: argument number mismatch." << endl;
+        //     else if (setenv(arg[1], arg[2], 1) != 0) perror("setenv");
+        //     clear();
+        //     Shell::prompt();
+        //     return;
+        // }
+        // if (!strcmp(cmd, "unsetenv")) {
+        //     if (i != 3) cout << "unsetenv: argument number mismatch." << endl;
+        //     else if (unsetenv(arg[1]) != 0) perror("unsetenv");
+        //     clear();
+        //     Shell::prompt();
+        //     return;
+        // }
+        // if (!strcmp(cmd, "cd")) {
+        //     //printf("%d\n", i);
+        //     if (i > 3) cout << "cd: too many arguments." << endl;
+        //     else if (i == 2) chdir(getenv("HOME"));
+        //     else if (chdir(arg[1]) != 0) perror("cd");
+        //     clear();
+        //     Shell::prompt();
+        //     return;
+        // }
+        // if (!strcmp(cmd, "source")) {
+        //     if (i != 3) cout << "source: argument number mismatch." << endl;
+        //     else {
+        //         clear();
+        //         source(arg[1]);
+        //     }
+        //     clear();
+        //     Shell::prompt();
+        //     return;
+        // }
     }
     printf("Second Time\n");
     _simpleCommands.front()->toString();
