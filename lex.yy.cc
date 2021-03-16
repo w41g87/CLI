@@ -660,15 +660,15 @@ char * subshell (char ** input) {
   if (pid == 0) {
     printf("input: %s\n", input[0]);
     dup2(p[1], 1);
-    close(p[0]);
-    close(p[1]);
+    //close(p[0]);
+    //close(p[1]);
     execvp("/proc/self/exe", input);
     perror("child");
   }
   waitpid(pid, 0, 0);
   read(p[0], buf, 8191);
-  close(p[0]);
-  close(p[1]);
+  //close(p[0]);
+  //close(p[1]);
   return buf;
 }
 
