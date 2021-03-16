@@ -39,12 +39,12 @@ int main(int argc, char* argv[], char* envp[]) {
   //   for (i = 0; i < argc ; i++) printf("%s\n", argv[i]);
   // }
 
-  if (strcmp(argv[0], "shell")) {
+  if (strcmp(argv[1], "shell")) {
     char * input = (char *) malloc(strlen(argv[1]) + 2);
     strcpy(input, argv[0]);
     input[strlen(argv[0])] = '\n';
     //printf("subshell: %s\n", argv[1]);
-    swtchBfr(input);
+    swtchBfr(argv[1]);
     yyparse();
     free(input);
     exit(0);
