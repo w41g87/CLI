@@ -644,8 +644,8 @@ void unputStr(char * input) {
 
 char * subshell (char ** input) {
   //printf("subshell function call: %s\n", input[0]);
-  char* out = (char*)malloc(8192);
-  for (int i = 0; i < 8192; i++) out[i] = 0;
+  char* out = (char*)malloc(2048);
+  for (int i = 0; i < 2048; i++) out[i] = 0;
   int p[2];
   if ( pipe(p) == -1) {
     perror( "shell: pipe");
@@ -666,7 +666,7 @@ char * subshell (char ** input) {
     perror("child");
   }
   waitpid(pid, 0, 0);
-  read(p[0], out, 8191);
+  read(p[0], out, 2048);
   //close(p[0]);
   //close(p[1]);
   return out;
