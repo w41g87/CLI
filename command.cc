@@ -145,6 +145,7 @@ void Command::execute() {
         }
 
         char ** arg = _simpleCommands.front()->toString();
+        simpleCommand->toString();
         while(arg[i++]);
         if (!strcmp(cmd, "setenv")) {
             if (i != 4) cout << "setenv: argument number mismatch." << endl;
@@ -180,7 +181,7 @@ void Command::execute() {
             return;
         }
     }
-
+    simpleCommand->toString();
     // Add execution here
     // For every simple command fork a new process
     // Setup i/o redirection
