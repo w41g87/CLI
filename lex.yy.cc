@@ -1092,7 +1092,7 @@ case YY_STATE_EOF(INITIAL):
 #line 182 "shell.l"
 {
   Shell::_currentCommand.execute();
-  YY_FLUSH_BUFFER;
+  //YY_FLUSH_BUFFER;
   yypop_buffer_state();
   if ( !YY_CURRENT_BUFFER ) {
     yyterminate();
