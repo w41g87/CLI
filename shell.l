@@ -160,7 +160,7 @@ int subshell (char ** input) {
   return WORD;
 }
 
-\0 {
+<<EOL>> {
   yypop_buffer_state();
   return NEWLINE;
 }
