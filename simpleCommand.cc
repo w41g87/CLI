@@ -37,10 +37,10 @@ char ** SimpleCommand::toString() {
     *(output + i) = (char*)malloc(arg->length() + 1);
     strcpy(*(output + i), arg->c_str());
     *(*(output + i) + strlen(arg->c_str())) = '\0';
-    printf("%s | %s\n", arg->c_str(), *(output + i));
+    //printf("%s | %s\n", arg->c_str(), *(output + i));
     i++;
   }
   printf("i = %d\n", i);
-  for (int j = 0; j < i; j++) printf("output[%d]: %s\n", j, output[j]);
+  //for (int j = 0; j < i; j++) printf("output[%d]: %s\n", j, output[j]);
   return output;
 }
