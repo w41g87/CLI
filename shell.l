@@ -104,27 +104,27 @@ char * subshell (char ** input) {
 }
 
 """$(".*")""" {
-  char ** temp = (char**) malloc(2);
-  *(temp + 1) = 0;
-  *temp = (char *)malloc(strlen(yytext) - 2);
-  memcpy(*temp, yytext + 2, strlen(yytext) - 3);
-  temp[0][strlen(yytext) - 2] = '\0';
-  subshell(temp);
-  free(*temp);
-  free(temp);
+  char ** word = (char**) malloc(2);
+  *(word + 1) = 0;
+  *word = (char *)malloc(strlen(yytext) - 2);
+  memcpy(*word, yytext + 2, strlen(yytext) - 3);
+  word[0][strlen(yytext) - 2] = '\0';
+  subshell(word);
+  free(*word);
+  free(word);
 }
 
 """`".*"`""" {
-  char ** temp = (char**) malloc(2);
-  *(temp + 1) = 0;
-  *temp = (char *)malloc(strlen(yytext) - 1);
-  memcpy(*temp, yytext + 1, strlen(yytext) - 2);
-  temp[0][strlen(yytext) - 1] = '\0';
-  char * buf = subshell(temp);
+  char ** word = (char**) malloc(2);
+  *(word + 1) = 0;
+  *word = (char *)malloc(strlen(yytext) - 1);
+  memcpy(*word, yytext + 1, strlen(yytext) - 2);
+  word[0][strlen(yytext) - 1] = '\0';
+  char * buf = subshell(word);
   unputStr(buf);
-  free(*temp);
-  free(temp);
-  free(buf);
+  free(*word);
+  free(word);
+  free(buf)
 }
 
 [ \t] {
