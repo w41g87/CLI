@@ -31,15 +31,16 @@ void Shell::elimination(int signum) {
 
 int main(int argc, char* argv[], char* envp[]) {
   
-  {
-    int i = 0;
-    printf("envp:\n");
-    while (envp[i]) printf("%s\n", envp[i++]);
-    printf("args:\n");
-    for (i = 0; i < argc ; i++) printf("%s\n", argv[i]);
-  }
+  // {
+  //   int i = 0;
+  //   printf("envp:\n");
+  //   while (envp[i]) printf("%s\n", envp[i++]);
+  //   printf("args:\n");
+  //   for (i = 0; i < argc ; i++) printf("%s\n", argv[i]);
+  // }
 
   if (strcmp(argv[0], "shell")) {
+    printf("subshell: %s\n", argv[0]);
     swtchBfr(argv[0]);
     yyparse();
     exit(0);
