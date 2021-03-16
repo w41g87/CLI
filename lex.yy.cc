@@ -1090,6 +1090,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 #line 181 "shell.l"
 {
+  printf("EOF reached\n");
   yypop_buffer_state();
   YY_FLUSH_BUFFER;
   if ( !YY_CURRENT_BUFFER ) {
@@ -1100,10 +1101,10 @@ case YY_STATE_EOF(INITIAL):
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 190 "shell.l"
+#line 191 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1107 "lex.yy.cc"
+#line 1108 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2118,6 +2119,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 190 "shell.l"
+#line 191 "shell.l"
 
 
