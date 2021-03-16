@@ -7,7 +7,6 @@
 
 int yyparse(void);
 void swtchBfr(char*);
-void delBfr();
 
 void Shell::prompt() {
   if ( isatty(0) ) {
@@ -44,7 +43,6 @@ int main(int argc, char* argv[], char* envp[]) {
     //printf("subshell: %s\n", argv[1]);
     swtchBfr(argv[1]);
     yyparse();
-    delBfr();
     exit(0);
   }
 
