@@ -59,6 +59,7 @@ void unputStr(char * input) {
 char * subshell (char ** input) {
   //printf("subshell function call: %s\n", input[0]);
   char* buf = (char*)malloc(8192);
+  for (int i = 0; i < 8192; i++) buf[i] = 0;
   int p[2];
   if ( pipe(p) == -1) {
     perror( "shell: pipe");
