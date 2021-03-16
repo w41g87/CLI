@@ -114,8 +114,8 @@ char * subshell (char ** input) {
   memcpy(*word, yytext + 2, strlen(yytext) - 3);
   word[0][strlen(yytext) - 3] = '\0';
   subshell(word);
-  free(*word);
-  free(word);
+  //free(*word);
+  //free(word);
 }
 
 """`"(([^\n]*[^\\\n])|"")"`" {
