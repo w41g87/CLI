@@ -95,6 +95,7 @@ char * subshell (char ** input) {
   //close(p[0]);
   //close(p[1]);
   strcpy(out, "kfc");
+  printf("print ended");
   return out;
 }
 
