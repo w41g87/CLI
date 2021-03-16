@@ -58,7 +58,10 @@ void unputStr(char * input) {
     i++;
   }
   if (i == 0) printf("shell: subshell execution error\n");
-  else for (i = i - 1; i >= 0; i--) myunputc(input[i]);
+  else for (i = i - 1; i >= 0; i--) {
+    printf("%c", input[i]);
+    myunputc(input[i]);
+  }
 }
 
 char * subshell (char ** input) {
