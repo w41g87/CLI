@@ -145,8 +145,7 @@ void Command::execute() {
         }
 
         //char ** arg = _simpleCommands.front()->toString();
-        printf("First Time\n");
-        _simpleCommands.front()->toString();
+        
         // while(arg[i++]);
         // if (!strcmp(cmd, "setenv")) {
         //     if (i != 4) cout << "setenv: argument number mismatch." << endl;
@@ -182,6 +181,8 @@ void Command::execute() {
         //     return;
         // }
     }
+    printf("First Time\n");
+    _simpleCommands.front()->toString();
     printf("Second Time\n");
     _simpleCommands.front()->toString();
     // Add execution here
