@@ -25,10 +25,6 @@ void swtchBfr(char * input) {
   yy_switch_to_buffer(yy_scan_string(input));
 }
 
-void delBfr() {
-  yypop_buffer_state();
-}
-
 void source(char * file) {
   FILE * fp;
   if (!(fp = fopen(file, "r"))) {
