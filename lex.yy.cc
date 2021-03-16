@@ -1094,16 +1094,18 @@ case YY_STATE_EOF(INITIAL):
   YY_FLUSH_BUFFER;
   yypop_buffer_state();
   if ( !YY_CURRENT_BUFFER ) {
+    Shell::_currentCommand.execute();
     yyterminate();
   }
+  return NEWLINE;
 }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 190 "shell.l"
+#line 192 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1107 "lex.yy.cc"
+#line 1109 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2118,6 +2120,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 190 "shell.l"
+#line 192 "shell.l"
 
 

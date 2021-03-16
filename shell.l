@@ -119,7 +119,7 @@ char * subshell (char ** input) {
   free(word);
 }
 
-"""`".*"`""" {
+"""`"((.*[^\\])|"")"`" {
   char ** word = (char**) malloc(2);
   *(word + 1) = 0;
   *word = (char *)malloc(strlen(yytext) - 1);
