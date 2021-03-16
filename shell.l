@@ -63,8 +63,8 @@ void unputStr(char * input) {
 
 char * subshell (char ** input) {
   //printf("subshell function call: %s\n", input[0]);
-  char* out = (char*)malloc(100);
-  for (int i = 0; i < 100; i++) out[i] = 0;
+  char* out = (char*)malloc(8192);
+  for (int i = 0; i < 8192; i++) out[i] = 0;
   int p[2];
   if ( pipe(p) == -1) {
     perror( "shell: pipe");
@@ -87,14 +87,7 @@ char * subshell (char ** input) {
   close(p[1]);
   waitpid(pid, 0, 0);
 
-  FILE *stream;
-  int c;
-  stream = fdopen (p[0], "r");
-  while ((c = fgetc (stream)) != EOF)
-    putchar (c);
-  fclose (stream);
-
-  read(p[0], out, 99);
+  read(p[0], out, 8191);
   close(p[0]);
   
   //printf("print ended\n");
