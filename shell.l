@@ -156,6 +156,7 @@ int subshell (char ** input) {
 [^ \t\n]+  {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = removeE(yytext);
+  printf("lex scanned: %s\n", yytext);
   return WORD;
 }
 
