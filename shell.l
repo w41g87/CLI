@@ -19,6 +19,11 @@ void myunputc(int c) {
   unput(c);
 }
 
+void swtchBfr(char * input) {
+  YY_BUFFER_STATE ybs = yy_scan_string(argv[0]);
+  yypop_buffer_state();
+  yypush_buffer_state(ybs);
+}
 
 void source(char * file) {
   FILE * fp;
@@ -43,7 +48,8 @@ std::string * removeE(char * s) {
 }
 
 int subshell (char ** input) {
-  int pin[2], pout[2];
+  char buf[8192];
+  int pipe[2];
   if ( pipe(pin) == -1 || pipe(pout) == -1) {
     perror( "shell: pipe");
     exit( 2 );
@@ -55,7 +61,13 @@ int subshell (char ** input) {
   }
 
   if (pid == 0) {
+    dup2(pipe[0], 1);
+    close(pipe[0]);
     execvp("/proc/self/exe", input);
+  } else {
+    read(pipe[1], buf, 8191);
+    close(pipe[0]);
+    close(pipe[1]);
   }
 }
 

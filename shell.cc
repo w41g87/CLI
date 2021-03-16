@@ -5,6 +5,7 @@
 #include <wait.h>
 
 int yyparse(void);
+void swtchBfr(char*);
 
 void Shell::prompt() {
   if ( isatty(0) ) {
@@ -35,6 +36,12 @@ int main(int argc, char* argv[], char* envp[]) {
     while (envp[i]) printf("%s\n", envp[i++]);
     printf("args:\n");
     for (i = 0; i < argc ; i++) printf("%s\n", argv[i]);
+  }
+
+  if (strcmp(argv[0], "shell")) {
+    swtchBfr(argv[0]);
+    yyparse();
+    exit(0);
   }
 
   struct sigaction c, d;
