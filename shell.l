@@ -81,6 +81,7 @@ char * subshell (char ** input) {
     dup2(p[1], 1);
     close(p[0]);
     close(p[1]);
+    printf("input: %s\n", input[0]);
     execvp("/proc/self/exe", input);
 
     perror("child");
@@ -108,7 +109,7 @@ char * subshell (char ** input) {
   return WORD;
 }
 
-"""$(".*")""" {
+"""$("(([^\n]*[^\\\n])|"")")" {
   char ** word = (char**) malloc(2);
   *(word + 1) = 0;
   *word = (char *)malloc(strlen(yytext) - 2);
@@ -125,6 +126,7 @@ char * subshell (char ** input) {
   *word = (char *)malloc(strlen(yytext) - 1);
   memcpy(*word, yytext + 1, strlen(yytext) - 2);
   word[0][strlen(yytext) - 1] = '\0';
+  printf("yytext: %s\n", yytext);
   char * buf = subshell(word);
   unputStr(buf);
   //free(*word);
