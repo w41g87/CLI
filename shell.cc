@@ -40,7 +40,7 @@ int main(int argc, char* argv[], char* envp[]) {
   // }
 
   if (strcmp(argv[1], "shell")) {
-    char * input = malloc(strlen(argv[1]) + 2);
+    char * input = (char *) malloc(strlen(argv[1]) + 2);
     strcpy(input, argv[1]);
     input[strlen(argv[1])] = '\n';
     //printf("subshell: %s\n", argv[1]);
