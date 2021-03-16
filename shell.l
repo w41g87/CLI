@@ -93,7 +93,7 @@ char * subshell (char ** input) {
   while ((c = fgetc (file)) != EOF) {
     if (j == size) {
       size *= 2;
-      out = realloc(out, size);
+      out = (char*)realloc(out, size);
       for (int i = size / 2; i < size; i++) out[i] = 0;
     }
     out[j++] = c;
