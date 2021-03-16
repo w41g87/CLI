@@ -98,9 +98,8 @@ char * subshell (char ** input) {
     }
     out[j++] = c;
   }
-  fflush(p[0]);
+  fflush(file);
   fclose (file);
-  flush(p[0]);
   close(p[0]);
   
   //printf("print ended\n");
