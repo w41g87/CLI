@@ -123,7 +123,7 @@ char * subshell (char ** input) {
   *(word + 1) = 0;
   *word = (char *)malloc(strlen(yytext) - 1);
   memcpy(*word, yytext + 1, strlen(yytext) - 2);
-  word[0][strlen(yytext) - 1] = '\0';
+  word[0][strlen(yytext) - 2] = '\0';
   printf("yytext: %s\n", yytext);
   char * buf = subshell(word);
   unputStr(buf);
