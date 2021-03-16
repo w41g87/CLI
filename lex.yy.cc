@@ -1091,9 +1091,9 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 #line 182 "shell.l"
 {
-  Shell::_currentCommand.execute();
   //YY_FLUSH_BUFFER;
   yypop_buffer_state();
+  Shell::_currentCommand.execute();
   if ( !YY_CURRENT_BUFFER ) {
     yyterminate();
   }

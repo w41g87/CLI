@@ -180,9 +180,8 @@ char * subshell (char ** input) {
 }
 
 <<EOF>> {
-  //YY_FLUSH_BUFFER;
+  YY_FLUSH_BUFFER;
   yypop_buffer_state();
-  Shell::_currentCommand.execute();
   if ( !YY_CURRENT_BUFFER ) {
     yyterminate();
   }
