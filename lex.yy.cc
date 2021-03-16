@@ -1000,7 +1000,7 @@ YY_RULE_SETUP
   unputStr(buf);
   free(*word);
   free(word);
-  free(buf)
+  free(buf);
 }
 	YY_BREAK
 case 5:

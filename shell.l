@@ -21,6 +21,10 @@ void myunputc(int c) {
   unput(c);
 }
 
+void initBfr() {
+  yypush_buffer_state(yy_create_buffer(stdin, YY_BUF_SIZE));
+}
+
 void swtchBfr(char * input) {
   yy_switch_to_buffer(yy_scan_string(input));
 }
