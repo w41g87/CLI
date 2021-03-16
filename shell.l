@@ -90,7 +90,7 @@ char * subshell (char ** input) {
 
   int j, c;
   FILE* file = fdopen (p[0], "r");
-  while ((c = fgetc (stream)) != EOF) {
+  while ((c = fgetc (file)) != EOF) {
     if (j == size) {
       size *= 2;
       out = realloc(out, size);
