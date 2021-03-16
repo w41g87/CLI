@@ -646,13 +646,13 @@ int subshell (char ** input) {
     dup2(p[0], 1);
     close(p[0]);
     execvp("/proc/self/exe", input);
-  } else {
-    printf("main proc\n");
-    read(p[1], buf, 8191);
-    close(p[0]);
-    close(p[1]);
-    printf("%s", buf);
-  }
+  } else printf("main proc\n");
+
+  waitpid(pid, 0, 0);
+  read(p[1], buf, 8191);
+  close(p[0]);
+  close(p[1]);
+  printf("%s", buf);
 }
 
 
