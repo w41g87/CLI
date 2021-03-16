@@ -643,7 +643,7 @@ void unputStr(char * input) {
 
 char ** subshell (char ** input) {
   //printf("subshell function call: %s\n", input[0]);
-  char** buf = malloc(1);
+  char** buf = (char**)malloc(1);
   *buf = (char*)malloc(8192);
   for (int i = 0; i < 8192; i++) buf[0][i] = 0;
   int p[2];
