@@ -607,7 +607,7 @@ void swtchBfr(char * input) {
 }
 
 void delBfr() {
-  yylex_destroy();
+  yypop_buffer_state();
 }
 
 void source(char * file) {
