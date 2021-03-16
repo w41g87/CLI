@@ -653,7 +653,7 @@ int subshell (char ** input) {
   read(p[0], buf, 8191);
   close(p[0]);
   close(p[1]);
-  printf("buffer: %s", buf);
+  printf("buffer: %s\n\n\n", buf);
 }
 
 

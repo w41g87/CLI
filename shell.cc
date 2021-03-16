@@ -9,7 +9,7 @@ int yyparse(void);
 void swtchBfr(char*);
 
 void Shell::prompt() {
-  if ( isatty(0) ) {
+  if ( isatty(0) && isatty(1) ) {
     printf("λ> ");
     fflush(stdout);
   }
