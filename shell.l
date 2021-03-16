@@ -20,7 +20,7 @@ void myunputc(int c) {
 }
 
 void swtchBfr(char * input) {
-  YY_BUFFER_STATE ybs = yy_scan_string(argv[0]);
+  YY_BUFFER_STATE ybs = yy_scan_string(input);
   yypop_buffer_state();
   yypush_buffer_state(ybs);
 }

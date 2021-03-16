@@ -630,8 +630,8 @@ std::string * removeE(char * s) {
 
 int subshell (char ** input) {
   char buf[8192];
-  int pipe[2];
-  if ( pipe(pin) == -1 || pipe(pout) == -1) {
+  int p[2];
+  if ( pipe(p) == -1) {
     perror( "shell: pipe");
     exit( 2 );
   }
@@ -642,13 +642,13 @@ int subshell (char ** input) {
   }
 
   if (pid == 0) {
-    dup2(pipe[0], 1);
-    close(pipe[0]);
+    dup2(p[0], 1);
+    close(p[0]);
     execvp("/proc/self/exe", input);
   } else {
-    read(pipe[1], buf, 8191);
-    close(pipe[0]);
-    close(pipe[1]);
+    read(p[1], buf, 8191);
+    close(p[0]);
+    close(p[1]);
   }
 }
 
