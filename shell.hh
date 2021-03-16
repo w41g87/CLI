@@ -12,6 +12,8 @@ struct Shell {
   static void elimination(int);
 
   static Command _currentCommand;
+
+  static bool isPrompt;
 };
 
 #endif
