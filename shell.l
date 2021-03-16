@@ -97,6 +97,8 @@ char * subshell (char ** input) {
     out[i++] = c;
   }
   out[i] = 0;
+
+  printf("size: %d", size);
   fflush(file);
   fclose (file);
   close(p[0]);
