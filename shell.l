@@ -14,6 +14,7 @@
 #include <sys/types.h> 
 #include <sys/wait.h> 
 #include "y.tab.hh"
+#include "shell.hh"
 
 static  void yyunput (int c,char *buf_ptr  );
 
