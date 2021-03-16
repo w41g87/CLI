@@ -45,8 +45,8 @@ int main(int argc, char* argv[], char* envp[]) {
     strcpy(input, argv[0]);
     input[strlen(argv[0])] = '\n';
     printf("subshell: %s\n", input);
-    //swtchBfr(input);
-    //yyparse();
+    swtchBfr(input);
+    yyparse();
     //free(input);
     exit(0);
   }
