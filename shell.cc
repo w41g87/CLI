@@ -70,6 +70,7 @@ int main(int argc, char* argv[], char* envp[]) {
   }
 
   Command::_currentSimpleCommand = new SimpleCommand();
+  initBfr();
   Command::_currentSimpleCommand->insertArgument( new std::string("source") );
   Command::_currentSimpleCommand->insertArgument( new std::string(".shellrc") );
   Shell::_currentCommand.insertSimpleCommand( Command::_currentSimpleCommand );
