@@ -7,6 +7,7 @@
 
 int yyparse(void);
 void swtchBfr(char*);
+void initBfr();
 
 void Shell::prompt() {
   if ( isatty(0) && isatty(1) ) {
