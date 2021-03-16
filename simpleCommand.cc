@@ -40,6 +40,7 @@ char ** SimpleCommand::toString() {
     printf("%s | %s\n", arg->c_str(), *(output + i));
     i++;
   }
+  printf("i = %d\n", i);
   *(output + i) = NULL;
   return output;
 }
