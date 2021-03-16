@@ -47,13 +47,16 @@ std::string * removeE(char * s) {
 
 void unputStr(char * input) {
   int i = 0;
-  while(input[i++] != '\0');
+  while(input[i] != '\0') {
+    if (input[i] == '\n') input[i] = ' ';
+    i++;
+  }
   if (i == 0) printf("shell: subshell execution error\n");
-  else for (i = i - 2; i >= 0; i--) myunputc(input[i]);
+  else for (i = i - 1; i >= 0; i--) myunputc(input[i]);
 }
 
 char * subshell (char ** input) {
-  printf("subshell function call: %s\n", input[0]);
+  //printf("subshell function call: %s\n", input[0]);
   char* buf = (char*)malloc(8192);
   int p[2];
   if ( pipe(p) == -1) {
@@ -67,7 +70,7 @@ char * subshell (char ** input) {
   }
 
   if (pid == 0) {
-    printf("child proc\n");
+    //printf("child proc\n");
     dup2(p[1], 1);
     close(p[0]);
     close(p[1]);

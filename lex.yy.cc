@@ -630,7 +630,7 @@ void unputStr(char * input) {
   int i = 0;
   while(input[i++] != '\0');
   if (i == 0) printf("shell: subshell execution error\n");
-  else for (i = i - 2; i >= 0; i--) yyunput(input[i]);
+  else for (i = i - 2; i >= 0; i--) myunputc(input[i]);
 }
 
 char * subshell (char ** input) {
