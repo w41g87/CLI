@@ -644,8 +644,8 @@ void unputStr(char * input) {
 
 char * subshell (char ** input) {
   //printf("subshell function call: %s\n", input[0]);
-  char* buf = (char*)malloc(8192);
-  for (int i = 0; i < 8192; i++) buf[i] = 0;
+  char* out = (char*)malloc(8192);
+  for (int i = 0; i < 8192; i++) out[i] = 0;
   int p[2];
   if ( pipe(p) == -1) {
     perror( "shell: pipe");
@@ -666,10 +666,10 @@ char * subshell (char ** input) {
     perror("child");
   }
   waitpid(pid, 0, 0);
-  read(p[0], buf, 8191);
+  read(p[0], out, 8191);
   //close(p[0]);
   //close(p[1]);
-  return buf;
+  return out;
 }
 
 
@@ -1003,11 +1003,11 @@ YY_RULE_SETUP
   word[0] = (char *)malloc(6);
   strcpy(*word, "shell\0");
   printf("yytext: %s\n", yytext);
-  char * buf = subshell(word);
-  unputStr(buf);
+  char * out = subshell(word);
+  unputStr(out);
   //free(*word);
   //free(word);
-  //free(buf);
+  //free(out);
 }
 	YY_BREAK
 case 5:
