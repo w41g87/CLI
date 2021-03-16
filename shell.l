@@ -45,9 +45,16 @@ std::string * removeE(char * s) {
   return str;
 }
 
-int subshell (char ** input) {
+void unputStr(char * input) {
+  int i = 0;
+  while(input[i++] != '\0');
+  if (i == 0) printf("shell: subshell execution error\n");
+  else for (i = i - 2; i >= 0; i--) yyunput(input[i]);
+}
+
+char * subshell (char ** input) {
   printf("subshell function call: %s\n", input[0]);
-  char buf[8192];
+  char* buf = (char*)malloc(8192);
   int p[2];
   if ( pipe(p) == -1) {
     perror( "shell: pipe");
@@ -72,7 +79,7 @@ int subshell (char ** input) {
   read(p[0], buf, 8191);
   close(p[0]);
   close(p[1]);
-  printf("buffer: %s\n\n\n", buf);
+  return buf;
 }
 
 
@@ -108,7 +115,8 @@ int subshell (char ** input) {
   *temp = (char *)malloc(strlen(yytext) - 1);
   memcpy(*temp, yytext + 1, strlen(yytext) - 2);
   temp[0][strlen(yytext) - 1] = '\0';
-  subshell(temp);
+  char * buf = subshell(temp);
+  unputStr(buf);
   free(*temp);
   free(temp);
 }
