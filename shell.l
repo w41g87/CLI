@@ -73,7 +73,7 @@ int subshell (char ** input) {
   read(p[1], buf, 8191);
   close(p[0]);
   close(p[1]);
-  printf("%s", buf);
+  printf("buffer: %s", buf);
 }
 
 
