@@ -42,6 +42,6 @@ char ** SimpleCommand::toString() {
   }
   //printf("i = %d\n", i);
   output[4] = 0;
-  for (int j = 0; j < i; j++) printf("output[%d]: %s\n", j, output[j]);
+  for (int j = 0; j <= i; j++) printf("output[%d]: %s\n", j, output[j]);
   return output;
 }
