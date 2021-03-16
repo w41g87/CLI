@@ -164,7 +164,7 @@ int subshell (char ** input) {
   yypop_buffer_state();
   YY_FLUSH_BUFFER;
   if ( !YY_CURRENT_BUFFER ) {
-    //yyterminate();
+    yyterminate();
   }
   return NEWLINE;
 }
