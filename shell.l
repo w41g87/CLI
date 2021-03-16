@@ -60,10 +60,11 @@ void unputStr(char * input) {
   else for (i = i - 1; i >= 0; i--) myunputc(input[i]);
 }
 
-char * subshell (char ** input) {
+char ** subshell (char ** input) {
   //printf("subshell function call: %s\n", input[0]);
-  char* buf = (char*)malloc(8192);
-  for (int i = 0; i < 8192; i++) buf[i] = 0;
+  char** buf = malloc(1);
+  *buf = (char*)malloc(8192);
+  for (int i = 0; i < 8192; i++) buf[0][i] = 0;
   int p[2];
   if ( pipe(p) == -1) {
     perror( "shell: pipe");
@@ -85,7 +86,7 @@ char * subshell (char ** input) {
     perror("child");
   }
   waitpid(pid, 0, 0);
-  read(p[0], buf, 8191);
+  read(p[0], buf[0], 8191);
   close(p[0]);
   close(p[1]);
   return buf;
@@ -124,8 +125,8 @@ char * subshell (char ** input) {
   *word = (char *)malloc(strlen(yytext) - 1);
   memcpy(*word, yytext + 1, strlen(yytext) - 2);
   word[0][strlen(yytext) - 1] = '\0';
-  char * buf = subshell(word);
-  unputStr(buf);
+  char ** buf = subshell(word);
+  unputStr(buf[0]);
   //free(*word);
   //free(word);
   //free(buf);

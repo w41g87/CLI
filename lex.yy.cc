@@ -1002,9 +1002,9 @@ YY_RULE_SETUP
   word[0][strlen(yytext) - 1] = '\0';
   char * buf = subshell(word);
   unputStr(buf);
-  free(*word);
-  free(word);
-  free(buf);
+  //free(*word);
+  //free(word);
+  //free(buf);
 }
 	YY_BREAK
 case 5:
