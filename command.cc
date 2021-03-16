@@ -261,6 +261,7 @@ void Command::execute() {
             
             printf("Params:\n");
             for (unsigned int j = 0; j < simpleCommand->_arguments.size(); j++) {
+                printf("cmd: %s\n", simpleCommand->_arguments.front()->c_str());
                printf("%d: %s\n", j, *(simpleCommand->toString() + j));
             }
             // You can use execvp() instead if the arguments are stored in an array
