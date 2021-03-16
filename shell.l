@@ -61,14 +61,15 @@ int subshell (char ** input) {
 
   if (pid == 0) {
     printf("child proc\n");
-    dup2(p[0], 1);
+    dup2(p[1], 1);
     close(p[0]);
+    close(p[1]);
     execvp("/proc/self/exe", input);
 
     perror("child");
   }
   waitpid(pid, 0, 0);
-  read(p[1], buf, 8191);
+  read(p[0], buf, 8191);
   close(p[0]);
   close(p[1]);
   printf("buffer: %s", buf);
