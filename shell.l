@@ -179,12 +179,12 @@ char * subshell (char ** input) {
 }
 
 <<EOF>> {
-  printf("EOF reached\n");
   YY_FLUSH_BUFFER;
   yypop_buffer_state();
   if ( !YY_CURRENT_BUFFER ) {
     yyterminate();
   }
+  printf("EOF reached\n");
   YY_FLUSH_BUFFER;
   return NEWLINE;
 }
