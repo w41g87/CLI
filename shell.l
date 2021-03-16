@@ -79,21 +79,22 @@ char * subshell (char ** input) {
   if (pid == 0) {
     printf("input: %s\n", input[0]);
     dup2(p[1], 1);
-    //close(p[0]);
-    //close(p[1]);
+    close(p[0]);
+    close(p[1]);
     execvp("/proc/self/exe", input);
     perror("child");
   }
   waitpid(pid, 0, 0);
   FILE *stream;
   int c;
+  close(p[1]);
   stream = fdopen (p[0], "r");
   while ((c = fgetc (stream)) != EOF)
     putchar (c);
   fclose (stream);
   //read(p[0], out, 99);
   //close(p[0]);
-  //close(p[1]);
+  
   strcpy(out, "kfc");
   printf("print ended");
   return out;
