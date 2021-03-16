@@ -31,9 +31,7 @@ void source(char * file) {
     perror("IO");
     return;
   }
-  
-  YY_BUFFER_STATE ybs = yy_create_buffer(fp, YY_BUF_SIZE);
-  yypush_buffer_state(ybs);
+  yypush_buffer_state(yy_create_buffer(fp, YY_BUF_SIZE));
 }
 
 std::string * removeE(char * s) {

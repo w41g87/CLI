@@ -40,13 +40,13 @@ int main(int argc, char* argv[], char* envp[]) {
   // }
 
   if (strcmp(argv[0], "shell")) {
-    // char * input = (char *) malloc(strlen(argv[1]) + 2);
-    // strcpy(input, argv[0]);
-    // input[strlen(argv[0])] = '\n';
+    char * input = (char *) malloc(strlen(argv[0]) + 2);
+    strcpy(input, argv[0]);
+    input[strlen(argv[0])] = '\n';
     //printf("subshell: %s\n", argv[1]);
-    swtchBfr(argv[1]);
+    swtchBfr(input);
     yyparse();
-    //free(input);
+    free(input);
     exit(0);
   }
 
@@ -73,10 +73,9 @@ int main(int argc, char* argv[], char* envp[]) {
   Command::_currentSimpleCommand->insertArgument( new std::string("source") );
   Command::_currentSimpleCommand->insertArgument( new std::string(".shellrc") );
   Shell::_currentCommand.insertSimpleCommand( Command::_currentSimpleCommand );
-  
+  Shell::_currentCommand.execute();
   //Shell::prompt();
   yyparse();
-  Shell::_currentCommand.execute();
 }
 
 Command Shell::_currentCommand;
