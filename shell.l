@@ -95,6 +95,7 @@ char * subshell (char ** input) {
       out = (char*)realloc(out, size);
     }
     out[i++] = c;
+    putchar(c);
   }
   out[i] = 0;
 
