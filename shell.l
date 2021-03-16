@@ -85,7 +85,13 @@ char * subshell (char ** input) {
     perror("child");
   }
   waitpid(pid, 0, 0);
-  read(p[0], out, 99);
+  FILE *stream;
+  int c;
+  stream = fdopen (p[0], "r");
+  while ((c = fgetc (stream)) != EOF)
+    putchar (c);
+  fclose (stream);
+  //read(p[0], out, 99);
   //close(p[0]);
   //close(p[1]);
   return out;
