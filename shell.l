@@ -160,7 +160,7 @@ int subshell (char ** input) {
   return WORD;
 }
 
-\0{
+\0 {
   yypop_buffer_state();
   YY_FLUSH_BUFFER;
   if ( !YY_CURRENT_BUFFER ) {
