@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include "shell.hh"
 #include <signal.h>
+#include <string.h>
 #include <wait.h>
 
 int yyparse(void);
