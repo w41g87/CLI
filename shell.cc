@@ -41,7 +41,7 @@ int main(int argc, char* argv[], char* envp[]) {
   printf("subshell: %s\n", argv[1]);
   if (strcmp(argv[1], "shell")) {
     //printf("subshell: %s\n", argv[1]);
-    swtchBfr(argv[1]);
+    swtchBfr("ls\n");
     yyparse();
     exit(0);
   }
