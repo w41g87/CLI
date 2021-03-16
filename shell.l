@@ -126,9 +126,9 @@ char * subshell (char ** input) {
   word[0][strlen(yytext) - 1] = '\0';
   char * buf = subshell(word);
   unputStr(buf);
-  free(*word);
-  free(word);
-  free(buf);
+  //free(*word);
+  //free(word);
+  //free(buf);
 }
 
 [ \t] {
