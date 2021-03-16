@@ -47,7 +47,7 @@ std::string * removeE(char * s) {
 }
 
 int subshell (char ** input) {
-  printf("subshell function call\n");
+  printf("subshell function call: %s\n", input[0]);
   char buf[8192];
   int p[2];
   if ( pipe(p) == -1) {
