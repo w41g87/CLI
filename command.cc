@@ -144,7 +144,8 @@ void Command::execute() {
             return;
         }
 
-        char ** arg = _simpleCommands.front()->toString();
+        //char ** arg = _simpleCommands.front()->toString();
+        printf("First Time\n");
         _simpleCommands.front()->toString();
         while(arg[i++]);
         if (!strcmp(cmd, "setenv")) {
@@ -181,6 +182,7 @@ void Command::execute() {
             return;
         }
     }
+    printf("Second Time\n");
     _simpleCommands.front()->toString();
     // Add execution here
     // For every simple command fork a new process
