@@ -60,7 +60,7 @@ void unputStr(char * input) {
   }
   if (i == 0) printf("shell: subshell execution error\n");
   else for (i = i - 1; i >= 0; i--) {
-    printf("%c", input[i]);
+    //printf("%c", input[i]);
     myunputc(input[i]);
   }
 }
@@ -100,12 +100,12 @@ char * subshell (char ** input) {
       out = (char*)realloc(out, size);
     }
     out[i++] = c;
-    putchar(c);
+    //putchar(c);
   }
   out[i] = 0;
 
-  printf("size: %d\n", size);
-  printf("str: %s\n", out);
+  //printf("size: %d\n", size);
+  //printf("str: %s\n", out);
   
   fclose(file);
   close(p[0]);
