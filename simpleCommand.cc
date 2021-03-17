@@ -34,7 +34,7 @@ void SimpleCommand::print() {
 
 char ** SimpleCommand::toString() {
   char ** output = (char**)calloc(_arguments.size() + 1, sizeof(char));
-  //printf("argument size: %d\n", _arguments.size());
+  printf("argument size: %d\n", _arguments.size());
   // int i = 0;
   // for (auto & arg : _arguments) {
   //   //printf("arg length: %d\n", arg->length());
