@@ -13,6 +13,7 @@ struct Command {
   bool _background;
   bool _appendO;
   bool _appendE;
+  bool _init;
   int _pid;
 
   Command();

@@ -45,6 +45,7 @@ Command::Command() {
     _background = false;
     _appendO = false;
     _appendE = false;
+    _init = true;
     _pid = 0;
 }
 
@@ -77,7 +78,7 @@ void Command::clear() {
         delete _errFile;
     }
     _errFile = NULL;
-
+    _init = false;
     _background = false;
     _appendO = false;
     _appendE = false;
@@ -118,6 +119,12 @@ void Command::embedDest(char** args) {
 }
 
 void Command::execute() {
+    if (_init && access(".shellrc", R_OK) != -1) {
+        clear();
+        source(".shellrc");
+        return;
+    }
+
     // Don't do anything if there are no simple commands
     if ( _simpleCommands.size() == 0 ) {
         Shell::prompt();
