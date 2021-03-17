@@ -1028,10 +1028,10 @@ YY_RULE_SETUP
   //printf("yytext: %s\n", yytext);
   char * out = subshell(word);
   unputStr(out);
-  //free(*word);
-  //free(word[1]);
-  //free(word);
-  //free(out);
+  free(*word);
+  free(word[1]);
+  free(word);
+  free(out);
 }
 	YY_BREAK
 case 5:
