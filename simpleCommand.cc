@@ -33,19 +33,27 @@ void SimpleCommand::print() {
 char ** SimpleCommand::toString() {
   char ** output = (char**)malloc(_arguments.size() + 1);
   //printf("argument size: %d\n", _arguments.size());
-  int i = 0;
-  for (auto & arg : _arguments) {
-    //printf("arg length: %d\n", arg->length());
-    //printf("%d %d %d", arg->c_str()[0], arg->c_str()[1], arg->c_str()[2]);
+  // int i = 0;
+  // for (auto & arg : _arguments) {
+  //   //printf("arg length: %d\n", arg->length());
+  //   //printf("%d %d %d", arg->c_str()[0], arg->c_str()[1], arg->c_str()[2]);
+  //   output[i] = (char*)malloc(arg->length() + 1);
+  //   strcpy(output[i], arg->c_str());
+  //   output[i][arg->length()] = '\0';
+  //   printf("%s | %s\n", arg->c_str(), *(output + i));
+  //   i++;
+  // }
+
+  for (int i = 0; i < _arguments.size(); i++) {
+    std::string * arg = _arguments[i];
     output[i] = (char*)malloc(arg->length() + 1);
     strcpy(output[i], arg->c_str());
     output[i][arg->length()] = '\0';
     printf("%s | %s\n", arg->c_str(), *(output + i));
-    i++;
   }
   //printf("i = %d\n", i);
   //printf("output[0] before null assignment: %s\n", output[0]);
-  //output[i] = NULL;
+  output[i] = NULL;
   //printf("output[0] after null assignment: %s\n", output[0]);
   for (int j = 0; j <= i; j++) printf("output[%d]: %s\n", j, output[j]);
   return output;
