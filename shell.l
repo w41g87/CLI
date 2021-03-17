@@ -13,6 +13,7 @@
 #include <unistd.h>
 #include <sys/types.h> 
 #include <sys/wait.h> 
+#include <iostream>
 #include "y.tab.hh"
 #include "shell.hh"
 
