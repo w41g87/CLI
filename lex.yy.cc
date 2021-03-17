@@ -1119,7 +1119,7 @@ YY_RULE_SETUP
 {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = removeE(yytext);
-  //printf("lex scanned: %s\n", yytext);
+  printf("lex scanned: %s\n", yytext);
   return WORD;
 }
 	YY_BREAK
