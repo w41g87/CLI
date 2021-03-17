@@ -130,7 +130,7 @@ char * subshell (char ** input) {
   return NEWLINE;
 }
 
-(([^ \t\n]*[^\\ \t\n])|"")";"{
+(([^ \t\n]*[^\\ \t\n])|""); {
   return NEWLINE;
 }
 
