@@ -142,8 +142,8 @@ char * subshell (char ** input) {
   unputStr(out);
   free(*word);
   free(word[1]);
-  free(word);
-  free(out);
+  //free(word);
+  //free(out);
 }
 
 """`"(([^\n]*[^\\\n])|"")"`" {
@@ -159,8 +159,8 @@ char * subshell (char ** input) {
   unputStr(out);
   free(*word);
   free(word[1]);
-  free(word);
-  free(out);
+  //free(word);
+  //free(out);
 }
 
 [ \t] {
