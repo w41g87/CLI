@@ -31,7 +31,7 @@ void Shell::elimination(int signum) {
 }
 
 int main(int argc, char* argv[], char* envp[]) {
-  
+  printf("%d %d\n", sizeof(char), sizeof(char*));
   // {
   //   int i = 0;
   //   printf("envp:\n");
