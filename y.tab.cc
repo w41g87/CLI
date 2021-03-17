@@ -1317,7 +1317,7 @@ yyreduce:
   case 12:
 #line 83 "shell.y" /* yacc.c:1646  */
     {
-    printf("   Yacc: insert argument \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
+    //printf("   Yacc: insert argument \"%s\"\n", $1->c_str());
     Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
   }
 #line 1324 "y.tab.cc" /* yacc.c:1646  */

@@ -133,8 +133,7 @@ void Command::execute() {
     int errF = 0;
 
     // Print contents of Command data structure
-    //print();
-
+    if ( isatty(0) && isatty(1) && Shell::isPrompt) print();
     // Embedded commands
 
     {    
