@@ -268,7 +268,7 @@ void Command::execute() {
                 perror( "shell: fork\n");
                 exit( 2 );
             }
-            printf("pid = %d", _pid);
+            
             if (_pid == 0) {
                 //Child
                 const char * cmd = simpleCommand->_arguments.front()->c_str();
@@ -278,6 +278,7 @@ void Command::execute() {
                 // close(fdpipe[1]);
                 
                 //printf("Params:\n");
+                printf("pid = %d", _pid);
                 printf("cmd: %s\n", cmd);
 
                 // for (unsigned int j = 0; j < simpleCommand->_arguments.size(); j++) {
