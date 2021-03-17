@@ -157,8 +157,8 @@ char * subshell (char ** input) {
   //printf("yytext: %s\n", yytext);
   char * out = subshell(word);
   unputStr(out);
-  free(*word);
-  free(word[1]);
+  //free(*word);
+  //free(word[1]);
   //free(word);
   //free(out);
 }

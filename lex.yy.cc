@@ -1015,8 +1015,8 @@ YY_RULE_SETUP
   unputStr(out);
   free(*word);
   free(word[1]);
-  free(word);
-  free(out);
+  //free(word);
+  //free(out);
 }
 	YY_BREAK
 case 4:
@@ -1035,8 +1035,8 @@ YY_RULE_SETUP
   unputStr(out);
   free(*word);
   free(word[1]);
-  free(word);
-  free(out);
+  //free(word);
+  //free(out);
 }
 	YY_BREAK
 case 5:
