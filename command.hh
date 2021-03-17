@@ -17,7 +17,7 @@ struct Command {
 
   Command();
   void insertSimpleCommand( SimpleCommand * simpleCommand );
-
+  void embedDest(char**);
   void clear();
   void print();
   void execute();
