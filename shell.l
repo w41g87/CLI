@@ -144,11 +144,12 @@ char * subshell (char ** input) {
   word[0] = (char *)malloc(6);
   strcpy(*word, "shell\0");
   char * out = subshell(word);
-  unputStr(out);
   free(*word);
   free(word[1]);
-  //free(word);
-  //free(out);
+  free(word);
+
+  unputStr(out);
+  free(out);
 }
 
 """`"(([^\n]*[^\\\n])|"")"`" {
@@ -162,12 +163,12 @@ char * subshell (char ** input) {
   //printf("yytext: %s\n", yytext);
 
   char * out = subshell(word);
-  //free(*word);
-  //free(word[1]);
-  //free(word);
+  free(*word);
+  free(word[1]);
+  free(word);
 
   unputStr(out);
-  //free(out);
+  free(out);
 }
 
 [ \t] {
