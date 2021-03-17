@@ -276,14 +276,16 @@ void Command::execute() {
                 // close(fdpipe[0]);
                 // close(fdpipe[1]);
                 
-                printf("Params:\n");
-                printf("cmd: %s\n", simpleCommand->_arguments.front()->c_str());
+                //printf("Params:\n");
+                //printf("cmd: %s\n", simpleCommand->_arguments.front()->c_str());
 
                 // for (unsigned int j = 0; j < simpleCommand->_arguments.size(); j++) {
                 //     printf("%d: %s\n", j, *(simpleCommand->toString() + j));
                 // }
                 // You can use execvp() instead if the arguments are stored in an array
-                execvp(simpleCommand->_arguments.front()->c_str(), simpleCommand->toString());
+                char * cmd = simpleCommand->_arguments.front()->c_str();
+                char ** args = simpleCommand->toString();
+                execvp(cmd, args);
 
                 // exec() is not suppose to return, something went wrong
                 perror( "shell: Execution error");
