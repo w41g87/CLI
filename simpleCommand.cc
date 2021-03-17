@@ -33,7 +33,7 @@ void SimpleCommand::print() {
 }
 
 char ** SimpleCommand::toString() {
-  char ** output = (char**)calloc(_arguments.size() + 1, sizeof(char));
+  char ** output = (char**)calloc(_arguments.size() + 1, sizeof(char*));
   //printf("argument size: %d\n", _arguments.size());
   // int i = 0;
   // for (auto & arg : _arguments) {

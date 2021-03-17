@@ -175,7 +175,7 @@ void Command::execute() {
             while(arg[i++]);
             if (i != 3) cout << "unsetenv: argument number mismatch." << endl;
             else if (unsetenv(arg[1]) != 0) perror("unsetenv");
-            //embedDest(arg);
+            embedDest(arg);
             return;
         }
         if (!strcmp(cmd, "cd")) {
