@@ -109,6 +109,14 @@ void Command::print() {
     printf( "\n\n" );
 }
 
+void Command::embedDest(char** args) {
+    int i;
+    while(args[i++]) free(args[i]);
+    free(args);
+    clear();
+    Shell::prompt();
+}
+
 void Command::execute() {
     // Don't do anything if there are no simple commands
     if ( _simpleCommands.size() == 0 ) {
@@ -143,45 +151,44 @@ void Command::execute() {
         
         if (!strcmp(cmd, "printenv")) {
             while(environ[i]) cout << environ[i++] << endl;
-            clear();
-            Shell::prompt();
             return;
         }
 
-        char ** arg = _simpleCommands.front()->toString();
-        printf("After first call: %s", _simpleCommands.front()->_arguments.front()->c_str());
-        while(arg[i++]);
         if (!strcmp(cmd, "setenv")) {
+            char ** arg = _simpleCommands.front()->toString();
+            while(arg[i++]);
             if (i != 4) cout << "setenv: argument number mismatch." << endl;
             else if (setenv(arg[1], arg[2], 1) != 0) perror("setenv");
-            clear();
-            Shell::prompt();
+            embadDest(arg);
             return;
         }
         if (!strcmp(cmd, "unsetenv")) {
+            char ** arg = _simpleCommands.front()->toString();
+            while(arg[i++]);
             if (i != 3) cout << "unsetenv: argument number mismatch." << endl;
             else if (unsetenv(arg[1]) != 0) perror("unsetenv");
-            clear();
-            Shell::prompt();
+            embadDest(arg);
             return;
         }
         if (!strcmp(cmd, "cd")) {
+            char ** arg = _simpleCommands.front()->toString();
+            while(arg[i++]);
             //printf("%d\n", i);
             if (i > 3) cout << "cd: too many arguments." << endl;
             else if (i == 2) chdir(getenv("HOME"));
             else if (chdir(arg[1]) != 0) perror("cd");
-            clear();
-            Shell::prompt();
+            embadDest(arg);
             return;
         }
         if (!strcmp(cmd, "source")) {
+            char ** arg = _simpleCommands.front()->toString();
+            while(arg[i++]);
             if (i != 3) cout << "source: argument number mismatch." << endl;
             else {
                 clear();
                 source(arg[1]);
             }
-            clear();
-            Shell::prompt();
+            embadDest(arg);
             return;
         }
     }
