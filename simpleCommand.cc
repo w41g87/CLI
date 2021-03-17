@@ -13,7 +13,6 @@ SimpleCommand::SimpleCommand() {
 SimpleCommand::~SimpleCommand() {
   // iterate over all the arguments and delete them
   _arguments.clear();
-  delete _arguments;
 }
 
 void SimpleCommand::insertArgument( std::string * argument ) {
