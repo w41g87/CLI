@@ -283,7 +283,7 @@ void Command::execute() {
                 //     printf("%d: %s\n", j, *(simpleCommand->toString() + j));
                 // }
                 // You can use execvp() instead if the arguments are stored in an array
-                char * cmd = simpleCommand->_arguments.front()->c_str();
+                const char * cmd = simpleCommand->_arguments.front()->c_str();
                 char ** args = simpleCommand->toString();
                 execvp(cmd, args);
 
