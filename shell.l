@@ -42,11 +42,11 @@ void source(char * file) {
   yypush_buffer_state(yy_create_buffer(fp, YY_BUF_SIZE));
 }
 
-std::string removeE(char * s) {
-  std::string str = std::string();
+std::string * removeE(char * s) {
+  std::string* str = new std::string();
   for(int i = 0; i < strlen(s); i++) {
     if ((i > 0 && s[i - 1] == '\\') || (s[i] != '\"' && s[i] != '\\')) {
-      str.push_back(s[i]);
+      str->push_back(s[i]);
       //printf("%c", s[i]);
     }
   }
@@ -212,7 +212,7 @@ char * subshell (char ** input) {
 
 [^ \t\n]+  {
   /* Assume that file names have only alpha chars */
-  yylval.cpp_string = &removeE(yytext);
+  yylval.cpp_string = removeE(yytext);
   printf("lex scanned: %s\n", yytext);
   cout << *yylval.cpp_string << endl;
   return WORD;
