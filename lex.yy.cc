@@ -1120,11 +1120,12 @@ YY_RULE_SETUP
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = removeE(yytext);
   printf("lex scanned: %s\n", yytext);
+  cout << yylval.cpp_string << endl;
   return WORD;
 }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 217 "shell.l"
+#line 218 "shell.l"
 {
   //printf("EOF\n");
   YY_FLUSH_BUFFER;
@@ -1138,10 +1139,10 @@ case YY_STATE_EOF(INITIAL):
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 228 "shell.l"
+#line 229 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1145 "lex.yy.cc"
+#line 1146 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2156,6 +2157,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 228 "shell.l"
+#line 229 "shell.l"
 
 
