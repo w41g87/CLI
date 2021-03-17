@@ -187,7 +187,7 @@ void Command::execute() {
                 clear();
                 source(arg[1]);
             }
-            //embedDest(arg);
+            embedDest(arg);
             //free(arg);
             return;
         }
