@@ -74,8 +74,8 @@ char * subshell (char ** input) {
   printf("subshell function call: %s\n", input[0]);
   int size = 8;
   char* out = (char*)malloc(size);
-  int p[2], q[2];
-  if ( pipe(p) == -1 || pipe(q) == -1) {
+  int p[2];
+  if ( pipe(p) == -1) {
     perror( "shell: pipe");
     exit( 2 );
   }
@@ -88,18 +88,12 @@ char * subshell (char ** input) {
   if (pid == 0) {
     //printf("input: %s\n", input[0]);
     dup2(p[1], 1);
-    dup2(q[0], 0);
     close(p[0]);
     close(p[1]);
-    close(q[0]);
-    close(q[1]);
-    execlp("/proc/self/exe", "shell");
+    execvp("/proc/self/exe", input);
     perror("child");
   }
   close(p[1]);
-  close(q[0]);
-  write(q[1], input[1], strlen(input[1]) + 1);
-  close(q[1]);
   waitpid(pid, 0, 0);
 
   int i, c;
@@ -116,7 +110,7 @@ char * subshell (char ** input) {
   out[i] = 0;
 
   //printf("size: %d\n", size);
-  printf("str: %s\n", out);
+  //printf("str: %s\n", out);
   
   fclose(file);
   close(p[0]);
@@ -219,7 +213,7 @@ char * subshell (char ** input) {
 [^ \t\n]+  {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = removeE(yytext);
-  //printf("lex scanned: %s\n", yytext);
+  printf("lex scanned: %s\n", yytext);
   cout << *yylval.cpp_string << endl;
   return WORD;
 }
