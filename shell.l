@@ -164,7 +164,7 @@ char * subshell (char ** input) {
   //free(word);
 
   unputStr(out);
-  free(out);
+  //free(out);
 }
 
 [ \t] {
