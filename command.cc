@@ -149,7 +149,7 @@ void Command::execute() {
         }
 
         char ** arg = _simpleCommands.front()->toString();
-        printf("After first call: %s", _simpleCommands.front()->_arguments().front()->c_str());
+        printf("After first call: %s", _simpleCommands.front()->_arguments.front()->c_str());
         while(arg[i++]);
         if (!strcmp(cmd, "setenv")) {
             if (i != 4) cout << "setenv: argument number mismatch." << endl;
