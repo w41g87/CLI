@@ -110,7 +110,7 @@ char * subshell (char ** input) {
   out[i] = 0;
 
   //printf("size: %d\n", size);
-  //printf("str: %s\n", out);
+  printf("str: %s\n", out);
   
   fclose(file);
   close(p[0]);
