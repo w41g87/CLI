@@ -130,10 +130,6 @@ char * subshell (char ** input) {
   return NEWLINE;
 }
 
-(([^ \t\n]*[^\\ \t\n])|""); {
-  return NEWLINE;
-}
-
 ((([^ \t\n]*[^\\ \t\n])|"")\"([^(\\\")]*[^\\]|"")\"[^ \t\n]*)+ {
   yylval.cpp_string = removeE(yytext);
   return WORD;
