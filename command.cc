@@ -280,7 +280,7 @@ void Command::execute() {
                 
                 printf("Params:\n");
                 //printf("pid = %d\n", _pid);
-                printf("cmd: %s\n", cmd);
+                printf("cmd: %s\n", simpleCommand->_arguments.front()->c_str());
 
                 for (unsigned int j = 0; j < simpleCommand->_arguments.size(); j++) {
                     printf("%d: %s\n", j, args[j]);
