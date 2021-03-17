@@ -679,7 +679,7 @@ char * subshell (char ** input) {
   }
   close(p[1]);
   close(q[0]);
-  write(q[1], input, strlen(input) + 1);
+  write(q[1], input[1], strlen(input[1]) + 1);
   close(q[1]);
   waitpid(pid, 0, 0);
 

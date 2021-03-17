@@ -93,7 +93,7 @@ char * subshell (char ** input) {
     close(p[1]);
     close(q[0]);
     close(q[1]);
-    execvp("/proc/self/exe");
+    execlp("/proc/self/exe");
     perror("child");
   }
   close(p[1]);
