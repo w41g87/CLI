@@ -33,7 +33,7 @@ void SimpleCommand::print() {
 }
 
 char ** SimpleCommand::toString() {
-  char ** output = (char**)calloc(_arguments.size() + 1);
+  char ** output = (char**)calloc(_arguments.size() + 1, sizeof(char));
   //printf("argument size: %d\n", _arguments.size());
   // int i = 0;
   // for (auto & arg : _arguments) {
@@ -48,14 +48,14 @@ char ** SimpleCommand::toString() {
 
   for (int i = 0; i < _arguments.size(); i++) {
     std::string * arg = _arguments[i];
-    output[i] = (char*)calloc(arg->length() + 1);
+    output[i] = (char*)calloc(arg->length() + 1, sizeof(char));
     strcpy(output[i], arg->c_str());
-    output[i][arg->length()] = '\0';
+    //output[i][arg->length()] = '\0';
     //printf("%s | %s\n", arg->c_str(), output[i]);
   }
   //printf("i = %d\n", i);
   //printf("output[0] before null assignment: %s\n", output[0]);
-  output[_arguments.size()] = NULL;
+  //output[_arguments.size()] = NULL;
   //printf("output[0] after null assignment: %s\n", output[0]);
   for (int i = 0; i <= _arguments.size(); i++) printf("output[%d]: %s\n", i, output[i]);
   return output;
