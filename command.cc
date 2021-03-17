@@ -236,10 +236,11 @@ void Command::execute() {
     // Execution
     {
         unsigned int i = 0;
-        char ** args = simpleCommand->toString();
+        
         int fdpipe[_simpleCommands.size()][2];
 
         for ( auto & simpleCommand : _simpleCommands ) {
+            char ** args = simpleCommand->toString();
             //printf("%d, %s", i, simpleCommand->_arguments.front()->c_str());
 
             if ( pipe(fdpipe[i]) == -1) {
@@ -293,9 +294,9 @@ void Command::execute() {
                 embedDest(args);
                 exit( 2 );
             }
-
+            embedDest(args);
         }
-        embedDest(args);
+        
         //printf("pid: %d", _pid);
         if (!_background) waitpid( _pid, 0, 0 );
         //printf("terminated\n");
