@@ -284,7 +284,7 @@ void Command::execute() {
                 // }
                 // You can use execvp() instead if the arguments are stored in an array
                 const char * cmd = simpleCommand->_arguments.front()->c_str();
-                char ** args = simpleCommand->toString();
+                const char ** args = simpleCommand->toString();
                 execvp(cmd, args);
 
                 // exec() is not suppose to return, something went wrong
