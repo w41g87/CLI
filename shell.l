@@ -47,7 +47,7 @@ std::string * removeE(char * s) {
       //printf("%c", s[i]);
     }
   }
-  str->push_back(0);
+  //str->push_back(0);
   return str;
 }
 
