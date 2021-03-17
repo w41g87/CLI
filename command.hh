@@ -15,6 +15,7 @@ struct Command {
   bool _appendE;
   bool _init;
   int _pid;
+  int _bgpid;
 
   Command();
   void insertSimpleCommand( SimpleCommand * simpleCommand );
