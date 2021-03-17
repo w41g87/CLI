@@ -72,7 +72,7 @@ int main(int argc, char* argv[], char* envp[]) {
   }
   initBfr();
   Shell::_currentCommand.execute();
-  Shell::prompt();
+  //Shell::prompt();
   yyparse();
 }
 
