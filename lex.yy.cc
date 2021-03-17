@@ -1040,7 +1040,7 @@ YY_RULE_SETUP
   //free(word);
 
   unputStr(out);
-  free(out);
+  //free(out);
 }
 	YY_BREAK
 case 5:
