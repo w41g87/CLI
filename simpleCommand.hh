@@ -13,7 +13,7 @@ struct SimpleCommand {
   ~SimpleCommand();
   void insertArgument( std::string * argument );
   void print();
-  constchar** toString();
+  const char** toString();
 };
 
 #endif
