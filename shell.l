@@ -31,7 +31,6 @@ void initBfr() {
 
 void terminate() {
   while ( YY_CURRENT_BUFFER ) yypop_buffer_state();
-  yyterminate();
 }
 
 void swtchBfr(char * input) {
