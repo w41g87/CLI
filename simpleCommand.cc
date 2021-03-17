@@ -36,13 +36,12 @@ char ** SimpleCommand::toString() {
   for (auto & arg : _arguments) {
     *(output + i) = (char*)malloc(arg->length() + 1);
     strcpy(*(output + i), arg->c_str());
-    printf("c_str: %s\n", arg->c_str());
     output[i][arg->length()] = '\0';
-    printf("output: %s\n", output[i]);
     //printf("%s | %s\n", arg->c_str(), *(output + i));
     i++;
   }
   //printf("i = %d\n", i);
+  printf("output before null assignment: %s\n", output[0]);
   output[i] = NULL;
   printf("output after null assignment: %s\n", output[0]);
   //for (int j = 0; j <= i; j++) printf("output[%d]: %s\n", j, output[j]);
