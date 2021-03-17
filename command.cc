@@ -55,9 +55,9 @@ void Command::insertSimpleCommand( SimpleCommand * simpleCommand ) {
 
 void Command::clear() {
     // deallocate all the simple commands in the command vector
-    for (auto simpleCommand : _simpleCommands) {
-        delete simpleCommand;
-    }
+    // for (auto simpleCommand : _simpleCommands) {
+    //     delete simpleCommand;
+    // }
 
     // remove all references to the simple commands we've deallocated
     // (basically just sets the size to 0)
@@ -313,4 +313,4 @@ void Command::execute() {
     Shell::prompt();
 }
 
-//SimpleCommand * Command::_currentSimpleCommand;
+SimpleCommand * Command::_currentSimpleCommand;
