@@ -1114,7 +1114,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 #line 205 "shell.l"
 {
-  printf("EOF\n");
+  //printf("EOF\n");
   YY_FLUSH_BUFFER;
   yypop_buffer_state();
   if ( !YY_CURRENT_BUFFER ) {

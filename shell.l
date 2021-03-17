@@ -47,6 +47,7 @@ std::string * removeE(char * s) {
       //printf("%c", s[i]);
     }
   }
+  str->push_back(0);
   return str;
 }
 
@@ -80,7 +81,7 @@ char * subshell (char ** input) {
   }
 
   if (pid == 0) {
-    printf("input: %s\n", input[0]);
+    //printf("input: %s\n", input[0]);
     dup2(p[1], 1);
     close(p[0]);
     close(p[1]);
@@ -104,8 +105,8 @@ char * subshell (char ** input) {
 
   printf("size: %d\n", size);
   printf("str: %s\n", out);
-  fflush(file);
-  fclose (file);
+  
+  fclose(file);
   close(p[0]);
   
   //printf("print ended\n");
@@ -147,12 +148,13 @@ char * subshell (char ** input) {
   word[1][strlen(yytext) - 2] = '\0';
   word[0] = (char *)malloc(6);
   strcpy(*word, "shell\0");
-  printf("yytext: %s\n", yytext);
+  //printf("yytext: %s\n", yytext);
   char * out = subshell(word);
   unputStr(out);
-  //free(*word);
-  //free(word);
-  //free(out);
+  free(*word);
+  free(word[1]);
+  free(word);
+  free(out);
 }
 
 [ \t] {
