@@ -32,11 +32,11 @@ void SimpleCommand::print() {
 
 char ** SimpleCommand::toString() {
   char ** output = (char**)malloc(_arguments.size() + 1);
-  printf("argument size: %d\n", _arguments.size());
+  //printf("argument size: %d\n", _arguments.size());
   int i = 0;
   for (auto & arg : _arguments) {
-    printf("arg length: %d\n", arg->length());
-    printf("%d %d %d", arg->c_str()[0], arg->c_str()[1], arg->c_str()[2]);
+    //printf("arg length: %d\n", arg->length());
+    //printf("%d %d %d", arg->c_str()[0], arg->c_str()[1], arg->c_str()[2]);
     output[i] = (char*)malloc(arg->length() + 1);
     strcpy(output[i], arg->c_str());
     output[i][arg->length()] = '\0';
