@@ -294,7 +294,7 @@ void Command::execute() {
                 embedDest(args);
                 exit( 2 );
             }
-            embedDest(args);
+            while(args[i++] != 0) delete args[i];
         }
         
         //printf("pid: %d", _pid);
