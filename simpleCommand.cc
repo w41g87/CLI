@@ -42,7 +42,7 @@ char ** SimpleCommand::toString() {
   }
   //printf("i = %d\n", i);
   printf("output before null assignment: %s\n", output[0]);
-  output[i] = NULL;
+  output[4] = NULL;
   printf("output after null assignment: %s\n", output[0]);
   //for (int j = 0; j <= i; j++) printf("output[%d]: %s\n", j, output[j]);
   return output;
