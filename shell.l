@@ -13,9 +13,10 @@
 #include <unistd.h>
 #include <sys/types.h> 
 #include <sys/wait.h> 
-#include <iostream>
 #include "y.tab.hh"
 #include "shell.hh"
+
+using namespace std;
 
 static  void yyunput (int c,char *buf_ptr  );
 
