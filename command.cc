@@ -176,7 +176,7 @@ void Command::execute() {
             if (i > 3) cout << "cd: too many arguments." << endl;
             else if (i == 2) chdir(getenv("HOME"));
             else if (chdir(arg[1]) != 0) perror("cd");
-            embedDest(arg);
+            //embedDest(arg);
             return;
         }
         if (!strcmp(cmd, "source")) {
@@ -187,7 +187,7 @@ void Command::execute() {
                 clear();
                 source(arg[1]);
             }
-            embedDest(arg);
+            //embedDest(arg);
             //free(arg);
             return;
         }
