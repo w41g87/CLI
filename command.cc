@@ -35,7 +35,7 @@ extern char ** environ;
 
 void source(char * file);
 
-void terminate();
+void termBfr();
 
 Command::Command() {
     // Initialize a new vector of Simple Commands
@@ -157,7 +157,7 @@ void Command::execute() {
         if (!strcmp(cmd, "exit")) {
             free(cmd);
             clear();
-            terminate();
+            termBfr();
             exit(0);
         }
         

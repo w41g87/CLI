@@ -29,7 +29,7 @@ void initBfr() {
   yypush_buffer_state(yy_create_buffer(stdin, YY_BUF_SIZE));
 }
 
-void terminate() {
+void termBfr() {
   while ( YY_CURRENT_BUFFER ) yypop_buffer_state();
 }
 
