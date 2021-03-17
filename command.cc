@@ -278,9 +278,9 @@ void Command::execute() {
                 // close(fdpipe[0]);
                 // close(fdpipe[1]);
                 
-                printf("Params:\n");
+                //printf("Params:\n");
                 //printf("pid = %d\n", _pid);
-                printf("cmd: %s\n", simpleCommand->_arguments.front()->c_str());
+                //printf("cmd: %s\n", simpleCommand->_arguments.front()->c_str());
 
                 // for (unsigned int j = 0; j < simpleCommand->_arguments.size(); j++) {
                 //     printf("%d: %s\n", j, args[j]);
