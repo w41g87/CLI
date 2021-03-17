@@ -54,7 +54,7 @@ std::string * removeE(char * s) {
 void unputStr(char * input) {
   int i = 0;
   while(input[i] != '\0') {
-    //if (input[i] == '\n') input[i] = ' ';
+    if (input[i] == '\n') input[i] = ' ';
     //printf("%c", input[i]);
     i++;
   }
@@ -159,9 +159,9 @@ char * subshell (char ** input) {
   //printf("yytext: %s\n", yytext);
 
   char * out = subshell(word);
-  free(*word);
-  free(word[1]);
-  free(word);
+  //free(*word);
+  //free(word[1]);
+  //free(word);
 
   unputStr(out);
   free(out);
