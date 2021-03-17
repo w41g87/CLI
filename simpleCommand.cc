@@ -34,32 +34,22 @@ void SimpleCommand::print() {
 
 char ** SimpleCommand::toString() {
   char ** output = (char**)calloc(_arguments.size() + 1, sizeof(char*));
-  //printf("argument size: %d\n", _arguments.size());
-  // int i = 0;
-  // for (auto & arg : _arguments) {
-  //   //printf("arg length: %d\n", arg->length());
-  //   //printf("%d %d %d", arg->c_str()[0], arg->c_str()[1], arg->c_str()[2]);
-  //   output[i] = (char*)malloc(arg->length() + 1);
-  //   strcpy(output[i], arg->c_str());
-  //   output[i][arg->length()] = '\0';
-  //   printf("%s | %s\n", arg->c_str(), *(output + i));
-  //   i++;
-  // }
 
-  // for (int i = 0; i < _arguments.size(); i++) {
-  //   std::string * arg = _arguments[i];
-  //   output[i] = (char*)calloc(arg->length() + 1, sizeof(char));
-  //   strcpy(output[i], arg->c_str());
-  //   // output[i][arg->length()] = '\0';
-  //   // printf("%s | %s\n", arg->c_str(), output[i]);
-  // }
-  //printf("i = %d\n", i);
+  // printf("argument size: %d\n", _arguments.size());
+  int i = 0;
+  for (auto & arg : _arguments) {
+    //printf("arg length: %d\n", arg->length());
+    //printf("%d %d %d", arg->c_str()[0], arg->c_str()[1], arg->c_str()[2]);
+    output[i] = (char*)calloc(arg->length() + 1);
+    strcpy(output[i], arg->c_str());
+    //printf("%s | %s\n", arg->c_str(), *(output + i));
+    i++;
+  }
+
   //printf("output[0] before null assignment: %s\n", output[0]);
-  //output[_arguments.size()] = NULL;
+  output[i] = NULL;
   //printf("output[0] after null assignment: %s\n", output[0]);
   // for (int i = 0; i <= _arguments.size(); i++) printf("output[%d]: %s\n", i, output[i]);
-  int i = 0;
-  for (auto & arg : _arguments) output[i++] = (char*) arg->c_str();
-  output[_arguments.size()] = NULL;
+
   return output;
 }
