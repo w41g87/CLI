@@ -95,7 +95,6 @@ char * subshell (char ** input) {
   i = 0;
   FILE* file = fdopen (p[0], "r");
   while ((c = fgetc (file)) != EOF) {
-    if (i == 0) printf("%d\n", c);
     if (i == size - 1) {
       size *= 2;
       out = (char*)realloc(out, size);
