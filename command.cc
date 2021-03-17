@@ -264,7 +264,7 @@ void Command::execute() {
             }
 
             _pid = fork();
-            printf("Forking... pid = %d\n", _pid);
+            // printf("Forking... pid = %d\n", _pid);
             if ( _pid == -1 ) {
                 //embedDest(args);
                 perror( "shell: fork\n");
