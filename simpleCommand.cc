@@ -48,8 +48,9 @@ char ** SimpleCommand::toString() {
 
   for (int i = 0; i < _arguments.size(); i++) {
     std::string * arg = _arguments[i];
-    output[i] = (char*)calloc(arg->length() + 1, sizeof(char));
-    strcpy(output[i], arg->c_str());
+    output[i] = arg->c_str();
+    //(char*)calloc(arg->length() + 1, sizeof(char));
+    //strcpy(output[i], arg->c_str());
     //output[i][arg->length()] = '\0';
     //printf("%s | %s\n", arg->c_str(), output[i]);
   }
