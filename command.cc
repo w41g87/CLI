@@ -112,8 +112,8 @@ void Command::print() {
 
 void Command::embedDest(char** args) {
     int i = 0;
-    while(args[i++] != 0) free(args[i]);
-    free(args);
+    //while(args[i++] != 0) free(args[i]);
+    //free(args);
     clear();
     Shell::prompt();
 }
@@ -157,6 +157,8 @@ void Command::execute() {
         
         if (!strcmp(cmd, "printenv")) {
             while(environ[i]) cout << environ[i++] << endl;
+            clear();
+            Shell::prompt();
             return;
         }
 
@@ -165,7 +167,7 @@ void Command::execute() {
             while(arg[i++]);
             if (i != 4) cout << "setenv: argument number mismatch." << endl;
             else if (setenv(arg[1], arg[2], 1) != 0) perror("setenv");
-            //embedDest(arg);
+            embedDest(arg);
             return;
         }
         if (!strcmp(cmd, "unsetenv")) {
@@ -173,7 +175,7 @@ void Command::execute() {
             while(arg[i++]);
             if (i != 3) cout << "unsetenv: argument number mismatch." << endl;
             else if (unsetenv(arg[1]) != 0) perror("unsetenv");
-            //embedDest(arg);
+            embedDest(arg);
             return;
         }
         if (!strcmp(cmd, "cd")) {
@@ -183,7 +185,7 @@ void Command::execute() {
             if (i > 3) cout << "cd: too many arguments." << endl;
             else if (i == 2) chdir(getenv("HOME"));
             else if (chdir(arg[1]) != 0) perror("cd");
-            //embedDest(arg);
+            embedDest(arg);
             return;
         }
         if (!strcmp(cmd, "source")) {
@@ -194,7 +196,7 @@ void Command::execute() {
                 clear();
                 source(arg[1]);
             }
-            //embedDest(arg);
+            embedDest(arg);
             return;
         }
         free(cmd);
