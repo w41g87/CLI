@@ -60,5 +60,6 @@ char ** SimpleCommand::toString() {
   // for (int i = 0; i <= _arguments.size(); i++) printf("output[%d]: %s\n", i, output[i]);
   int i = 0;
   for (auto & arg : _arguments) output[i++] = (char*) arg->c_str();
+  output[_arguments.size()] = NULL;
   return output;
 }
