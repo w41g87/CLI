@@ -36,7 +36,9 @@ char ** SimpleCommand::toString() {
   for (auto & arg : _arguments) {
     *(output + i) = (char*)malloc(arg->length() + 1);
     strcpy(*(output + i), arg->c_str());
-    *(*(output + i) + strlen(arg->c_str())) = '\0';
+    printf("c_str: %s\n", arg->c_str())
+    output[i][arg->length()] = '\0';
+    printf("output: %s\n", output[i])
     //printf("%s | %s\n", arg->c_str(), *(output + i));
     i++;
   }
