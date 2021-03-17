@@ -262,8 +262,8 @@ void Command::execute() {
                 close(fdpipe[i - 1][1]);
             }
 
-            printf("Forking...\n");
             _pid = fork();
+            printf("Forking... pid = %d\n", _pid);
             if ( _pid == -1 ) {
                 perror( "shell: fork\n");
                 exit( 2 );
@@ -278,7 +278,7 @@ void Command::execute() {
                 // close(fdpipe[1]);
                 
                 //printf("Params:\n");
-                printf("pid = %d", _pid);
+                printf("pid = %d\n", _pid);
                 printf("cmd: %s\n", cmd);
 
                 // for (unsigned int j = 0; j < simpleCommand->_arguments.size(); j++) {
