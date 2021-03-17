@@ -272,7 +272,7 @@ void Command::execute() {
             if (_pid == 0) {
                 //Child
                 const char * cmd = simpleCommand->_arguments.front()->c_str();
-                const char ** args = (const char**)simpleCommand->toString();
+                char ** args = simpleCommand->toString();
                 //close file descriptors that are not needed
                 // close(fdpipe[0]);
                 // close(fdpipe[1]);
