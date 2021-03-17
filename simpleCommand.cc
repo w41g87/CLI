@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <bits/stdc++.h>
+#include <vector>
 #include "simpleCommand.hh"
 
 SimpleCommand::SimpleCommand() {
