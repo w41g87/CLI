@@ -674,7 +674,7 @@ char * subshell (char ** input) {
     close(p[1]);
     close(q[0]);
     close(q[1]);
-    execlp("/proc/self/exe");
+    execlp("/proc/self/exe", "shell");
     perror("child");
   }
   close(p[1]);
