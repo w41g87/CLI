@@ -234,6 +234,7 @@ void Command::execute() {
 
 
     // Execution
+    printf("Execution\n");
     {
         unsigned int i = 0;
 
