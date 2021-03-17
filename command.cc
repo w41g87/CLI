@@ -166,7 +166,7 @@ void Command::execute() {
             char ** arg = _simpleCommands.front()->toString();
             while(arg[i++] != 0);
             if (i != 4) cout << "setenv: argument number mismatch." << endl;
-            else if (setenv(arg[0], arg[1], 1) != 0) perror("setenv");
+            else if (setenv(arg[1], arg[2], 1) != 0) perror("setenv");
             embedDest(arg);
             return;
         }
