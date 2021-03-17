@@ -158,7 +158,7 @@ void Command::execute() {
             while(arg[i++]);
             if (i != 4) cout << "setenv: argument number mismatch." << endl;
             else if (setenv(arg[1], arg[2], 1) != 0) perror("setenv");
-            embedDest(arg);
+            //embedDest(arg);
             return;
         }
         if (!strcmp(cmd, "unsetenv")) {
@@ -166,7 +166,7 @@ void Command::execute() {
             while(arg[i++]);
             if (i != 3) cout << "unsetenv: argument number mismatch." << endl;
             else if (unsetenv(arg[1]) != 0) perror("unsetenv");
-            embedDest(arg);
+            //embedDest(arg);
             return;
         }
         if (!strcmp(cmd, "cd")) {
@@ -236,7 +236,7 @@ void Command::execute() {
     // Execution
     {
         unsigned int i = 0;
-
+        char ** args = simpleCommand->toString();
         int fdpipe[_simpleCommands.size()][2];
 
         for ( auto & simpleCommand : _simpleCommands ) {
@@ -265,35 +265,37 @@ void Command::execute() {
             _pid = fork();
             printf("Forking... pid = %d\n", _pid);
             if ( _pid == -1 ) {
+                embedDest(args);
                 perror( "shell: fork\n");
                 exit( 2 );
             }
             
             if (_pid == 0) {
                 //Child
-                const char * cmd = simpleCommand->_arguments.front()->c_str();
-                char ** args = simpleCommand->toString();
+                //const char * cmd = simpleCommand->_arguments.front()->c_str();
                 //close file descriptors that are not needed
                 // close(fdpipe[0]);
                 // close(fdpipe[1]);
                 
                 //printf("Params:\n");
-                printf("pid = %d\n", _pid);
-                printf("cmd: %s\n", cmd);
+                //printf("pid = %d\n", _pid);
+                //printf("cmd: %s\n", cmd);
 
                 // for (unsigned int j = 0; j < simpleCommand->_arguments.size(); j++) {
                 //     printf("%d: %s\n", j, *(simpleCommand->toString() + j));
                 // }
                 // You can use execvp() instead if the arguments are stored in an array
                 
-                execvp(cmd, args);
+                execvp(simpleCommand->_arguments.front()->c_str(), args);
 
                 // exec() is not suppose to return, something went wrong
                 perror( "shell: Execution error");
+                embedDest(args);
                 exit( 2 );
             }
 
         }
+        embedDest(args);
         //printf("pid: %d", _pid);
         if (!_background) waitpid( _pid, 0, 0 );
         //printf("terminated\n");
