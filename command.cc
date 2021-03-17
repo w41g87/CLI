@@ -282,7 +282,7 @@ void Command::execute() {
                 //     printf("%d: %s\n", j, *(simpleCommand->toString() + j));
                 // }
                 // You can use execvp() instead if the arguments are stored in an array
-                execv(simpleCommand->_arguments.front()->c_str(), simpleCommand->toString());
+                execvp(simpleCommand->_arguments.front()->c_str(), simpleCommand->toString());
 
                 // exec() is not suppose to return, something went wrong
                 perror( "shell: Execution error");
