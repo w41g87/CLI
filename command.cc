@@ -164,10 +164,6 @@ void Command::execute() {
 
         if (!strcmp(cmd, "setenv")) {
             char ** arg = _simpleCommands.front()->toString();
-            while(arg[i++] != 0) {
-                cout << arg[i - 1] << endl;
-            }
-            cout << i << endl;
             if (i != 4) cout << "setenv: argument number mismatch." << endl;
             else if (setenv(arg[1], arg[2], 1) != 0) perror("setenv");
             embedDest(arg);
