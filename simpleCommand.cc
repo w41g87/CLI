@@ -32,8 +32,8 @@ void SimpleCommand::print() {
   std::cout << std::endl;
 }
 
-const char ** SimpleCommand::toString() {
-  const char ** output = (char**)calloc(_arguments.size() + 1, sizeof(char));
+char ** SimpleCommand::toString() {
+  char ** output = (char**)calloc(_arguments.size() + 1, sizeof(char));
   //printf("argument size: %d\n", _arguments.size());
   // int i = 0;
   // for (auto & arg : _arguments) {
@@ -48,7 +48,7 @@ const char ** SimpleCommand::toString() {
 
   for (int i = 0; i < _arguments.size(); i++) {
     std::string * arg = _arguments[i];
-    output[i] = arg->c_str();
+    output[i] = (char *)arg->c_str();
     //(char*)calloc(arg->length() + 1, sizeof(char));
     //strcpy(output[i], arg->c_str());
     //output[i][arg->length()] = '\0';

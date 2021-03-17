@@ -154,7 +154,7 @@ void Command::execute() {
         }
 
         if (!strcmp(cmd, "setenv")) {
-            const char ** arg = _simpleCommands.front()->toString();
+            char ** arg = _simpleCommands.front()->toString();
             while(arg[i++]);
             if (i != 4) cout << "setenv: argument number mismatch." << endl;
             else if (setenv(arg[1], arg[2], 1) != 0) perror("setenv");
@@ -162,7 +162,7 @@ void Command::execute() {
             return;
         }
         if (!strcmp(cmd, "unsetenv")) {
-            const char ** arg = _simpleCommands.front()->toString();
+            char ** arg = _simpleCommands.front()->toString();
             while(arg[i++]);
             if (i != 3) cout << "unsetenv: argument number mismatch." << endl;
             else if (unsetenv(arg[1]) != 0) perror("unsetenv");
@@ -170,7 +170,7 @@ void Command::execute() {
             return;
         }
         if (!strcmp(cmd, "cd")) {
-            const char ** arg = _simpleCommands.front()->toString();
+            char ** arg = _simpleCommands.front()->toString();
             while(arg[i++]);
             //printf("%d\n", i);
             if (i > 3) cout << "cd: too many arguments." << endl;
@@ -180,7 +180,7 @@ void Command::execute() {
             return;
         }
         if (!strcmp(cmd, "source")) {
-            const char ** arg = _simpleCommands.front()->toString();
+            char ** arg = _simpleCommands.front()->toString();
             while(arg[i++]);
             if (i != 3) cout << "source: argument number mismatch." << endl;
             else {
@@ -272,7 +272,7 @@ void Command::execute() {
             if (_pid == 0) {
                 //Child
                 const char * cmd = simpleCommand->_arguments.front()->c_str();
-                const char ** args = simpleCommand->toString();
+                char ** args = simpleCommand->toString();
                 //close file descriptors that are not needed
                 // close(fdpipe[0]);
                 // close(fdpipe[1]);
