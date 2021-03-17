@@ -271,20 +271,20 @@ void Command::execute() {
 
             if (_pid == 0) {
                 //Child
-                
+                const char * cmd = simpleCommand->_arguments.front()->c_str();
+                const char ** args = simpleCommand->toString();
                 //close file descriptors that are not needed
                 // close(fdpipe[0]);
                 // close(fdpipe[1]);
                 
                 //printf("Params:\n");
-                //printf("cmd: %s\n", simpleCommand->_arguments.front()->c_str());
+                printf("cmd: %s\n", cmd);
 
                 // for (unsigned int j = 0; j < simpleCommand->_arguments.size(); j++) {
                 //     printf("%d: %s\n", j, *(simpleCommand->toString() + j));
                 // }
                 // You can use execvp() instead if the arguments are stored in an array
-                const char * cmd = simpleCommand->_arguments.front()->c_str();
-                const char ** args = simpleCommand->toString();
+                
                 execvp(cmd, args);
 
                 // exec() is not suppose to return, something went wrong
