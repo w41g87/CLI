@@ -313,4 +313,4 @@ void Command::execute() {
     Shell::prompt();
 }
 
-SimpleCommand * Command::_currentSimpleCommand;
+//SimpleCommand * Command::_currentSimpleCommand;
