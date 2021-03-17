@@ -295,8 +295,8 @@ void Command::execute() {
                 exit( 2 );
             }
             // while(args[i++] != 0) delete args[i];
+            embedDest(args);
         }
-        embedDest(args);
         //printf("pid: %d", _pid);
         if (!_background) waitpid( _pid, 0, 0 );
         //printf("terminated\n");
