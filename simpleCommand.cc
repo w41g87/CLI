@@ -49,7 +49,7 @@ char ** SimpleCommand::toString() {
     output[i] = (char*)malloc(arg->length() + 1);
     strcpy(output[i], arg->c_str());
     output[i][arg->length()] = '\0';
-    printf("%s | %s\n", arg->c_str(), *(output + i));
+    printf("%s | %s\n", arg->c_str(), output[i]);
   }
   //printf("i = %d\n", i);
   //printf("output[0] before null assignment: %s\n", output[0]);
