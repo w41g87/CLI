@@ -112,7 +112,7 @@ void Command::print() {
 void Command::embedDest(char** args) {
     int i = 0;
     while(args[i++]) free(args[i]);
-    //free(args);
+    free(args);
     clear();
     Shell::prompt();
 }
@@ -189,7 +189,7 @@ void Command::execute() {
                 source(arg[1]);
             }
             embedDest(arg);
-            free(arg);
+            //free(arg);
             return;
         }
     }
