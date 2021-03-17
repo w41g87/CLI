@@ -34,6 +34,7 @@ void termBfr() {
     YY_FLUSH_BUFFER;
     yypop_buffer_state();
   }
+  yyterminate();
 }
 
 void swtchBfr(char * input) {
