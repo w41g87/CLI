@@ -46,17 +46,18 @@ char ** SimpleCommand::toString() {
   //   i++;
   // }
 
-  for (int i = 0; i < _arguments.size(); i++) {
-    std::string * arg = _arguments[i];
-    output[i] = (char*)calloc(arg->length() + 1, sizeof(char));
-    memcpy(output[i], arg->c_str(), arg->length());
+  // for (int i = 0; i < _arguments.size(); i++) {
+  //   std::string * arg = _arguments[i];
+  //   output[i] = (char*)calloc(arg->length() + 1, sizeof(char));
+  //   memcpy(output[i], arg->c_str(), arg->length());
     //output[i][arg->length()] = '\0';
     //printf("%s | %s\n", arg->c_str(), output[i]);
-  }
+  // }
   //printf("i = %d\n", i);
   //printf("output[0] before null assignment: %s\n", output[0]);
   //output[_arguments.size()] = NULL;
   //printf("output[0] after null assignment: %s\n", output[0]);
-  for (int i = 0; i <= _arguments.size(); i++) printf("output[%d]: %s\n", i, output[i]);
+  // for (int i = 0; i <= _arguments.size(); i++) printf("output[%d]: %s\n", i, output[i]);
+  for (auto & arg : _arguments) output[i] = (char*) arg->c_str();
   return output;
 }

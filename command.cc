@@ -240,7 +240,7 @@ void Command::execute() {
         int fdpipe[_simpleCommands.size()][2];
 
         for ( auto & simpleCommand : _simpleCommands ) {
-            char ** args = simpleCommand->toString();
+            //char ** args = simpleCommand->toString();
             //printf("%d, %s", i, simpleCommand->_arguments.front()->c_str());
 
             if ( pipe(fdpipe[i]) == -1) {
@@ -266,7 +266,7 @@ void Command::execute() {
             _pid = fork();
             printf("Forking... pid = %d\n", _pid);
             if ( _pid == -1 ) {
-                embedDest(args);
+                //embedDest(args);
                 perror( "shell: fork\n");
                 exit( 2 );
             }
@@ -287,11 +287,11 @@ void Command::execute() {
                 // }
                 // You can use execvp() instead if the arguments are stored in an array
                 
-                execvp(simpleCommand->_arguments.front()->c_str(), args);
+                execvp(simpleCommand->_arguments.front()->c_str(), simpleCommand->toString());
 
                 // exec() is not suppose to return, something went wrong
                 perror( "shell: Execution error");
-                embedDest(args);
+                //embedDest(args);
                 exit( 2 );
             }
             while(args[i++] != 0) delete args[i];
