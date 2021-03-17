@@ -53,7 +53,7 @@ char ** SimpleCommand::toString() {
   }
   //printf("i = %d\n", i);
   //printf("output[0] before null assignment: %s\n", output[0]);
-  output[_arguments.size()] = NULL;
+  //output[_arguments.size()] = NULL;
   //printf("output[0] after null assignment: %s\n", output[0]);
   for (int i = 0; i <= _arguments.size(); i++) printf("output[%d]: %s\n", i, output[i]);
   return output;
