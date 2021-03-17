@@ -30,7 +30,10 @@ void initBfr() {
 }
 
 void termBfr() {
-  while ( YY_CURRENT_BUFFER ) yypop_buffer_state();
+  while ( YY_CURRENT_BUFFER ) {
+    YY_FLUSH_BUFFER;
+    yypop_buffer_state();
+  }
 }
 
 void swtchBfr(char * input) {
