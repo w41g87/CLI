@@ -92,6 +92,7 @@ char * subshell (char ** input) {
   waitpid(pid, 0, 0);
 
   int i, c;
+  i = 0;
   FILE* file = fdopen (p[0], "r");
   while ((c = fgetc (file)) != EOF) {
     if (i == 0) printf("%d\n", c);
