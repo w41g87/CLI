@@ -32,6 +32,7 @@ void SimpleCommand::print() {
 
 char ** SimpleCommand::toString() {
   char ** output = (char**)malloc(_arguments.size() + 1);
+  printf("argument size: %d", _arguments.size());
   int i = 0;
   for (auto & arg : _arguments) {
     *(output + i) = (char*)malloc(arg->length() + 1);
