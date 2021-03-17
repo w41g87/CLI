@@ -191,6 +191,7 @@ void Command::execute() {
             //free(arg);
             return;
         }
+        free(cmd);
     }
 
     // Add execution here
