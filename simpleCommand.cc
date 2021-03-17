@@ -40,7 +40,7 @@ char ** SimpleCommand::toString() {
   for (auto & arg : _arguments) {
     //printf("arg length: %d\n", arg->length());
     //printf("%d %d %d", arg->c_str()[0], arg->c_str()[1], arg->c_str()[2]);
-    output[i] = (char*)calloc(arg->length() + 1);
+    output[i] = (char*)calloc(arg->length() + 1, sizeof(char));
     strcpy(output[i], arg->c_str());
     //printf("%s | %s\n", arg->c_str(), *(output + i));
     i++;
