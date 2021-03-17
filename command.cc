@@ -35,6 +35,8 @@ extern char ** environ;
 
 void source(char * file);
 
+void terminate();
+
 Command::Command() {
     // Initialize a new vector of Simple Commands
     _simpleCommands = std::vector<SimpleCommand *>();
@@ -152,7 +154,12 @@ void Command::execute() {
         
         //printf("Lower case: %s\n", cmd);
         //printf("%s %d\n", cmd, strcmp(cmd, "exit"));
-        if (!strcmp(cmd, "exit")) exit(0);
+        if (!strcmp(cmd, "exit")) {
+            free(cmd);
+            clear();
+            terminate();
+            exit(0);
+        }
         
         if (!strcmp(cmd, "printenv")) {
             while(environ[i]) cout << environ[i++] << endl;
