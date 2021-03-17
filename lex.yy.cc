@@ -1033,87 +1033,89 @@ YY_RULE_SETUP
   word[0] = (char *)malloc(6);
   strcpy(*word, "shell\0");
   //printf("yytext: %s\n", yytext);
+  
   char * out = subshell(word);
+  free(*word);
+  free(word[1]);
+  free(word);
+
   unputStr(out);
-  //free(*word);
-  //free(word[1]);
-  //free(word);
-  //free(out);
+  free(out);
 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 168 "shell.l"
+#line 170 "shell.l"
 {
   /* Discard spaces and tabs */
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 172 "shell.l"
+#line 174 "shell.l"
 {
   return GUARD;
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 176 "shell.l"
+#line 178 "shell.l"
 {
   return GREAT2;
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 180 "shell.l"
+#line 182 "shell.l"
 {
   return GGCONT;
 }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 184 "shell.l"
+#line 186 "shell.l"
 {
   return GCONT;
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 188 "shell.l"
+#line 190 "shell.l"
 {
   return LCONT;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 192 "shell.l"
+#line 194 "shell.l"
 {
   return GGREAT;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 196 "shell.l"
+#line 198 "shell.l"
 {
   return GREAT;
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 200 "shell.l"
+#line 202 "shell.l"
 {
   return LESS;
 }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 204 "shell.l"
+#line 206 "shell.l"
 {
   return CONT;
 }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 208 "shell.l"
+#line 210 "shell.l"
 {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = removeE(yytext);
@@ -1122,7 +1124,7 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 215 "shell.l"
+#line 217 "shell.l"
 {
   //printf("EOF\n");
   YY_FLUSH_BUFFER;
@@ -1136,10 +1138,10 @@ case YY_STATE_EOF(INITIAL):
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 226 "shell.l"
+#line 228 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1143 "lex.yy.cc"
+#line 1145 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2154,6 +2156,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 226 "shell.l"
+#line 228 "shell.l"
 
 
