@@ -32,7 +32,7 @@ void SimpleCommand::print() {
 
 char ** SimpleCommand::toString() {
   char ** output = (char**)malloc(_arguments.size() + 1);
-  printf("argument size: %d", _arguments.size());
+  printf("argument size: %d\n", _arguments.size());
   int i = 0;
   for (auto & arg : _arguments) {
     *(output + i) = (char*)malloc(arg->length() + 1);
@@ -42,9 +42,9 @@ char ** SimpleCommand::toString() {
     i++;
   }
   //printf("i = %d\n", i);
-  printf("output before null assignment: %s\n", output[0]);
+  printf("output[0] before null assignment: %s\n", output[0]);
   output[4] = NULL;
-  printf("output after null assignment: %s\n", output[0]);
+  printf("output[0] after null assignment: %s\n", output[0]);
   //for (int j = 0; j <= i; j++) printf("output[%d]: %s\n", j, output[j]);
   return output;
 }
