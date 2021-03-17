@@ -12,10 +12,10 @@ SimpleCommand::SimpleCommand() {
 
 SimpleCommand::~SimpleCommand() {
   // iterate over all the arguments and delete them
-  // for (auto & arg : _arguments) {
-  //   delete arg;
-  // }
-  _arguments.clear();
+  for (auto & arg : _arguments) {
+    delete arg;
+  }
+  //_arguments.clear();
 }
 
 void SimpleCommand::insertArgument( std::string * argument ) {
