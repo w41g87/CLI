@@ -47,7 +47,7 @@ char ** SimpleCommand::toString() {
   for (int i = 0; i < _arguments.size(); i++) {
     std::string * arg = _arguments[i];
     output[i] = (char*)malloc(arg->length() + 1);
-    strcpy(output[i], arg->c_str());
+    strncpy(output[i], arg->c_str(), arg->length());
     output[i][arg->length()] = '\0';
     printf("%s | %s\n", arg->c_str(), output[i]);
   }
