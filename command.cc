@@ -110,8 +110,8 @@ void Command::print() {
 }
 
 void Command::embedDest(char** args) {
-    int i;
-    //while(args[i++]) free(args[i]);
+    int i = 0;
+    while(args[i++]) free(args[i]);
     //free(args);
     clear();
     Shell::prompt();
