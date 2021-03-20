@@ -27,7 +27,7 @@ void Shell::termination(int signum) {
 
 void Shell::elimination(int signum) {
   int e;
-  if ((e = waitpid(0, NULL, 0)) != -1) printf("%d exited\n", e);
+  if ((e = waitpid(-1, NULL, 0)) != -1) printf("%d exited\n", e);
 }
 
 int main(int argc, char* argv[], char* envp[]) {
