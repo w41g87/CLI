@@ -35,6 +35,7 @@
 //#define yylex yylex
 #include <cstdio>
 #include <string>
+#include <string.h>
 #include "shell.hh"
 
 void yyerror(const char * s);
@@ -82,12 +83,36 @@ argument_list:
 
 argument:
   WORD {
-    if ($1.find('?') != std::string::npos || $1.find('*') != std::string::npos) {
+    if ($1->find('?') != std::string::npos || $1->find('*') != std::string::npos) {
       char ** exp = dirExp($1->c_str());
-
+      delete $1;
+      // iterate through the array and put everything into arguement
+      int i;
+      while(exp[i]) {
+        Command::_currentSimpleCommand->insertArgument( new std::string(exp[i]) );
+        free(exp[i]);
+        i++;
+      }
+      free(exp);
+    } else if ($1[0] == '~') {
+      if ($1->find('/') != std::string::npos) {
+        char * home = tilExp($1->substr(1, $1->find('/')).c_str());
+        std::string * newArg = new std::string();
+        newArg.append(home);
+        free(home);
+        newArg.append($1->substr($1->find('/')));
+        delete $1;
+        Command::_currentSimpleCommand->insertArgument( newArg );
+      } else {
+        char * home = tilExp($1->substr(1).c_str());
+        delete $1;
+        Command::_currentSimpleCommand->insertArgument( new std::string(home) );
+        free(home);
+      }
+    } else {
+      Command::_currentSimpleCommand->insertArgument( $1 );
     }
     //printf("   Yacc: insert argument \"%s\"\n", $1->c_str());
-    Command::_currentSimpleCommand->insertArgument( $1 );
   }
   ;
 

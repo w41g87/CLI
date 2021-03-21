@@ -167,13 +167,14 @@ int yyparse (void);
 
 //#define yylex yylex
 #include <cstdio>
+#include <string>
 #include "shell.hh"
 
 void yyerror(const char * s);
 int yylex();
 
 
-#line 177 "y.tab.cc" /* yacc.c:358  */
+#line 178 "y.tab.cc" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -471,10 +472,10 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    47,    47,    48,    53,    57,    61,    64,    65,    71,
-      78,    79,    83,    90,    98,    99,   100,   101,   102,   103,
-     107,   111,   115,   119,   124,   129,   136,   140,   144,   148,
-     152
+       0,    48,    48,    49,    54,    58,    62,    65,    66,    72,
+      79,    80,    84,    95,   103,   104,   105,   106,   107,   108,
+     112,   116,   120,   124,   129,   134,   141,   145,   149,   153,
+     157
 };
 #endif
 
@@ -1274,105 +1275,109 @@ yyreduce:
   switch (yyn)
     {
         case 4:
-#line 53 "shell.y" /* yacc.c:1646  */
+#line 54 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: Execute command\n");
     Shell::_currentCommand.execute();
   }
-#line 1283 "y.tab.cc" /* yacc.c:1646  */
+#line 1284 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 57 "shell.y" /* yacc.c:1646  */
+#line 58 "shell.y" /* yacc.c:1646  */
     { 
     //printf("   Yacc: Empty Line\n");
     Shell::_currentCommand.execute(); 
   }
-#line 1292 "y.tab.cc" /* yacc.c:1646  */
+#line 1293 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 61 "shell.y" /* yacc.c:1646  */
+#line 62 "shell.y" /* yacc.c:1646  */
     { yyerrok; }
-#line 1298 "y.tab.cc" /* yacc.c:1646  */
+#line 1299 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 65 "shell.y" /* yacc.c:1646  */
+#line 66 "shell.y" /* yacc.c:1646  */
     {
           //printf("   Yacc: Command pipeline\n");
         }
-#line 1306 "y.tab.cc" /* yacc.c:1646  */
+#line 1307 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 71 "shell.y" /* yacc.c:1646  */
+#line 72 "shell.y" /* yacc.c:1646  */
     {
     Shell::_currentCommand.
     insertSimpleCommand( Command::_currentSimpleCommand );
   }
-#line 1315 "y.tab.cc" /* yacc.c:1646  */
+#line 1316 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 83 "shell.y" /* yacc.c:1646  */
+#line 84 "shell.y" /* yacc.c:1646  */
     {
+    if ((yyvsp[0].cpp_string).find('?') != std::string::npos || (yyvsp[0].cpp_string).find('*') != std::string::npos) {
+      char ** exp = dirExp((yyvsp[0].cpp_string)->c_str());
+
+    }
     //printf("   Yacc: insert argument \"%s\"\n", $1->c_str());
     Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
   }
-#line 1324 "y.tab.cc" /* yacc.c:1646  */
+#line 1329 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 90 "shell.y" /* yacc.c:1646  */
+#line 95 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert command \"%s\"\n", $1->c_str());
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
   }
-#line 1334 "y.tab.cc" /* yacc.c:1646  */
+#line 1339 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 107 "shell.y" /* yacc.c:1646  */
+#line 112 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert input \"%s\"\n", $2->c_str());
     Shell::_currentCommand._inFile = (yyvsp[0].cpp_string);
   }
-#line 1343 "y.tab.cc" /* yacc.c:1646  */
+#line 1348 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 115 "shell.y" /* yacc.c:1646  */
+#line 120 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
   }
-#line 1352 "y.tab.cc" /* yacc.c:1646  */
+#line 1357 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 119 "shell.y" /* yacc.c:1646  */
+#line 124 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert background output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
     Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
   }
-#line 1362 "y.tab.cc" /* yacc.c:1646  */
+#line 1367 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 124 "shell.y" /* yacc.c:1646  */
+#line 129 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert append output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
     Shell::_currentCommand._appendO = true;
   }
-#line 1372 "y.tab.cc" /* yacc.c:1646  */
+#line 1377 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 129 "shell.y" /* yacc.c:1646  */
+#line 134 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert append background output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
@@ -1380,29 +1385,29 @@ yyreduce:
     Shell::_currentCommand._appendO = true;
     Shell::_currentCommand._appendE = true;
   }
-#line 1384 "y.tab.cc" /* yacc.c:1646  */
+#line 1389 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 140 "shell.y" /* yacc.c:1646  */
+#line 145 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert error output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
   }
-#line 1393 "y.tab.cc" /* yacc.c:1646  */
+#line 1398 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 148 "shell.y" /* yacc.c:1646  */
+#line 153 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: The command will be ran in the background\n");
     Shell::_currentCommand._background = true;
   }
-#line 1402 "y.tab.cc" /* yacc.c:1646  */
+#line 1407 "y.tab.cc" /* yacc.c:1646  */
     break;
 
 
-#line 1406 "y.tab.cc" /* yacc.c:1646  */
+#line 1411 "y.tab.cc" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1630,7 +1635,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 155 "shell.y" /* yacc.c:1906  */
+#line 160 "shell.y" /* yacc.c:1906  */
 
 
 void
@@ -1639,6 +1644,232 @@ yyerror(const char * s)
   fprintf(stderr,"%s\n", s);
   Shell::prompt();
   yyparse();
+}
+
+char * w2r (char * input) {
+  std::string reg = std::string();
+  reg.push_back('^');
+  switch(*input) {
+    case '*':
+      reg.append("([^\\. ][^ ]*|\"\")");
+      break;
+    case '?':
+      reg.append("[^\\. ]");
+      break;
+    case '+':
+      reg.append("\\+");
+      break;
+    case '[':
+      reg.append("\\[");
+      break;
+    case ']':
+      reg.append("\\]");
+      break;
+    case '(':
+      reg.append("\\(");
+      break;
+    case ')':
+      reg.append("\\)");
+      break;
+    case '.':
+      reg.append("\\.");
+      break;
+    default:
+      reg.push_back(*input);
+  }
+
+  for (int i = 1; i < strlen(input); i++) {
+    switch(input[i]) {
+      case '*':
+        reg.append("[^\\. ]?[^ ]*");
+        break;
+      case '?':
+        reg.append("[^\\. ]");
+        break;
+      case '+':
+        reg.append("\\+");
+        break;
+      case '[':
+        reg.append("\\[");
+        break;
+      case ']':
+        reg.append("\\]");
+        break;
+      case '(':
+        reg.append("\\(");
+        break;
+      case ')':
+        reg.append("\\)");
+        break;
+      case '.':
+        reg.append("\\.");
+        break;
+      default:
+        reg.push_back(input[i]);
+    }
+  }
+  reg.push_back('$');
+
+  char * output = (char *)calloc(strlen(reg.c_str()) + 1, sizeof(char));
+  strcpy(output, reg.c_str());
+  return(output);
+}
+
+char ** expandedPaths(char * dirA, char * arg) {
+  //printf("dir address: %s\nrest: %s\n", dirA, arg);
+  char ** output = (char **)calloc(8, sizeof(char*));
+  int outputI = 0;
+  int outputSize = 8;
+  char * currentDir;
+  char * rest = NULL;
+
+  // terminating cases
+  if (!strchr(arg, '/')) {
+    currentDir = (char *)calloc(strlen(arg) + 1, sizeof(char));
+    strcpy(currentDir, arg);
+  } else {
+    int len = strchr(arg, '/') - arg;
+    currentDir = (char *)calloc(len + 1, sizeof(char));
+    strncpy(currentDir, arg, len);
+    rest = (char *)calloc(strlen(arg) - len, sizeof(char));
+    strcpy(rest, arg + len + 1);
+  }
+
+  // regex conversion
+  char * regExp = w2r(currentDir);
+  //printf("regExp: %s\n", regExp);
+  free(currentDir);
+  currentDir = NULL;
+  regex_t re;	
+  int result = regcomp( &re, regExp,  REG_EXTENDED|REG_NOSUB);
+  if( result != 0 ) {
+    fprintf( stderr, "Bad regular expresion \"%s\"\n", regExp );
+    exit( -1 );
+  }
+
+  // recursive calls
+  DIR * dir = opendir(dirA);
+  struct dirent * ent;
+  while ((ent = readdir(dir)) != NULL) {
+    regmatch_t match;
+    char *name = ent->d_name;
+    unsigned char type = ent->d_type;
+    if (regexec( &re, name, 1, &match, 0) == 0 
+      && strcmp(name, ".")
+      && strcmp(name, "..")) {
+      //printf("name: %s\n", name);
+      if (rest == NULL) {
+        //printf("strlen 1\n");
+        output[outputI] = (char *)calloc(strlen(name) + 1, sizeof(char));
+        strcpy(output[outputI], name);
+        outputI++;
+        if(outputI == outputSize) {
+            outputSize *= 2;
+            char ** temp = (char **)calloc(outputSize, sizeof(char *));
+            memcpy(temp, output, outputSize / 2);
+            free(output);
+            output = temp;
+        }
+      } else if (type == DT_DIR) {
+        int i = 0;
+        //printf("strlen 2\n");
+        char * newDir = (char *)calloc(strlen(dirA) + strlen(name) + 2, sizeof(char));
+        strcpy(newDir, dirA);
+        //printf("strlen 3\n");
+        strcpy(newDir + strlen(dirA), name);
+        //printf("strlen 4\n");
+        newDir[strlen(dirA) + strlen(name)] = '/';
+        char ** recOut = expandedPaths(newDir, rest);
+        while(recOut[i]) {
+          //printf("strlen 5\n");
+          output[outputI] = (char *)calloc(strlen(recOut[i]) + strlen(name) + 2, sizeof(char));
+          strcpy(output[outputI], name);
+          //printf("strlen 6\n");
+          output[outputI][strlen(name)] = '/';
+          //printf("strlen 7\n");
+          strcpy(output[outputI] + strlen(name) + 1, recOut[i]);
+          free(recOut[i]);
+
+          i++;
+          outputI++;
+          if(outputI == outputSize) {
+            outputSize *= 2;
+            char ** temp = (char **)calloc(outputSize, sizeof(char *));
+            memcpy(temp, output, outputSize / 2);
+            free(output);
+            output = temp;
+          }
+        }
+        free(recOut);
+        free(newDir);
+      } 
+    }
+  }
+
+  free(rest);
+  free(regExp);
+  return output;
+}
+
+char * tilExp(char * input) {
+  char * dir;
+  if(*input == 0)) {
+    char * home = getenv("HOME");
+    dir = (char *)calloc(strlen(home) + 1, sizeof(char));
+    strcpy(dir, home);
+  } else {
+    dir = (char *)calloc(strlen(input) + 6, sizeof(char));
+    strcpy(dir, "/home/");
+    strcpy(dir + 6, input + 1);
+  }
+  return dir;
+}
+
+char ** dirExp(char * input) {
+  char ** exp;
+  char ** output;
+  int len = 0;
+  if (*input == '/') {
+    exp = expandedPaths("/", input + 1);
+    while(exp[len]) len++;
+    output = (char **)calloc(len + 1, sizeof(char *));
+    for(int i = 0; i < len; i++) {
+      output[i] = (char *)calloc(strlen(exp[i]) + 2, sizeof(char));
+      output[i][0] = '/';
+      strcpy(output[i] + 1, exp[i]);
+      free(exp[i]);
+    }
+    free(exp);
+    return output;
+  } else if (*input == '~') {
+    // isolate the username
+    char * home = (char *)calloc(strchr(input, '/') - input, sizeof(char));
+    strncpy(home, input + 1, strchr(input, '/') - input - 1);
+    // get tilda expansion
+    dir = tilExp(home);
+    free(home);
+    // adding slash to the end
+    dir = realloc(dir, strlen(dir) + 1);
+    dir[strlen(dir) + 1] = 0;
+    dir[strlen(dir)] = '/';
+    // get the rest of the argument
+    char * rest = (char *)calloc(strchr(input, '/') - input, sizeof(char));
+    strcpy(rest, strlen(input, '/') + 1);
+    exp = expandedPaths(dir, rest);
+    free(rest);
+    // append and return
+    while(exp[len]) len++;
+    output = (char **)calloc(len + 1, sizeof(char *));
+    for(int i = 0; i < len; i++) {
+      output[i] = (char *)calloc(strlen(exp[i]) + strlen(dir) + 1, sizeof(char));
+      strcpy(output[i], dir);
+      strcpy(output[i] + strlen(dir), exp[i]);
+      free(exp[i]);
+    }
+    free(exp);
+    free(dir);
+    return output;
+  } else return expandedPaths(".", input);
 }
 
 #if 0
