@@ -1892,7 +1892,7 @@ char ** dirExp(const char * input) {
     while(exp[len]) len++;
     output = (char **)calloc(len + 1, sizeof(char *));
     for(int i = 0; i < len; i++) {
-      printf("length: %d", len);
+      //printf("length: %d\n", len);
       output[i] = (char *)calloc(strlen(exp[i]) + strlen(dir) + 1, sizeof(char));
       strcpy(output[i], dir);
       strcpy(output[i] + strlen(dir), exp[i]);

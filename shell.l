@@ -24,7 +24,7 @@ using namespace std;
 
 ///////////////////////// Start of Edit Mode Code /////////////////////////
 
-extern “C” char * read_line();
+extern "C" char * read_line();
 
 int mygetc(FILE * f) {
   static char *p;
