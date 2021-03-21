@@ -1871,7 +1871,7 @@ char ** dirExp(char * input) {
     char * home = (char *)calloc(strchr(input, '/') - input, sizeof(char));
     strncpy(home, input + 1, strchr(input, '/') - input - 1);
     // get tilda expansion
-    dir = tilExp(home);
+    char * dir = tilExp(home);
     free(home);
     // adding slash to the end
     dir = realloc(dir, strlen(dir) + 1);
