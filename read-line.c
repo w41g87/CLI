@@ -61,8 +61,8 @@ char * read_line() {
     // Read one character in raw mode.
     char ch;
     read(0, &ch, 1);
-    printf("key: %d\n", ch);
-    if (ch>=32) {
+    //printf("key: %d\n", ch);
+    if (ch>=32 && ch < 127) {
       // It is a printable character. 
 
       // Do echo
