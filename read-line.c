@@ -93,20 +93,23 @@ char * read_line() {
     else if (ch == 127 && cursor > 0) {
       // <backspace> was typed. Remove previous character read.
       // Remove one character from buffer
+      ch = 8;
+      write(1,&ch,1);
       line_length--;
       cursor--;
+
       printf("cursor: %d\n", cursor);
       // modify line buffer
       int i = cursor;
       while(line_buffer[i]) line_buffer[i] = line_buffer[++i];
-      ch = 8;
-      write(1,&ch,1);
+      
       if (line_length != cursor) write(1, line_buffer + cursor, line_length - cursor);
       // Write a space to erase the last character read
       ch = ' ';
-      for (i = line_length; i >= cursor; i--) write(1,&ch,1);
-      ch = 8;
       write(1,&ch,1);
+
+      ch = 8;
+      for (i = line_length; i >= cursor; i--) write(1,&ch,1);
 
       // Go back one character
       // ch = 8;
