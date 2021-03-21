@@ -40,6 +40,8 @@
 #include <regex.h>
 #include "shell.hh"
 
+char * tilExp(char *);
+
 void yyerror(const char * s);
 int yylex();
 
