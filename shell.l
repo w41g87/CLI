@@ -187,7 +187,7 @@ char * subshell (char ** input) {
   return WORD;
 }
 
-"$("(\\.|[^\)\\])")" {
+"$("(\\.|[^\)\\])*")" {
   char ** word = (char**) malloc(3);
   word[2] = 0;
   word[1] = (char *)malloc(strlen(yytext) - 2);
@@ -204,7 +204,7 @@ char * subshell (char ** input) {
   free(out);
 }
 
-"`"(\\.|[^`\\])"`" {
+"`"(\\.|[^`\\])*"`" {
   char ** word = (char**) malloc(3);
   word[2] = 0;
   word[1] = (char *)malloc(strlen(yytext) - 1);
