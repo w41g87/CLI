@@ -175,7 +175,7 @@ int yyparse (void);
 
 char * tilExp(const char *);
 
-char ** dirExp(const char *)
+char ** dirExp(const char *);
 
 void yyerror(const char * s);
 int yylex();
