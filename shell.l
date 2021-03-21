@@ -232,6 +232,8 @@ char * subshell (char ** input) {
   yylval.cpp_string = new std::string(out);
   free(out);
   free(word);
+
+  return WORD;
 }
 
 [ \t] {
