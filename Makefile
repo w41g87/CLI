@@ -4,8 +4,8 @@
 #Use GNU compiler
 cc= gcc
 CC= g++
-ccFLAGS= -g -lm -std=c11
-CCFLAGS= -g -lm -std=c++17
+ccFLAGS= -g -std=c11
+CCFLAGS= -g -std=c++17
 WARNFLAGS= -Wall -Wextra -pedantic
 
 LEX=lex -l

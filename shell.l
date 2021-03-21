@@ -16,6 +16,7 @@
 #include <iostream>
 #include <limits.h>
 #include <stdlib.h>
+#include <math.h>
 #include "y.tab.hh"
 #include "shell.hh"
 
