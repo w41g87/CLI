@@ -14,7 +14,6 @@
 %code requires 
 {
 #include <string>
-#include "helper.h"
 
 #if __cplusplus > 199711L
 #define register      // Deprecated in C++11 so remove the keyword
@@ -47,6 +46,9 @@ char ** dirExp(const char *);
 
 void yyerror(const char * s);
 int yylex();
+
+extern "C" void destroy(char**);
+extern "C" void * recallocarray(void *, size_t, size_t);
 
 %}
 
