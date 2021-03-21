@@ -100,7 +100,7 @@ argument:
         i++;
       }
       free(exp);
-    } else if ($1[0] == '~') {
+    } else if ($1->c_str()[0] == '~') {
       if ($1->find('/') != std::string::npos) {
         char * home = tilExp($1->substr(1, $1->find('/')).c_str());
         std::string * newArg = new std::string();

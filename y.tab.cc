@@ -1746,7 +1746,7 @@ char * w2r (char * input) {
   return(output);
 }
 
-char ** expandedPaths(char * dirA, char * arg) {
+char ** expandedPaths(const char * dirA, const char * arg) {
   //printf("dir address: %s\nrest: %s\n", dirA, arg);
   char ** output = (char **)calloc(8, sizeof(char*));
   int outputI = 0;
