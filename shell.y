@@ -60,7 +60,7 @@ goal:
 
 
 commandline:
-  commands iomodifiers bgmodifier NEWLINE {
+  commands io bgmodifier NEWLINE {
     //printf("   Yacc: Execute command\n");
     Shell::_currentCommand.execute();
   }
@@ -132,6 +132,11 @@ command_word:
   }
   ;
 
+io:
+  io iomodifiers
+  |
+  ;
+
 iomodifiers:
   LESS WORD {
     //printf("   Yacc: insert input \"%s\"\n", $2->c_str());
@@ -186,8 +191,7 @@ iomodifiers:
     }
     Shell::_currentCommand._errFile = $2;
   }
-  | /*can be empty*/
-;
+  ;
 
 bgmodifier:
   CONT {
