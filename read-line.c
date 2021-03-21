@@ -102,7 +102,7 @@ char * read_line() {
       // modify line buffer
       int i = cursor;
       while(line_buffer[i]) line_buffer[i++] = line_buffer[i + 1];
-      
+
       if (line_length != cursor) write(1, line_buffer + cursor, line_length - cursor);
       // Write a space to erase the last character read
       ch = ' ';
@@ -166,6 +166,28 @@ char * read_line() {
         if (ch2 == 67 && cursor < line_length) {
           write(1, line_buffer + cursor, 1);
           cursor++;
+        }
+      }
+      if (ch1 == 91 && ch2 == 51) {
+        char ch3;
+        read(0, &ch3, 1);
+        if (ch3 == 126 && cursor < line_length) {
+          ch = 8;
+          write(1,&ch,1);
+          line_length--;
+
+          //printf("cursor: %d\n", cursor);
+          // modify line buffer
+          int i = cursor;
+          while(line_buffer[i]) line_buffer[i++] = line_buffer[i + 1];
+
+          if (line_length != cursor) write(1, line_buffer + cursor, line_length - cursor);
+          // Write a space to erase the last character read
+          ch = ' ';
+          write(1,&ch,1);
+
+          ch = 8;
+          for (i = line_length; i >= cursor; i--) write(1,&ch,1);
         }
       }
       
