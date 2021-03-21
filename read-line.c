@@ -98,10 +98,13 @@ char * read_line() {
       line_length--;
       cursor--;
 
-      printf("cursor: %d\n", cursor);
+      //printf("cursor: %d\n", cursor);
       // modify line buffer
       int i = cursor;
-      while(line_buffer[i]) line_buffer[i] = line_buffer[++i];
+      while(line_buffer[i]) {
+        printf("replace %s with %s\n", line_buffer[i], line_buffer[i + 1]);
+        line_buffer[i] = line_buffer[++i];
+      }
       
       if (line_length != cursor) write(1, line_buffer + cursor, line_length - cursor);
       // Write a space to erase the last character read
