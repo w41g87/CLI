@@ -49,6 +49,28 @@ void end() {
   cursor = line_length;
 }
 
+void erase() {
+  // Erase old line
+  // Print backspaces
+  int i = 0;
+  for (i =0; i < cursor; i++) {
+    ch = 8;
+    write(1,&ch,1);
+  }
+
+  // Print spaces on top
+  for (i =0; i < line_length; i++) {
+    ch = ' ';
+    write(1,&ch,1);
+  }
+
+  // Print backspaces
+  for (i =0; i < line_length; i++) {
+    ch = 8;
+    write(1,&ch,1);
+  }	
+}
+
 // Simple history array
 // This history does not change. 
 // Yours have to be updated.
@@ -104,6 +126,7 @@ char * read_line() {
 
       // add char to buffer.
       line_buffer[cursor]=ch;
+      history[historyI][cursor]=ch;
       line_length++;
       cursor++;
     }
@@ -117,7 +140,7 @@ char * read_line() {
       historyL++;
       if (historyL == historyS) {
         historyS *= 2;
-        history = recallocarray(history, historyS, sizeof(char*));
+        history = (char **)recallocarray(history, historyS, sizeof(char*));
       }
       break;
     }
@@ -166,36 +189,24 @@ char * read_line() {
       read(0, &ch1, 1);
       read(0, &ch2, 1);
       if (ch1==91) {
-        if (ch2==65) {
+        if (ch2 == 65 && historyI > 0) {
           // Up arrow. Print next line in history.
-
-          // Erase old line
-          // Print backspaces
-          int i = 0;
-          for (i =0; i < cursor; i++) {
-            ch = 8;
-            write(1,&ch,1);
-          }
-
-          // Print spaces on top
-          for (i =0; i < line_length; i++) {
-            ch = ' ';
-            write(1,&ch,1);
-          }
-
-          // Print backspaces
-          for (i =0; i < line_length; i++) {
-            ch = 8;
-            write(1,&ch,1);
-          }	
-
+          erase();
+          
           // Copy line from history
-          strcpy(line_buffer, history[history_index]);
+          historyI--;
+          strcpy(line_buffer, historyLocal[history_index]);
           line_length = strlen(line_buffer);
-          history_index=(history_index+1)%history_length;
+          cursor = line_length;
 
           // echo line
           write(1, line_buffer, line_length);
+        }
+        if (ch2 == 66 && historyI < historyL) {
+          historyI++;
+          strcpy(line_buffer, historyLocal[history_index]);
+          line_length = strlen(line_buffer);
+          cursor = line_length;
         }
         if (ch2 == 68 && cursor > 0) {
           ch = 8;
