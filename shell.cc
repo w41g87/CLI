@@ -8,6 +8,7 @@
 int yyparse(void);
 void swtchBfr(char*);
 void initBfr();
+void flushBfr();
 
 void Shell::prompt() {
   if ( isatty(0) && isatty(1) && Shell::isPrompt) {
@@ -19,6 +20,7 @@ void Shell::prompt() {
 void Shell::termination(int signum) {
   if (_currentCommand._pid != 0) kill(_currentCommand._pid, SIGINT);
   else{
+    flushBfr();
     printf("\n");
     _currentCommand.clear();
     Shell::prompt();
