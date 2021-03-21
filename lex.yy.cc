@@ -799,7 +799,7 @@ void termBfr() {
   }
 }
 
-void flushBfr() YY_FLUSH_BUFFER;
+void flushBfr() { YY_FLUSH_BUFFER; }
 
 void swtchBfr(char * input) {
   yy_switch_to_buffer(yy_scan_string(input));
