@@ -43,10 +43,10 @@ void home() {
   }
 }
 
-void end() [
+void end() {
   write(1, line_buffer + cursor, line_length - cursor);
   cursor = line_length;
-]
+}
 
 // Simple history array
 // This history does not change. 
