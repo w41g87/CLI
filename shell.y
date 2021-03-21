@@ -400,7 +400,7 @@ char ** dirExp(char * input) {
     dir[strlen(dir)] = '/';
     // get the rest of the argument
     char * rest = (char *)calloc(strchr(input, '/') - input, sizeof(char));
-    strcpy(rest, strlen(input, '/') + 1);
+    strcpy(rest, strchr(input, '/') + 1);
     exp = expandedPaths(dir, rest);
     free(rest);
     // append and return
