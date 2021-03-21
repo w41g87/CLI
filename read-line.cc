@@ -126,13 +126,12 @@ char * read_line() {
 
       // add char to buffer.
       line_buffer[cursor]=ch;
-      history[historyI][cursor]=ch;
       line_length++;
       cursor++;
     }
     else if (ch==10) {
       // <Enter> was typed. Return line
-      
+      destroy(historyLocal);
       // Print newline
       write(1,&ch,1);
       history[historyL] = (char*)calloc(strlen(line_buffer) + 1, sizeof(char));
@@ -193,9 +192,12 @@ char * read_line() {
           // Up arrow. Print next line in history.
           erase();
           
+          // Save line to history
+          strcpy(historyLocal[historyI], line_buffer);
+
           // Copy line from history
           historyI--;
-          strcpy(line_buffer, historyLocal[history_index]);
+          strcpy(line_buffer, historyLocal[historyI]);
           line_length = strlen(line_buffer);
           cursor = line_length;
 
@@ -203,8 +205,12 @@ char * read_line() {
           write(1, line_buffer, line_length);
         }
         if (ch2 == 66 && historyI < historyL) {
+          // Save line to history
+          strcpy(historyLocal[historyI], line_buffer);
+
+          // Copy line from history
           historyI++;
-          strcpy(line_buffer, historyLocal[history_index]);
+          strcpy(line_buffer, historyLocal[historyI]);
           line_length = strlen(line_buffer);
           cursor = line_length;
         }
