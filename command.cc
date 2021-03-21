@@ -182,6 +182,7 @@ void Command::execute() {
             if (i != 4) cout << "setenv: argument number mismatch." << endl;
             else if (setenv(arg[1], arg[2], 1) != 0) perror("setenv");
             embedDest(arg);
+            clear();
             return;
         }
         if (!strcmp(cmd, "unsetenv")) {
@@ -190,6 +191,7 @@ void Command::execute() {
             if (i != 3) cout << "unsetenv: argument number mismatch." << endl;
             else if (unsetenv(arg[1]) != 0) perror("unsetenv");
             embedDest(arg);
+            clear();
             return;
         }
         if (!strcmp(cmd, "cd")) {
@@ -200,6 +202,7 @@ void Command::execute() {
             else if (i == 2) chdir(getenv("HOME"));
             else if (chdir(arg[1]) != 0) perror("cd");
             embedDest(arg);
+            clear();
             return;
         }
         if (!strcmp(cmd, "source")) {
@@ -211,6 +214,7 @@ void Command::execute() {
                 source(arg[1]);
             }
             embedDest(arg);
+            clear();
             return;
         }
         free(cmd);
