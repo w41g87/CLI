@@ -142,9 +142,9 @@ void Command::execute() {
     
     // save the last argument
     {
-        char * lstArg = _simpleCommands.back()->_arguments.back()->c_str();
+        const char * lstArg = _simpleCommands.back()->_arguments.back()->c_str();
         free(Shell::lstArg);
-        Shell::lstArg = calloc(strlen(lstArg) + 1, sizeof(char));
+        Shell::lstArg = (char *)calloc(strlen(lstArg) + 1, sizeof(char));
         strcpy(Shell::lstArg, lstArg);
     }
 

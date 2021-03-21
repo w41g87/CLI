@@ -786,7 +786,7 @@ char * envExp(char * input) {
     } else return (char*)calloc(1, sizeof(char));
   }
   if (!strcmp(input, "SHELL")) {
-    return realpath(Shell::argv);
+    return realpath(Shell::argv, NULL);
   }
   if ((env = getenv(input)) != NULL) {
     char * output = (char*)calloc(strlen(env) + 1, sizeof(char));
