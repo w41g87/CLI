@@ -103,7 +103,8 @@ char * read_line() {
       int i = cursor;
       while(line_buffer[i]) {
         if (line_buffer[i + 1]) printf("replace %c with %c\n", line_buffer[i], line_buffer[i + 1]);
-        line_buffer[i] = line_buffer[++i];
+        line_buffer[i] = line_buffer[i + 1];
+        i++;
       }
 
       i = cursor;
