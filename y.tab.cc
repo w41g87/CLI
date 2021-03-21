@@ -1874,7 +1874,7 @@ char ** dirExp(char * input) {
     char * dir = tilExp(home);
     free(home);
     // adding slash to the end
-    dir = realloc(dir, strlen(dir) + 1);
+    dir = (char *)realloc(dir, strlen(dir) + 1);
     dir[strlen(dir) + 1] = 0;
     dir[strlen(dir)] = '/';
     // get the rest of the argument

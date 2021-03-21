@@ -36,6 +36,7 @@
 #include <cstdio>
 #include <string>
 #include <string.h>
+#include <dirent.h>
 #include "shell.hh"
 
 void yyerror(const char * s);
