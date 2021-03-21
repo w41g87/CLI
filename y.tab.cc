@@ -1851,7 +1851,7 @@ char * tilExp(const char * input) {
   } else {
     dir = (char *)calloc(strlen(input) + 6, sizeof(char));
     strcpy(dir, "/home/");
-    strcpy(dir + 6, input + 1);
+    strcpy(dir + 6, input);
   }
   return dir;
 }
