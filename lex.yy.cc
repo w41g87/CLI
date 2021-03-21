@@ -1201,7 +1201,9 @@ YY_RULE_SETUP
 #line 226 "shell.l"
 {
   char * word = (char *)calloc(strlen(yytext) - 2, sizeof(char));
+  printf("input: %s\n", word);
   char * out = envExp(word);
+  printf("output: %s\n", out);
   yylval.cpp_string = new std::string(out);
   free(out);
   free(word);
@@ -1209,77 +1211,77 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 234 "shell.l"
+#line 236 "shell.l"
 {
   /* Discard spaces and tabs */
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 238 "shell.l"
+#line 240 "shell.l"
 {
   return GUARD;
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 242 "shell.l"
+#line 244 "shell.l"
 {
   return GREAT2;
 }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 246 "shell.l"
+#line 248 "shell.l"
 {
   return GGCONT;
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 250 "shell.l"
+#line 252 "shell.l"
 {
   return GCONT;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 254 "shell.l"
+#line 256 "shell.l"
 {
   return LCONT;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 258 "shell.l"
+#line 260 "shell.l"
 {
   return GGREAT;
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 262 "shell.l"
+#line 264 "shell.l"
 {
   return GREAT;
 }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 266 "shell.l"
+#line 268 "shell.l"
 {
   return LESS;
 }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 270 "shell.l"
+#line 272 "shell.l"
 {
   return CONT;
 }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 274 "shell.l"
+#line 276 "shell.l"
 {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = removeE(yytext);
@@ -1289,7 +1291,7 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 282 "shell.l"
+#line 284 "shell.l"
 {
   //printf("EOF\n");
   YY_FLUSH_BUFFER;
@@ -1303,10 +1305,10 @@ case YY_STATE_EOF(INITIAL):
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 293 "shell.l"
+#line 295 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1310 "lex.yy.cc"
+#line 1312 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2321,6 +2323,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 293 "shell.l"
+#line 295 "shell.l"
 
 
