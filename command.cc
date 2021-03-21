@@ -28,6 +28,7 @@
 #include <algorithm>
 #include "command.hh"
 #include "shell.hh"
+#include "helper.h"
 
 using namespace std;
 
