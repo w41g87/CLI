@@ -52,6 +52,7 @@ void end() {
 void erase() {
   // Erase old line
   // Print backspaces
+  char ch;
   int i = 0;
   for (i =0; i < cursor; i++) {
     ch = 8;
