@@ -99,7 +99,7 @@ char * read_line() {
       int i = cursor;
       while(line_buffer[i]) line_buffer[i] = line_buffer[++i];
       write(1, line_buffer + cursor, line_length - cursor);
-
+      cursor = line_length;
       // Write a space to erase the last character read
       ch = ' ';
       write(1,&ch,1);
