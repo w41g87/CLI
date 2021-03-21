@@ -1338,9 +1338,9 @@ yyreduce:
       if ((yyvsp[0].cpp_string)->find('/') != std::string::npos) {
         char * home = tilExp((yyvsp[0].cpp_string)->substr(1, (yyvsp[0].cpp_string)->find('/')).c_str());
         std::string * newArg = new std::string();
-        newArg.append(home);
+        newArg->append(home);
         free(home);
-        newArg.append((yyvsp[0].cpp_string)->substr((yyvsp[0].cpp_string)->find('/')));
+        newArg->append((yyvsp[0].cpp_string)->substr((yyvsp[0].cpp_string)->find('/')));
         delete (yyvsp[0].cpp_string);
         Command::_currentSimpleCommand->insertArgument( newArg );
       } else {

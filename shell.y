@@ -42,6 +42,8 @@
 
 char * tilExp(const char *);
 
+char ** dirExp(const char *)
+
 void yyerror(const char * s);
 int yylex();
 
@@ -375,7 +377,7 @@ char * tilExp(const char * input) {
   return dir;
 }
 
-char ** dirExp(char * input) {
+char ** dirExp(const char * input) {
   char ** exp;
   char ** output;
   int len = 0;
