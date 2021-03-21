@@ -90,7 +90,7 @@ char * read_line() {
       line_buffer[0]=0;
       break;
     }
-    else if (ch == 8) {
+    else if (ch == 127) {
       // <backspace> was typed. Remove previous character read.
 
       // Go back one character
@@ -151,7 +151,7 @@ char * read_line() {
           // echo line
           write(1, line_buffer, line_length);
         }
-        if (ch2 == 68) {
+        if (ch2 == 68 && cursor > 0) {
           ch = 8;
           write(1,&ch,1);
           cursor--;
