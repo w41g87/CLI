@@ -98,9 +98,10 @@ char * read_line() {
       // modify line buffer
       int i = cursor;
       while(line_buffer[i]) line_buffer[i] = line_buffer[++i];
-      write(1, line_buffer + cursor - 1, line_length - cursor);
-      // Write a space to erase the last character read
       ch = ' ';
+      write(1,&ch,1);
+      write(1, line_buffer + cursor, line_length - cursor);
+      // Write a space to erase the last character read
       for (i = line_length; i >= cursor; i--) write(1,&ch,1);
 
       // Go back one character
