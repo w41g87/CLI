@@ -167,58 +167,7 @@ void Command::execute() {
             exit(0);
         }
         
-        if (!strcmp(cmd, "printenv")) {
-            while(environ[i]) cout << environ[i++] << endl;
-            clear();
-            Shell::prompt();
-            return;
-        }
-
-        if (!strcmp(cmd, "setenv")) {
-            char ** arg = _simpleCommands.front()->toString();
-            while(arg[i++] != 0);
-            if (i != 4) cout << "setenv: argument number mismatch." << endl;
-            else if (setenv(arg[1], arg[2], 1) != 0) perror("setenv");
-            destroy(arg);
-            clear();
-            Shell::prompt();
-            return;
-        }
-        if (!strcmp(cmd, "unsetenv")) {
-            char ** arg = _simpleCommands.front()->toString();
-            while(arg[i++]);
-            if (i != 3) cout << "unsetenv: argument number mismatch." << endl;
-            else if (unsetenv(arg[1]) != 0) perror("unsetenv");
-            destroy(arg);
-            clear();
-            Shell::prompt();
-            return;
-        }
-        if (!strcmp(cmd, "cd")) {
-            char ** arg = _simpleCommands.front()->toString();
-            while(arg[i++]);
-            //printf("%d\n", i);
-            if (i > 3) cout << "cd: too many arguments." << endl;
-            else if (i == 2) chdir(getenv("HOME"));
-            else if (chdir(arg[1]) != 0) perror("cd");
-            destroy(arg);
-            clear();
-            Shell::prompt();
-            return;
-        }
-        if (!strcmp(cmd, "source")) {
-            char ** arg = _simpleCommands.front()->toString();
-            while(arg[i++]);
-            if (i != 3) cout << "source: argument number mismatch." << endl;
-            else {
-                clear();
-                source(arg[1]);
-            }
-            destroy(arg);
-            clear();
-            Shell::prompt();
-            return;
-        }
+        
         free(cmd);
     }
 
@@ -314,7 +263,56 @@ void Command::execute() {
                 //     printf("%d: %s\n", j, args[j]);
                 // }
                 // You can use execvp() instead if the arguments are stored in an array
-                
+                char * cmd = simpleCommand->_arguments.front()->c_str()
+                if (!strcmp(cmd, "printenv")) {
+                    while(environ[i]) cout << environ[i++] << endl;
+                    clear();
+                    exit(0);
+                }
+
+                if (!strcmp(cmd, "setenv")) {
+                    char ** arg = _simpleCommands.front()->toString();
+                    while(arg[i++] != 0);
+                    if (i != 4) cout << "setenv: argument number mismatch." << endl;
+                    else if (setenv(arg[1], arg[2], 1) != 0) perror("setenv");
+                    destroy(args);
+                    clear();
+                    exit(0);
+                }
+                if (!strcmp(cmd, "unsetenv")) {
+                    char ** arg = _simpleCommands.front()->toString();
+                    while(arg[i++]);
+                    if (i != 3) cout << "unsetenv: argument number mismatch." << endl;
+                    else if (unsetenv(arg[1]) != 0) perror("unsetenv");
+                    destroy(args);
+                    clear();
+                    exit(0);
+                }
+                if (!strcmp(cmd, "cd")) {
+                    char ** arg = _simpleCommands.front()->toString();
+                    while(arg[i++]);
+                    //printf("%d\n", i);
+                    if (i > 3) cout << "cd: too many arguments." << endl;
+                    else if (i == 2) chdir(getenv("HOME"));
+                    else if (chdir(arg[1]) != 0) perror("cd");
+                    destroy(args);
+                    clear();
+                    exit(0);
+                }
+                if (!strcmp(cmd, "source")) {
+                    char ** arg = _simpleCommands.front()->toString();
+                    while(arg[i++]);
+                    if (i != 3) cout << "source: argument number mismatch." << endl;
+                    else {
+                        clear();
+                        source(arg[1]);
+                    }
+                    destroy(args);
+                    clear();
+                    exit(0);
+                }
+
+
                 execvp(simpleCommand->_arguments.front()->c_str(), args);
 
                 // exec() is not suppose to return, something went wrong

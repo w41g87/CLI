@@ -38,6 +38,7 @@
 #include <string.h>
 #include <dirent.h>
 #include <regex.h>
+#include <math.h>
 #include "shell.hh"
 
 char * tilExp(const char *);
@@ -94,6 +95,7 @@ argument:
     if ($1->find('?') != std::string::npos || $1->find('*') != std::string::npos) {
       char ** exp = dirExp($1->c_str());
       delete $1;
+      inplaceMerge(exp);
       // iterate through the array and put everything into arguement
       int i;
       while(exp[i]) {
@@ -209,6 +211,38 @@ yyerror(const char * s)
   fprintf(stderr,"%s\n", s);
   Shell::prompt();
   yyparse();
+}
+
+void inplaceMerge(char ** ptr, size_t len) {
+  if (len < 2) return ptr;
+  if (len == 2) {
+    int len1 = strlen(*ptr);
+    int len2 = strlen(ptr[1]);
+    int i = 0;
+    while(ptr[0][i] == ptr[1][i]) i++;
+    if (ptr[0][i] > ptr[1][i]) {
+      char* temp = ptr[0];
+      ptr[0] = ptr[1];
+      ptr[1] = temp;
+    }
+    return ptr;
+  }
+
+  char ** ptr1 = inplaceMerge(ptr, len / 2);
+  char ** ptr2 = inplaceMerge(ptr + (len / 2), floor(len / 2) + 1);
+  while(ptr1 != ptr + (len/2) && ptr2 != prt + len) {
+    while((*ptr1)[i] == (*ptr2)[i]) i++;
+    if ((*ptr1)[i] < (*ptr2)[i]) ptr1++;
+    else {
+      char * temp = *ptr2;
+      char ** tmpPtr = ptr2;
+      for (i = 0; i < ptr2 - ptr1; i++) *(tmpPtr - i) = *(tmpPtr - i - 1);
+      *ptr = temp;
+      ptr1++;
+      ptr2++;
+    }
+  }
+  return ptr;
 }
 
 char * w2r (char * input) {
