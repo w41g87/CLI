@@ -38,7 +38,6 @@ void source(char * file);
 void termBfr();
 
 extern "C" void destroy(char**);
-extern "C" void * recallocarray(void *, size_t, size_t);
 
 Command::Command() {
     // Initialize a new vector of Simple Commands

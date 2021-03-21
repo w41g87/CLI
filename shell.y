@@ -47,8 +47,7 @@ char ** dirExp(const char *);
 void yyerror(const char * s);
 int yylex();
 
-extern "C" void destroy(char**);
-extern "C" void * recallocarray(void *, size_t, size_t);
+extern "C" void * recallocarray(void *, size_t, size_t, size_t);
 
 %}
 
@@ -320,7 +319,7 @@ char ** expandedPaths(const char * dirA, const char * arg) {
         outputI++;
         if(outputI == outputSize) {
             outputSize *= 2;
-            output = (char **)recallocarray(output, outputSize, sizeof(char *));
+            output = (char **)recallocarray(output, outputSize, sizeof(char *), outputSize / 2);
         }
       } else if (type == DT_DIR) {
         int i = 0;
@@ -346,7 +345,7 @@ char ** expandedPaths(const char * dirA, const char * arg) {
           outputI++;
           if(outputI == outputSize) {
             outputSize *= 2;
-            output = (char **)recallocarray(output, outputSize, sizeof(char *));
+            output = (char **)recallocarray(output, outputSize, sizeof(char *), outputSize / 2);
           }
         }
         free(recOut);
