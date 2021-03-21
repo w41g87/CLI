@@ -20,6 +20,8 @@ struct Shell {
   static int lstPid;
 
   static char * lstArg;
+
+  static char * argv;
 };
 
 #endif
