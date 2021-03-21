@@ -101,7 +101,10 @@ char * read_line() {
       //printf("cursor: %d\n", cursor);
       // modify line buffer
       int i = cursor;
-      while(line_buffer[i]) line_buffer[i] = line_buffer[++i];
+      while(line_buffer[i]) {
+        if (line_buffer[i + 1]) printf("replace %c with %c\n", line_buffer[i], line_buffer[i + 1]);
+        line_buffer[i] = line_buffer[++i];
+      }
 
       i = cursor;
       while(line_buffer[i]) printf("buffer: %c\n", line_buffer[i++]);
