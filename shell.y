@@ -70,7 +70,7 @@ commandline:
   }
   | commands ambio bgmodifier NEWLINE{
     Shell::_currentCommand.clear();
-    printf("Ambiguous output redirect.);
+    printf("Ambiguous output redirect.");
   }
   | error NEWLINE { yyerrok; }
   ;
