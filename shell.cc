@@ -13,7 +13,9 @@ extern char ** history;
 
 void Shell::prompt() {
   if ( isatty(0) && isatty(1) && Shell::isPrompt) {
-    printf("λ> ");
+    char * p = secure_getenv("PROMPT");
+    if (p) printf("%s ", p);
+    else printf("λ> ");
     fflush(stdout);
   }
 }
