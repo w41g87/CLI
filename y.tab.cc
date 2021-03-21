@@ -175,11 +175,13 @@ int yyparse (void);
 
 char * tilExp(const char *);
 
+char ** dirExp(const char *)
+
 void yyerror(const char * s);
 int yylex();
 
 
-#line 183 "y.tab.cc" /* yacc.c:358  */
+#line 185 "y.tab.cc" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -477,10 +479,10 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    53,    53,    54,    59,    63,    67,    70,    71,    77,
-      84,    85,    89,   124,   132,   133,   134,   135,   136,   137,
-     141,   145,   149,   153,   158,   163,   170,   174,   178,   182,
-     186
+       0,    55,    55,    56,    61,    65,    69,    72,    73,    79,
+      86,    87,    91,   126,   134,   135,   136,   137,   138,   139,
+     143,   147,   151,   155,   160,   165,   172,   176,   180,   184,
+     188
 };
 #endif
 
@@ -1280,48 +1282,48 @@ yyreduce:
   switch (yyn)
     {
         case 4:
-#line 59 "shell.y" /* yacc.c:1646  */
+#line 61 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: Execute command\n");
     Shell::_currentCommand.execute();
   }
-#line 1289 "y.tab.cc" /* yacc.c:1646  */
+#line 1291 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 63 "shell.y" /* yacc.c:1646  */
+#line 65 "shell.y" /* yacc.c:1646  */
     { 
     //printf("   Yacc: Empty Line\n");
     Shell::_currentCommand.execute(); 
   }
-#line 1298 "y.tab.cc" /* yacc.c:1646  */
+#line 1300 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 67 "shell.y" /* yacc.c:1646  */
+#line 69 "shell.y" /* yacc.c:1646  */
     { yyerrok; }
-#line 1304 "y.tab.cc" /* yacc.c:1646  */
+#line 1306 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 71 "shell.y" /* yacc.c:1646  */
+#line 73 "shell.y" /* yacc.c:1646  */
     {
           //printf("   Yacc: Command pipeline\n");
         }
-#line 1312 "y.tab.cc" /* yacc.c:1646  */
+#line 1314 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 77 "shell.y" /* yacc.c:1646  */
+#line 79 "shell.y" /* yacc.c:1646  */
     {
     Shell::_currentCommand.
     insertSimpleCommand( Command::_currentSimpleCommand );
   }
-#line 1321 "y.tab.cc" /* yacc.c:1646  */
+#line 1323 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 89 "shell.y" /* yacc.c:1646  */
+#line 91 "shell.y" /* yacc.c:1646  */
     {
     if ((yyvsp[0].cpp_string)->find('?') != std::string::npos || (yyvsp[0].cpp_string)->find('*') != std::string::npos) {
       char ** exp = dirExp((yyvsp[0].cpp_string)->c_str());
@@ -1354,59 +1356,59 @@ yyreduce:
     }
     //printf("   Yacc: insert argument \"%s\"\n", $1->c_str());
   }
-#line 1358 "y.tab.cc" /* yacc.c:1646  */
+#line 1360 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 124 "shell.y" /* yacc.c:1646  */
+#line 126 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert command \"%s\"\n", $1->c_str());
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
   }
-#line 1368 "y.tab.cc" /* yacc.c:1646  */
+#line 1370 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 141 "shell.y" /* yacc.c:1646  */
+#line 143 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert input \"%s\"\n", $2->c_str());
     Shell::_currentCommand._inFile = (yyvsp[0].cpp_string);
   }
-#line 1377 "y.tab.cc" /* yacc.c:1646  */
+#line 1379 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 149 "shell.y" /* yacc.c:1646  */
+#line 151 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
   }
-#line 1386 "y.tab.cc" /* yacc.c:1646  */
+#line 1388 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 153 "shell.y" /* yacc.c:1646  */
+#line 155 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert background output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
     Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
   }
-#line 1396 "y.tab.cc" /* yacc.c:1646  */
+#line 1398 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 158 "shell.y" /* yacc.c:1646  */
+#line 160 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert append output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
     Shell::_currentCommand._appendO = true;
   }
-#line 1406 "y.tab.cc" /* yacc.c:1646  */
+#line 1408 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 163 "shell.y" /* yacc.c:1646  */
+#line 165 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert append background output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
@@ -1414,29 +1416,29 @@ yyreduce:
     Shell::_currentCommand._appendO = true;
     Shell::_currentCommand._appendE = true;
   }
-#line 1418 "y.tab.cc" /* yacc.c:1646  */
+#line 1420 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 174 "shell.y" /* yacc.c:1646  */
+#line 176 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert error output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
   }
-#line 1427 "y.tab.cc" /* yacc.c:1646  */
+#line 1429 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 182 "shell.y" /* yacc.c:1646  */
+#line 184 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: The command will be ran in the background\n");
     Shell::_currentCommand._background = true;
   }
-#line 1436 "y.tab.cc" /* yacc.c:1646  */
+#line 1438 "y.tab.cc" /* yacc.c:1646  */
     break;
 
 
-#line 1440 "y.tab.cc" /* yacc.c:1646  */
+#line 1442 "y.tab.cc" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1664,7 +1666,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 189 "shell.y" /* yacc.c:1906  */
+#line 191 "shell.y" /* yacc.c:1906  */
 
 
 void
@@ -1854,7 +1856,7 @@ char * tilExp(const char * input) {
   return dir;
 }
 
-char ** dirExp(char * input) {
+char ** dirExp(const char * input) {
   char ** exp;
   char ** output;
   int len = 0;
