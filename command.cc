@@ -159,7 +159,7 @@ void Command::execute() {
         if (!strcmp(cmd, "exit")) {
             free(cmd);
             clear();
-            destroy(history);
+            //destroy(history);
             termBfr();
             exit(0);
         }
