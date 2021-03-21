@@ -9,7 +9,6 @@ int yyparse(void);
 void swtchBfr(char*);
 void initBfr();
 void flushBfr();
-extern char ** history;
 
 void destroy(char** args) {
     int i = 0;
@@ -72,8 +71,6 @@ int main(int argc, char* argv[], char* envp[]) {
     free(input);
     exit(0);
   }
-  //initialize history
-  history = (char**) calloc(8, sizeof(char*));
 
   // store argv[0];
   Shell::argv = argv[0];
