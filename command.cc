@@ -146,7 +146,6 @@ void Command::execute() {
         free(Shell::lstArg);
         Shell::lstArg = (char *)calloc(strlen(lstArg) + 1, sizeof(char));
         strcpy(Shell::lstArg, lstArg);
-        printf("%s recorded\n", Shell::lstArg);
     }
 
     // Print contents of Command data structure
