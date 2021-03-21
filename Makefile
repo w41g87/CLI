@@ -43,7 +43,7 @@ tty-raw-mode.o: tty-raw-mode.c
 	$(cc) $(ccFLAGS) $(WARNFLAGS) -c tty-raw-mode.c
 
 read-line.o: read-line.c
-	$(cc) $(ccFLAGS) $(WARNFLAGS) -c read-line.c
+	$(CC) $(CCFLAGS) $(WARNFLAGS) -c read-line.c
 
 .PHONY: git-commit
 git-commit:
