@@ -37,6 +37,7 @@
 #include <string>
 #include <string.h>
 #include <dirent.h>
+#include <regex.h>
 #include "shell.hh"
 
 void yyerror(const char * s);
@@ -360,7 +361,7 @@ char ** expandedPaths(char * dirA, char * arg) {
 
 char * tilExp(char * input) {
   char * dir;
-  if(*input == 0)) {
+  if(*input == 0) {
     char * home = getenv("HOME");
     dir = (char *)calloc(strlen(home) + 1, sizeof(char));
     strcpy(dir, home);
