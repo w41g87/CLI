@@ -183,6 +183,7 @@ void Command::execute() {
             else if (setenv(arg[1], arg[2], 1) != 0) perror("setenv");
             embedDest(arg);
             clear();
+            Shell::prompt();
             return;
         }
         if (!strcmp(cmd, "unsetenv")) {
@@ -192,6 +193,7 @@ void Command::execute() {
             else if (unsetenv(arg[1]) != 0) perror("unsetenv");
             embedDest(arg);
             clear();
+            Shell::prompt();
             return;
         }
         if (!strcmp(cmd, "cd")) {
@@ -203,6 +205,7 @@ void Command::execute() {
             else if (chdir(arg[1]) != 0) perror("cd");
             embedDest(arg);
             clear();
+            Shell::prompt();
             return;
         }
         if (!strcmp(cmd, "source")) {
@@ -215,6 +218,7 @@ void Command::execute() {
             }
             embedDest(arg);
             clear();
+            Shell::prompt();
             return;
         }
         free(cmd);
