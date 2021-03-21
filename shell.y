@@ -68,10 +68,6 @@ commandline:
     //printf("   Yacc: Empty Line\n");
     Shell::_currentCommand.execute(); 
   }
-  | commands ambio bgmodifier NEWLINE{
-    Shell::_currentCommand.clear();
-    printf("Ambiguous output redirect.");
-  }
   | error NEWLINE { yyerrok; }
   ;
 
@@ -136,11 +132,6 @@ command_word:
   }
   ;
 
-ambio:
-  ambio iomodifiers
-  | iomodifiers iomodifiers
-  ;
-
 iomodifiers:
   iomodifier_in iomodifier_out iomodifier_err
   | iomodifier_in iomodifier_err iomodifier_out
@@ -161,10 +152,20 @@ iomodifier_in:
 iomodifier_out:
   GREAT WORD {
     //printf("   Yacc: insert output \"%s\"\n", $2->c_str());
+    if (Shell::_currentCommand._outFile) {
+      printf("Ambiguous output redirect.\n");
+      Shell::_currentCommand.clear();
+      return;
+    }
     Shell::_currentCommand._outFile = $2;
   }
   | GCONT WORD {
     //printf("   Yacc: insert background output \"%s\"\n", $2->c_str());
+    if (Shell::_currentCommand._outFile || Shell::_currentCommand._errFile) {
+      printf("Ambiguous output redirect.\n");
+      Shell::_currentCommand.clear();
+      return;
+    }
     Shell::_currentCommand._outFile = $2;
     Shell::_currentCommand._errFile = $2;
   }
