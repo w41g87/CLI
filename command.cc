@@ -263,7 +263,7 @@ void Command::execute() {
                 //     printf("%d: %s\n", j, args[j]);
                 // }
                 // You can use execvp() instead if the arguments are stored in an array
-                char * cmd = simpleCommand->_arguments.front()->c_str()
+                const char * cmd = simpleCommand->_arguments.front()->c_str()
                 if (!strcmp(cmd, "printenv")) {
                     while(environ[i]) cout << environ[i++] << endl;
                     clear();

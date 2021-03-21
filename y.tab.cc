@@ -1714,7 +1714,7 @@ char ** inplaceMerge(char ** ptr, size_t len) {
 
   char ** ptr1 = inplaceMerge(ptr, len / 2);
   char ** ptr2 = inplaceMerge(ptr + (len / 2), floor(len / 2) + 1);
-  while(ptr1 != ptr + (len/2) && ptr2 != prt + len) {
+  while(ptr1 != ptr + (len/2) && ptr2 != ptr + len) {
     int i = 0;
     while((*ptr1)[i] == (*ptr2)[i]) i++;
     if ((*ptr1)[i] < (*ptr2)[i]) ptr1++;
