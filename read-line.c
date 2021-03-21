@@ -97,9 +97,7 @@ char * read_line() {
       cursor--;
       // modify line buffer
       int i = cursor;
-      while(line_buffer[i]) {
-        line_buffer[i] = line_buffer[++i];
-      }
+      while(line_buffer[i]) line_buffer[i] = line_buffer[++i];
       write(1, line_buffer + cursor, line_length - cursor);
 
       // Write a space to erase the last character read
