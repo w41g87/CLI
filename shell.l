@@ -253,9 +253,9 @@ char * subshell (char ** input) {
 "${"(\\.|[^\}\\])*"}" {
   char * word = (char *)calloc(strlen(yytext) - 2, sizeof(char));
   memcpy(word, yytext + 2, strlen(yytext) - 3);
-  printf("input: %s\n", word);
+  //printf("input: %s\n", word);
   char * out = envExp(word);
-  printf("output: %s\n", out);
+  //printf("output: %s\n", out);
   yylval.cpp_string = new std::string(out);
   free(out);
   free(word);
