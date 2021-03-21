@@ -151,13 +151,14 @@ char * read_line() {
           // echo line
           write(1, line_buffer, line_length);
         }
-        if (ch2 == 67) {
+        if (ch2 == 68) {
           ch = 8;
           write(1,&ch,1);
           cursor--;
         }
-        if (ch2 == 68 && cursor < line_length) {
+        if (ch2 == 67 && cursor < line_length) {
           write(1, line_buffer + cursor, 1);
+          cursor++;
         }
       }
       
