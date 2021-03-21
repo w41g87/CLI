@@ -35,7 +35,7 @@ void Shell::elimination(int signum) {
   int e = waitpid(-1, &r, 0);
   if (e == -1) Shell::lstRtn = WEXITSTATUS(r);
   else {
-    if (isatt(0)) printf("%d exited\n", e);
+    if (isatty(0)) printf("%d exited\n", e);
     Shell::lstPid = e;
   }
   if (WEXITSTATUS(r) && secure_getenv("ON_ERROR")) puts("ON_ERROR");
