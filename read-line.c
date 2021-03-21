@@ -145,6 +145,8 @@ char * read_line() {
       // write(1,&ch,1);
 
     } else if (ch == 4 && cursor < line_length) del();
+    else if (ch == 1) home();
+    else if (ch == 5) end();
     else if (ch==27) {
       // Escape sequence. Read two chars more
       //
@@ -196,6 +198,8 @@ char * read_line() {
           write(1, line_buffer + cursor, 1);
           cursor++;
         }
+        if (ch2 == 72) home();
+        if (ch2 == 70) end();
       }
       if (ch1 == 91 && ch2 == 51) {
         char ch3;
