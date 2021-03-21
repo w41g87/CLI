@@ -19,6 +19,35 @@ int line_length;
 int cursor;
 char line_buffer[MAX_BUFFER_LINE];
 
+void del() {
+  line_length--;
+
+  // modify line buffer
+  int i = cursor;
+  while(line_buffer[i]) line_buffer[i++] = line_buffer[i + 1];
+
+  if (line_length != cursor) write(1, line_buffer + cursor, line_length - cursor);
+  // Write a space to erase the last character read
+  ch = ' ';
+  write(1,&ch,1);
+
+  ch = 8;
+  for (i = line_length; i >= cursor; i--) write(1,&ch,1);
+}
+
+void home() {
+  ch = 8;
+  while(cursor > 0) {
+    write(1,&ch,1);
+    cursor--;
+  }
+}
+
+void end() [
+  write(1, line_buffer + cursor, line_length - cursor);
+  cursor = line_length;
+]
+
 // Simple history array
 // This history does not change. 
 // Yours have to be updated.
@@ -90,7 +119,7 @@ char * read_line() {
       line_buffer[0]=0;
       break;
     }
-    else if (ch == 127 && cursor > 0) {
+    else if ((ch == 127 || ch == 8) && cursor > 0) {
       // <backspace> was typed. Remove previous character read.
       // Remove one character from buffer
       ch = 8;
@@ -115,7 +144,7 @@ char * read_line() {
       // ch = 8;
       // write(1,&ch,1);
 
-    }
+    } else if (ch == 4 && cursor < line_length) del();
     else if (ch==27) {
       // Escape sequence. Read two chars more
       //
@@ -171,23 +200,7 @@ char * read_line() {
       if (ch1 == 91 && ch2 == 51) {
         char ch3;
         read(0, &ch3, 1);
-        if (ch3 == 126 && cursor < line_length) {
-
-          line_length--;
-
-          //printf("cursor: %d\n", cursor);
-          // modify line buffer
-          int i = cursor;
-          while(line_buffer[i]) line_buffer[i++] = line_buffer[i + 1];
-
-          if (line_length != cursor) write(1, line_buffer + cursor, line_length - cursor);
-          // Write a space to erase the last character read
-          ch = ' ';
-          write(1,&ch,1);
-
-          ch = 8;
-          for (i = line_length; i >= cursor; i--) write(1,&ch,1);
-        }
+        if (ch3 == 126 && cursor < line_length) del();
       }
       
     }
