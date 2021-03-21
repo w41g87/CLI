@@ -225,7 +225,9 @@ char * subshell (char ** input) {
 
 """${"(([^\n]*[^\\\n])|"")"}" {
   char * word = (char *)calloc(strlen(yytext) - 2, sizeof(char));
+  printf("input: %s\n", word);
   char * out = envExp(word);
+  printf("output: %s\n", out);
   yylval.cpp_string = new std::string(out);
   free(out);
   free(word);
