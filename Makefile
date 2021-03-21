@@ -36,7 +36,7 @@ simpleCommand.o: simpleCommand.cc simpleCommand.hh
 shell.o: shell.cc shell.hh
 	$(CC) $(CCFLAGS) $(WARNFLAGS) -c shell.cc
 
-shell: y.tab.o lex.yy.o shell.o command.o simpleCommand.o $(EDIT_MODE_OBJECTS)
+shell: y.tab.o lex.yy.o shell.o command.o simpleCommand.o helper.o $(EDIT_MODE_OBJECTS)
 		$(CC) $(CCFLAGS) $(WARNFLAGS) -o shell lex.yy.o y.tab.o shell.o command.o simpleCommand.o helper.o $(EDIT_MODE_OBJECTS)
 
 tty-raw-mode.o: tty-raw-mode.c
@@ -45,7 +45,7 @@ tty-raw-mode.o: tty-raw-mode.c
 read-line.o: read-line.c
 	$(cc) $(ccFLAGS) $(WARNFLAGS) -c read-line.c
 
-helper.o: helper.c helper.h
+helper.o: helper.c
 	$(cc) $(ccFLAGS) $(WARNFLAGS) -c helper.c
 
 .PHONY: git-commit
