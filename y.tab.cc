@@ -1336,7 +1336,7 @@ yyreduce:
         i++;
       }
       free(exp);
-    } else if ((yyvsp[0].cpp_string)[0] == '~') {
+    } else if ((yyvsp[0].cpp_string)->c_str()[0] == '~') {
       if ((yyvsp[0].cpp_string)->find('/') != std::string::npos) {
         char * home = tilExp((yyvsp[0].cpp_string)->substr(1, (yyvsp[0].cpp_string)->find('/')).c_str());
         std::string * newArg = new std::string();

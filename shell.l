@@ -117,31 +117,6 @@ char * envExp(char * input) {
   } else return (char *)calloc(1, sizeof(char));
 }
 
-char * tilExp(char * input) {
-  if(*input == 0)) {
-    char * home = getenv("HOME");
-    dir = (char *)calloc(strlen(home) + 1, sizeof(char));
-    strcpy(dir, home);
-    return dir;
-  } else {
-
-  }
-}
-
-char ** dirExp(char * input) {
-  char * dir;
-  if (*input == '/') {
-    dir = (char *)calloc(2, sizeof(char));
-    *dir = '/';
-  } else if (*input == '~') {
-    char * home = (char *)calloc(strchr(input, '/') - input + 1, sizeof(char));
-    strncpy(home, input, strchr(input, '/') - input);
-    dir = tilExp(home);
-    free(home);
-  }
-
-}
-
 char * subshell (char ** input) {
   //printf("subshell function call: %s\n", input[0]);
   int size = 8;
