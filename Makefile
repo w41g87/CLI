@@ -5,7 +5,7 @@
 cc= gcc
 CC= g++
 ccFLAGS= -g -std=c11
-CCFLAGS= -g -std=c++17
+CCFLAGS= -g -lm -std=c++17
 WARNFLAGS= -Wall -Wextra -pedantic
 
 LEX=lex -l
