@@ -14,6 +14,8 @@
 #include <sys/types.h> 
 #include <sys/wait.h> 
 #include <iostream>
+#include <limits.h>
+#include <stdlib.h>
 #include "y.tab.hh"
 #include "shell.hh"
 
@@ -75,6 +77,48 @@ void unputStr(char * input) {
     myunputc(input[i]);
     }
   }
+}
+
+char * envExp(char * input) {
+  char * env;
+  if (!strcmp(input, "$")) {
+    pid_t pid = getpid();
+    int lengthD = floor(log10(abs(pid))) + 1;
+    output = calloc(lengthD + 1, sizeof(char));
+    sprintf(p, "%d", pid);
+    return output;
+  }
+  if (!strcmp(input, "?")) {
+    int lengthD = floor(log10(abs(Shell::lstRtn))) + 1;
+    output = calloc(lengthD + 1, sizeof(char));
+    sprintf(p, "%d", Shell::lstRtn);
+    return output;
+  }
+  if (!strcmp(input, "!")) {
+    int lengthD = floor(log10(abs(Shell::lstPid))) + 1;
+    output = calloc(lengthD + 1, sizeof(char));
+    sprintf(p, "%d", Shell::lstPid);
+    return output;
+  }
+  if (!strcmp(input, "_")) {
+    if (Shell::lstArg != NULL) {
+      char * output = calloc(strlen(Shell::lstArg) + 1, sizeof(char));
+      strcpy(output, Shell::lstArg);
+      return output;
+    } else return calloc(1, sizeof(char));
+  }
+  if (!strcmp(input, "SHELL")) {
+    return(realpath(Shell::argv));
+  }
+  if ((env = getenv(input);) != NULL) {
+    char * output = calloc(strlen(env) + 1, sizeof(char));
+    strcpy(output, env);
+    return output;
+  } else return calloc(1, sizeof(char));
+}
+
+char * tilExp(char * input) {
+
 }
 
 char * subshell (char ** input) {
@@ -176,6 +220,14 @@ char * subshell (char ** input) {
 
   unputStr(out);
   free(out);
+}
+
+"""${"(([^\n]*[^\\\n])|"")"}" {
+  char * word = (char *)calloc(strlen(yytext) - 2, sizeof(char));
+  char * out = envExp(word);
+  yylval.cpp_string = new std::string(out);
+  free(out);
+  free(word);
 }
 
 [ \t] {

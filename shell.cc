@@ -26,8 +26,13 @@ void Shell::termination(int signum) {
 }
 
 void Shell::elimination(int signum) {
-  int e;
-  if ((e = waitpid(-1, NULL, 0)) != -1) printf("%d exited\n", e);
+  int r;
+  int e = waitpid(-1, &r, 0);
+  if (e == -1) Shell::lstRtn = r;
+  else {
+    printf("%d exited\n", e);
+    Shell::lstPid = e;
+  }
 }
 
 int main(int argc, char* argv[], char* envp[]) {
@@ -52,6 +57,10 @@ int main(int argc, char* argv[], char* envp[]) {
     exit(0);
   }
 
+  // store argv[0];
+  Shell::argv = argv[0];
+
+  // Signal handling
   struct sigaction c, d;
   c.sa_handler = Shell::termination;
   sigemptyset(&c.sa_mask);
@@ -70,6 +79,8 @@ int main(int argc, char* argv[], char* envp[]) {
       perror("sigaction");
       exit(2);
   }
+
+  // init stdin buffer
   initBfr();
   Shell::_currentCommand.execute();
   //Shell::prompt();
@@ -78,3 +89,7 @@ int main(int argc, char* argv[], char* envp[]) {
 
 Command Shell::_currentCommand;
 bool Shell::isPrompt = true;
+int Shell::lstRtn = 0;
+int Shell::lstPid = 0;
+char * Shell::lstArg = NULL;
+char * Shell::argv;

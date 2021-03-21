@@ -14,6 +14,10 @@ struct Shell {
   static Command _currentCommand;
 
   static bool isPrompt;
+
+  static int lstRtn;
+  
+  static int lstPid;
 };
 
 #endif

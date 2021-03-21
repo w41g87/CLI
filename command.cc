@@ -139,6 +139,14 @@ void Command::execute() {
     int inF = 0;
     int outF = 0;
     int errF = 0;
+    
+    // save the last argument
+    {
+        char * lstArg = _simpleCommands.back()->_arguments.back()->c_str();
+        free(Shell::lstArg);
+        Shell::lstArg = calloc(strlen(lstArg) + 1, sizeof(char));
+        strcpy(Shell::lstArg, lstArg);
+    }
 
     // Print contents of Command data structure
     if ( isatty(0) && isatty(1) && Shell::isPrompt) print();
