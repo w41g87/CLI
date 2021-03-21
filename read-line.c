@@ -157,7 +157,7 @@ char * read_line() {
           cursor--;
         }
         if (ch2 == 68 && cursor < line_length) {
-          write(1, linebuffer + cursor, 1);
+          write(1, line_buffer + cursor, 1);
         }
       }
       
