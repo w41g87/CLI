@@ -95,6 +95,7 @@ char * read_line() {
       // Remove one character from buffer
       line_length--;
       cursor--;
+      printf("cursor: %d\n", cursor);
       // modify line buffer
       int i = cursor;
       while(line_buffer[i]) line_buffer[i] = line_buffer[++i];
