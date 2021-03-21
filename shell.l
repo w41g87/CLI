@@ -182,7 +182,7 @@ char * subshell (char ** input) {
   return NEWLINE;
 }
 
-((([^ \t\n]*[^\\ \t\n])|"")\"([^([^\\]\")]*[^\\]|"")\"[^ \t\n]*)+ {
+((([^ \t\n]*[^\\ \t\n])|"")\"(\\.|[^"\\])*\"[^ \t\n]*)+ {
   yylval.cpp_string = removeE(yytext);
   return WORD;
 }
@@ -223,7 +223,7 @@ char * subshell (char ** input) {
   free(out);
 }
 
-"""${"([^([^\\]\})]*[^\\]|"")"}" {
+"""${"(\\.|[^\}\\])*"}" {
   char * word = (char *)calloc(strlen(yytext) - 2, sizeof(char));
   memcpy(word, yytext + 2, strlen(yytext) - 3);
   printf("input: %s\n", word);
