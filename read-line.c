@@ -36,7 +36,7 @@ void del() {
 }
 
 void home() {
-  ch = 8;
+  char ch = 8;
   while(cursor > 0) {
     write(1,&ch,1);
     cursor--;
