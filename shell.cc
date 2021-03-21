@@ -26,9 +26,9 @@ void Shell::termination(int signum) {
 }
 
 void Shell::elimination(int signum) {
-  int r;
+  int r = 0;
   int e = waitpid(-1, &r, 0);
-  if (e == -1) Shell::lstRtn = r;
+  if (e == -1) Shell::lstRtn = WEXITSTATUS(r);
   else {
     printf("%d exited\n", e);
     Shell::lstPid = e;
