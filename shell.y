@@ -47,6 +47,7 @@ char ** dirExp(const char *);
 
 void yyerror(const char * s);
 int yylex();
+char ** inplaceMerge(char**, size_t);
 
 extern "C" void * recallocarray(void *, size_t, size_t, size_t);
 
@@ -95,9 +96,12 @@ argument:
     if ($1->find('?') != std::string::npos || $1->find('*') != std::string::npos) {
       char ** exp = dirExp($1->c_str());
       delete $1;
-      inplaceMerge(exp);
+      
       // iterate through the array and put everything into arguement
-      int i;
+      int i = 0;
+      while(exp[i++]);
+      inplaceMerge(exp, i - 1);
+      i = 0;
       while(exp[i]) {
         Command::_currentSimpleCommand->insertArgument( new std::string(exp[i]) );
         free(exp[i]);

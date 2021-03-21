@@ -1693,7 +1693,7 @@ yyerror(const char * s)
   yyparse();
 }
 
-void inplaceMerge(char ** ptr, size_t len) {
+char ** inplaceMerge(char ** ptr, size_t len) {
   if (len < 2) return ptr;
   if (len == 2) {
     int len1 = strlen(*ptr);
