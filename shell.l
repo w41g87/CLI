@@ -60,7 +60,6 @@ std::string * removeE(char * s) {
       //printf("%c", s[i]);
     }
   }
-  //str->push_back(0);
   return str;
 }
 
@@ -119,6 +118,27 @@ char * envExp(char * input) {
 }
 
 char * tilExp(char * input) {
+  if(*input == 0)) {
+    char * home = getenv("HOME");
+    dir = (char *)calloc(strlen(home) + 1, sizeof(char));
+    strcpy(dir, home);
+    return dir;
+  } else {
+
+  }
+}
+
+char ** dirExp(char * input) {
+  char * dir;
+  if (*input == '/') {
+    dir = (char *)calloc(2, sizeof(char));
+    *dir = '/';
+  } else if (*input == '~') {
+    char * home = (char *)calloc(strchr(input, '/') - input + 1, sizeof(char));
+    strncpy(home, input, strchr(input, '/') - input);
+    dir = tilExp(home);
+    free(home);
+  }
 
 }
 
@@ -279,6 +299,7 @@ char * subshell (char ** input) {
 [^ \t\n]+  {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = removeE(yytext);
+
   //printf("lex scanned: %s\n", yytext);
   //cout << *yylval.cpp_string << endl;
   return WORD;

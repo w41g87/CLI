@@ -34,6 +34,7 @@
 %{
 //#define yylex yylex
 #include <cstdio>
+#include <string>
 #include "shell.hh"
 
 void yyerror(const char * s);
@@ -81,6 +82,10 @@ argument_list:
 
 argument:
   WORD {
+    if ($1.find('?') != std::string::npos || $1.find('*') != std::string::npos) {
+      char ** exp = dirExp($1->c_str());
+
+    }
     //printf("   Yacc: insert argument \"%s\"\n", $1->c_str());
     Command::_currentSimpleCommand->insertArgument( $1 );
   }
@@ -160,6 +165,232 @@ yyerror(const char * s)
   fprintf(stderr,"%s\n", s);
   Shell::prompt();
   yyparse();
+}
+
+char * w2r (char * input) {
+  std::string reg = std::string();
+  reg.push_back('^');
+  switch(*input) {
+    case '*':
+      reg.append("([^\\. ][^ ]*|\"\")");
+      break;
+    case '?':
+      reg.append("[^\\. ]");
+      break;
+    case '+':
+      reg.append("\\+");
+      break;
+    case '[':
+      reg.append("\\[");
+      break;
+    case ']':
+      reg.append("\\]");
+      break;
+    case '(':
+      reg.append("\\(");
+      break;
+    case ')':
+      reg.append("\\)");
+      break;
+    case '.':
+      reg.append("\\.");
+      break;
+    default:
+      reg.push_back(*input);
+  }
+
+  for (int i = 1; i < strlen(input); i++) {
+    switch(input[i]) {
+      case '*':
+        reg.append("[^\\. ]?[^ ]*");
+        break;
+      case '?':
+        reg.append("[^\\. ]");
+        break;
+      case '+':
+        reg.append("\\+");
+        break;
+      case '[':
+        reg.append("\\[");
+        break;
+      case ']':
+        reg.append("\\]");
+        break;
+      case '(':
+        reg.append("\\(");
+        break;
+      case ')':
+        reg.append("\\)");
+        break;
+      case '.':
+        reg.append("\\.");
+        break;
+      default:
+        reg.push_back(input[i]);
+    }
+  }
+  reg.push_back('$');
+
+  char * output = (char *)calloc(strlen(reg.c_str()) + 1, sizeof(char));
+  strcpy(output, reg.c_str());
+  return(output);
+}
+
+char ** expandedPaths(char * dirA, char * arg) {
+  //printf("dir address: %s\nrest: %s\n", dirA, arg);
+  char ** output = (char **)calloc(8, sizeof(char*));
+  int outputI = 0;
+  int outputSize = 8;
+  char * currentDir;
+  char * rest = NULL;
+
+  // terminating cases
+  if (!strchr(arg, '/')) {
+    currentDir = (char *)calloc(strlen(arg) + 1, sizeof(char));
+    strcpy(currentDir, arg);
+  } else {
+    int len = strchr(arg, '/') - arg;
+    currentDir = (char *)calloc(len + 1, sizeof(char));
+    strncpy(currentDir, arg, len);
+    rest = (char *)calloc(strlen(arg) - len, sizeof(char));
+    strcpy(rest, arg + len + 1);
+  }
+
+  // regex conversion
+  char * regExp = w2r(currentDir);
+  //printf("regExp: %s\n", regExp);
+  free(currentDir);
+  currentDir = NULL;
+  regex_t re;	
+  int result = regcomp( &re, regExp,  REG_EXTENDED|REG_NOSUB);
+  if( result != 0 ) {
+    fprintf( stderr, "Bad regular expresion \"%s\"\n", regExp );
+    exit( -1 );
+  }
+
+  // recursive calls
+  DIR * dir = opendir(dirA);
+  struct dirent * ent;
+  while ((ent = readdir(dir)) != NULL) {
+    regmatch_t match;
+    char *name = ent->d_name;
+    unsigned char type = ent->d_type;
+    if (regexec( &re, name, 1, &match, 0) == 0 
+      && strcmp(name, ".")
+      && strcmp(name, "..")) {
+      //printf("name: %s\n", name);
+      if (rest == NULL) {
+        //printf("strlen 1\n");
+        output[outputI] = (char *)calloc(strlen(name) + 1, sizeof(char));
+        strcpy(output[outputI], name);
+        outputI++;
+        if(outputI == outputSize) {
+            outputSize *= 2;
+            char ** temp = (char **)calloc(outputSize, sizeof(char *));
+            memcpy(temp, output, outputSize / 2);
+            free(output);
+            output = temp;
+        }
+      } else if (type == DT_DIR) {
+        int i = 0;
+        //printf("strlen 2\n");
+        char * newDir = (char *)calloc(strlen(dirA) + strlen(name) + 2, sizeof(char));
+        strcpy(newDir, dirA);
+        //printf("strlen 3\n");
+        strcpy(newDir + strlen(dirA), name);
+        //printf("strlen 4\n");
+        newDir[strlen(dirA) + strlen(name)] = '/';
+        char ** recOut = expandedPaths(newDir, rest);
+        while(recOut[i]) {
+          //printf("strlen 5\n");
+          output[outputI] = (char *)calloc(strlen(recOut[i]) + strlen(name) + 2, sizeof(char));
+          strcpy(output[outputI], name);
+          //printf("strlen 6\n");
+          output[outputI][strlen(name)] = '/';
+          //printf("strlen 7\n");
+          strcpy(output[outputI] + strlen(name) + 1, recOut[i]);
+          free(recOut[i]);
+
+          i++;
+          outputI++;
+          if(outputI == outputSize) {
+            outputSize *= 2;
+            char ** temp = (char **)calloc(outputSize, sizeof(char *));
+            memcpy(temp, output, outputSize / 2);
+            free(output);
+            output = temp;
+          }
+        }
+        free(recOut);
+        free(newDir);
+      } 
+    }
+  }
+
+  free(rest);
+  free(regExp);
+  return output;
+}
+
+char * tilExp(char * input) {
+  char * dir;
+  if(*input == 0)) {
+    char * home = getenv("HOME");
+    dir = (char *)calloc(strlen(home) + 1, sizeof(char));
+    strcpy(dir, home);
+  } else {
+    dir = (char *)calloc(strlen(input) + 6, sizeof(char));
+    strcpy(dir, "/home/");
+    strcpy(dir + 6, input + 1);
+  }
+  return dir;
+}
+
+char ** dirExp(char * input) {
+  char ** exp;
+  char ** output;
+  int len = 0;
+  if (*input == '/') {
+    exp = expandedPaths("/", input + 1);
+    while(exp[len]) len++;
+    output = (char **)calloc(len + 1, sizeof(char *));
+    for(int i = 0; i < len; i++) {
+      output[i] = (char *)calloc(strlen(exp[i]) + 2, sizeof(char));
+      output[i][0] = '/';
+      strcpy(output[i] + 1, exp[i]);
+      free(exp[i]);
+    }
+    free(exp);
+    return output;
+  } else if (*input == '~') {
+    // isolate the username
+    char * home = (char *)calloc(strchr(input, '/') - input, sizeof(char));
+    strncpy(home, input + 1, strchr(input, '/') - input - 1);
+    // get tilda expansion
+    dir = tilExp(home);
+    free(home);
+    // adding slash to the end
+    dir = realloc(dir, strlen(dir) + 1);
+    dir[strlen(dir) + 1] = 0;
+    dir[strlen(dir)] = '/';
+    // get the rest of the argument
+    char * rest = (char *)calloc(strchr(input, '/') - input, sizeof(char));
+    strcpy(rest, strlen(input, '/') + 1);
+    exp = expandedPaths(dir, rest);
+    free(rest);
+    // append and return
+    while(exp[len]) len++;
+    output = (char **)calloc(len + 1, sizeof(char *));
+    for(int i = 0; i < len; i++) {
+      output[i] = (char *)calloc(strlen(exp[i]) + strlen(dir) + 1, sizeof(char));
+      strcpy(output[i], dir);
+      strcpy(output[i] + strlen(dir), exp[i]);
+      free(exp[i]);
+    }
+    free(exp);
+    free(dir);
+    return output;
+  } else return expandedPaths(".", input);
 }
 
 #if 0
