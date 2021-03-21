@@ -173,7 +173,7 @@ int yyparse (void);
 #include <regex.h>
 #include "shell.hh"
 
-char * tilExp(char *);
+char * tilExp(const char *);
 
 void yyerror(const char * s);
 int yylex();
@@ -1840,7 +1840,7 @@ char ** expandedPaths(char * dirA, char * arg) {
   return output;
 }
 
-char * tilExp(char * input) {
+char * tilExp(const char * input) {
   char * dir;
   if(*input == 0) {
     char * home = getenv("HOME");

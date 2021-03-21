@@ -102,9 +102,9 @@ argument:
       if ($1->find('/') != std::string::npos) {
         char * home = tilExp($1->substr(1, $1->find('/')).c_str());
         std::string * newArg = new std::string();
-        newArg.append(home);
+        newArg->append(home);
         free(home);
-        newArg.append($1->substr($1->find('/')));
+        newArg->append($1->substr($1->find('/')));
         delete $1;
         Command::_currentSimpleCommand->insertArgument( newArg );
       } else {
