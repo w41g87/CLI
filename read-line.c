@@ -72,7 +72,7 @@ char * read_line() {
       if (line_length==MAX_BUFFER_LINE-2) break; 
 
       // add char to buffer.
-      line_buffer[line_length]=ch;
+      line_buffer[cursor]=ch;
       line_length++;
       cursor++;
     }
@@ -99,10 +99,9 @@ char * read_line() {
       int i = cursor;
       while(line_buffer[i]) line_buffer[i] = line_buffer[++i];
       write(1, line_buffer + cursor, line_length - cursor);
-      cursor = line_length;
       // Write a space to erase the last character read
       ch = ' ';
-      write(1,&ch,1);
+      for (i = line_length; i >= cursor; i--) write(1,&ch,1);
 
       // Go back one character
       // ch = 8;
@@ -126,7 +125,7 @@ char * read_line() {
           // Erase old line
           // Print backspaces
           int i = 0;
-          for (i =0; i < line_length; i++) {
+          for (i =0; i < cursor; i++) {
             ch = 8;
             write(1,&ch,1);
           }
