@@ -133,15 +133,6 @@ command_word:
   ;
 
 iomodifiers:
-  iomodifier_in iomodifier_out iomodifier_err
-  | iomodifier_in iomodifier_err iomodifier_out
-  | iomodifier_out iomodifier_in iomodifier_err
-  | iomodifier_out iomodifier_err iomodifier_in
-  | iomodifier_err iomodifier_in iomodifier_out
-  | iomodifier_err iomodifier_out iomodifier_in
-  ;
-
-iomodifier_in:
   LESS WORD {
     //printf("   Yacc: insert input \"%s\"\n", $2->c_str());
     if (Shell::_currentCommand._inFile) {
@@ -150,11 +141,7 @@ iomodifier_in:
     }
     Shell::_currentCommand._inFile = $2;
   }
-  | /*can be empty*/
-  ;
-
-iomodifier_out:
-  GREAT WORD {
+  | GREAT WORD {
     //printf("   Yacc: insert output \"%s\"\n", $2->c_str());
     if (Shell::_currentCommand._outFile) {
       printf("Ambiguous output redirect.\n");
@@ -191,11 +178,7 @@ iomodifier_out:
     Shell::_currentCommand._appendO = true;
     Shell::_currentCommand._appendE = true;
   }
-  | /*can be empty*/
-  ;
-
-iomodifier_err:
-  GREAT2 WORD {
+  | GREAT2 WORD {
     //printf("   Yacc: insert error output \"%s\"\n", $2->c_str());
     if (Shell::_currentCommand._errFile) {
       printf("Ambiguous output redirect.\n");

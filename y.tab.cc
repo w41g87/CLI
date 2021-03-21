@@ -483,8 +483,8 @@ static const yytype_uint8 yyrline[] =
 {
        0,    57,    57,    58,    63,    67,    71,    74,    75,    81,
       88,    89,    93,   128,   136,   137,   138,   139,   140,   141,
-     145,   149,   153,   162,   172,   177,   184,   188,   192,   196,
-     200
+     145,   153,   157,   165,   174,   183,   194,   198,   206,   210,
+     214
 };
 #endif
 
@@ -1375,82 +1375,96 @@ yyreduce:
 #line 145 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert input \"%s\"\n", $2->c_str());
+    if (Shell::_currentCommand._inFile) {
+      printf("Ambiguous output redirect.\n");
+      Shell::_currentCommand.clear();
+    }
     Shell::_currentCommand._inFile = (yyvsp[0].cpp_string);
   }
-#line 1381 "y.tab.cc" /* yacc.c:1646  */
+#line 1385 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 153 "shell.y" /* yacc.c:1646  */
+#line 157 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert output \"%s\"\n", $2->c_str());
     if (Shell::_currentCommand._outFile) {
       printf("Ambiguous output redirect.\n");
       Shell::_currentCommand.clear();
-      return;
     }
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
   }
-#line 1395 "y.tab.cc" /* yacc.c:1646  */
+#line 1398 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 162 "shell.y" /* yacc.c:1646  */
+#line 165 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert background output \"%s\"\n", $2->c_str());
     if (Shell::_currentCommand._outFile || Shell::_currentCommand._errFile) {
       printf("Ambiguous output redirect.\n");
       Shell::_currentCommand.clear();
-      return;
     }
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
     Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
   }
-#line 1410 "y.tab.cc" /* yacc.c:1646  */
+#line 1412 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 172 "shell.y" /* yacc.c:1646  */
+#line 174 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert append output \"%s\"\n", $2->c_str());
+    if (Shell::_currentCommand._outFile) {
+      printf("Ambiguous output redirect.\n");
+      Shell::_currentCommand.clear();
+    }
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
     Shell::_currentCommand._appendO = true;
   }
-#line 1420 "y.tab.cc" /* yacc.c:1646  */
+#line 1426 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 177 "shell.y" /* yacc.c:1646  */
+#line 183 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert append background output \"%s\"\n", $2->c_str());
+    if (Shell::_currentCommand._outFile || Shell::_currentCommand._errFile) {
+      printf("Ambiguous output redirect.\n");
+      Shell::_currentCommand.clear();
+    }
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
     Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
     Shell::_currentCommand._appendO = true;
     Shell::_currentCommand._appendE = true;
   }
-#line 1432 "y.tab.cc" /* yacc.c:1646  */
+#line 1442 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 188 "shell.y" /* yacc.c:1646  */
+#line 198 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert error output \"%s\"\n", $2->c_str());
+    if (Shell::_currentCommand._errFile) {
+      printf("Ambiguous output redirect.\n");
+      Shell::_currentCommand.clear();
+    }
     Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
   }
-#line 1441 "y.tab.cc" /* yacc.c:1646  */
+#line 1455 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 196 "shell.y" /* yacc.c:1646  */
+#line 210 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: The command will be ran in the background\n");
     Shell::_currentCommand._background = true;
   }
-#line 1450 "y.tab.cc" /* yacc.c:1646  */
+#line 1464 "y.tab.cc" /* yacc.c:1646  */
     break;
 
 
-#line 1454 "y.tab.cc" /* yacc.c:1646  */
+#line 1468 "y.tab.cc" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1678,7 +1692,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 203 "shell.y" /* yacc.c:1906  */
+#line 217 "shell.y" /* yacc.c:1906  */
 
 
 void
