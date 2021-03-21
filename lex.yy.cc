@@ -761,37 +761,37 @@ char * envExp(char * input) {
   if (!strcmp(input, "$")) {
     pid_t pid = getpid();
     int lengthD = floor(log10(abs(pid))) + 1;
-    output = calloc(lengthD + 1, sizeof(char));
+    output = (char*)calloc(lengthD + 1, sizeof(char));
     sprintf(p, "%d", pid);
     return output;
   }
   if (!strcmp(input, "?")) {
     int lengthD = floor(log10(abs(Shell::lstRtn))) + 1;
-    output = calloc(lengthD + 1, sizeof(char));
+    output = (char*)calloc(lengthD + 1, sizeof(char));
     sprintf(p, "%d", Shell::lstRtn);
     return output;
   }
   if (!strcmp(input, "!")) {
     int lengthD = floor(log10(abs(Shell::lstPid))) + 1;
-    output = calloc(lengthD + 1, sizeof(char));
+    output = (char*)calloc(lengthD + 1, sizeof(char));
     sprintf(p, "%d", Shell::lstPid);
     return output;
   }
   if (!strcmp(input, "_")) {
     if (Shell::lstArg != NULL) {
-      char * output = calloc(strlen(Shell::lstArg) + 1, sizeof(char));
+      char * output = (char*)calloc(strlen(Shell::lstArg) + 1, sizeof(char));
       strcpy(output, Shell::lstArg);
       return output;
-    } else return calloc(1, sizeof(char));
+    } else return (char*)calloc(1, sizeof(char));
   }
   if (!strcmp(input, "SHELL")) {
-    return(realpath(Shell::argv));
+    return realpath(Shell::argv);
   }
-  if ((env = getenv(input);) != NULL) {
-    char * output = calloc(strlen(env) + 1, sizeof(char));
+  if ((env = getenv(input)) != NULL) {
+    char * output = (char*)calloc(strlen(env) + 1, sizeof(char));
     strcpy(output, env);
     return output;
-  } else return calloc(1, sizeof(char));
+  } else return (char *)calloc(1, sizeof(char));
 }
 
 char * tilExp(char * input) {

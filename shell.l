@@ -85,19 +85,19 @@ char * envExp(char * input) {
     pid_t pid = getpid();
     int lengthD = floor(log10(abs(pid))) + 1;
     output = (char*)calloc(lengthD + 1, sizeof(char));
-    sprintf(p, "%d", pid);
+    sprintf(output, "%d", pid);
     return output;
   }
   if (!strcmp(input, "?")) {
     int lengthD = floor(log10(abs(Shell::lstRtn))) + 1;
     output = (char*)calloc(lengthD + 1, sizeof(char));
-    sprintf(p, "%d", Shell::lstRtn);
+    sprintf(output, "%d", Shell::lstRtn);
     return output;
   }
   if (!strcmp(input, "!")) {
     int lengthD = floor(log10(abs(Shell::lstPid))) + 1;
     output = (char*)calloc(lengthD + 1, sizeof(char));
-    sprintf(p, "%d", Shell::lstPid);
+    sprintf(output, "%d", Shell::lstPid);
     return output;
   }
   if (!strcmp(input, "_")) {
