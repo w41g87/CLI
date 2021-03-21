@@ -43,13 +43,12 @@ extern int yydebug;
 #line 15 "shell.y" /* yacc.c:1909  */
 
 #include <string>
-#include "helper.h"
 
 #if __cplusplus > 199711L
 #define register      // Deprecated in C++11 so remove the keyword
 #endif
 
-#line 53 "y.tab.hh" /* yacc.c:1909  */
+#line 52 "y.tab.hh" /* yacc.c:1909  */
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -89,13 +88,13 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 25 "shell.y" /* yacc.c:1909  */
+#line 24 "shell.y" /* yacc.c:1909  */
 
   char        *string_val;
   // Example of using a c++ type in yacc
   std::string *cpp_string;
 
-#line 99 "y.tab.hh" /* yacc.c:1909  */
+#line 98 "y.tab.hh" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
