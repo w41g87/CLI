@@ -18,6 +18,8 @@ struct Shell {
   static int lstRtn;
   
   static int lstPid;
+
+  static char * lstArg;
 };
 
 #endif
