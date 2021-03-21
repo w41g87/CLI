@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include "shell.hh"
 
 #define MAX_BUFFER_LINE 2048
 
@@ -51,16 +52,9 @@ void end() {
 // Simple history array
 // This history does not change. 
 // Yours have to be updated.
-int history_index = 0;
-char * history [] = {
-  "ls -al | grep x", 
-  "ps -e",
-  "cat read-line-example.c",
-  "vi hello.c",
-  "make",
-  "ls -al | grep xxx | grep yyy"
-};
-int history_length = sizeof(history)/sizeof(char *);
+int historyL = 0;
+int historyS = 8;
+char ** history = (char**)calloc(8, sizeof(char*));
 
 void read_line_print_usage()
 {
@@ -80,9 +74,17 @@ char * read_line() {
   // Set terminal in raw mode
   tty_raw_mode();
 
+  // variable init
   line_length = 0;
-
   cursor = 0;
+  int historyI = historyL;
+
+  // create a copy of history
+  char ** historyLocal = (char**)calloc(historyL + 2, sizeof(char*));
+  for (int i = 0; i < historyL; i++) {
+    historyLocal[i] = (char*)calloc(MAX_BUFFER_LINE, sizeof(char));
+    strcpy(historyLocal[i], history[i]);
+  }
 
   // Read one line until enter is typed
   while (1) {
@@ -110,7 +112,13 @@ char * read_line() {
       
       // Print newline
       write(1,&ch,1);
-
+      history[historyL] = (char*)calloc(strlen(line_buffer) + 1, sizeof(char));
+      strcpy(history[historyL], line_buffer);
+      historyL++;
+      if (historyL == historyS) {
+        historyS *= 2;
+        history = recallocarray(history, historyS, sizeof(char*));
+      }
       break;
     }
     else if (ch == 31) {

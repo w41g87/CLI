@@ -10,6 +10,19 @@ void swtchBfr(char*);
 void initBfr();
 void flushBfr();
 
+void destroy(char** args) {
+    int i = 0;
+    while(args[i++]) free(args[i]);
+    free(args);
+}
+
+void * recallocarray(void * ptr, size_t nmemb, size_t size) {
+  void * temp = calloc(nmemb, size);
+  memcpy(temp, ptr, sizeof(ptr));
+  free(ptr);
+  return temp;
+}
+
 void Shell::prompt() {
   if ( isatty(0) && isatty(1) && Shell::isPrompt) {
     printf("λ> ");

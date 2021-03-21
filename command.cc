@@ -113,12 +113,6 @@ void Command::print() {
     printf( "\n\n" );
 }
 
-void Command::embedDest(char** args) {
-    int i = 0;
-    while(args[i++]) free(args[i]);
-    free(args);
-}
-
 void Command::execute() {
     if (_init && access(".shellrc", R_OK) != -1) {
         clear();
@@ -165,6 +159,7 @@ void Command::execute() {
         if (!strcmp(cmd, "exit")) {
             free(cmd);
             clear();
+            destroy(history);
             termBfr();
             exit(0);
         }
@@ -181,7 +176,7 @@ void Command::execute() {
             while(arg[i++] != 0);
             if (i != 4) cout << "setenv: argument number mismatch." << endl;
             else if (setenv(arg[1], arg[2], 1) != 0) perror("setenv");
-            embedDest(arg);
+            destroy(arg);
             clear();
             Shell::prompt();
             return;
@@ -191,7 +186,7 @@ void Command::execute() {
             while(arg[i++]);
             if (i != 3) cout << "unsetenv: argument number mismatch." << endl;
             else if (unsetenv(arg[1]) != 0) perror("unsetenv");
-            embedDest(arg);
+            destroy(arg);
             clear();
             Shell::prompt();
             return;
@@ -203,7 +198,7 @@ void Command::execute() {
             if (i > 3) cout << "cd: too many arguments." << endl;
             else if (i == 2) chdir(getenv("HOME"));
             else if (chdir(arg[1]) != 0) perror("cd");
-            embedDest(arg);
+            destroy(arg);
             clear();
             Shell::prompt();
             return;
@@ -216,7 +211,7 @@ void Command::execute() {
                 clear();
                 source(arg[1]);
             }
-            embedDest(arg);
+            destroy(arg);
             clear();
             Shell::prompt();
             return;
@@ -324,7 +319,7 @@ void Command::execute() {
                 //embedDest(args);
                 exit( 2 );
             }
-            embedDest(args);
+            destroy(args);
         }
         //printf("pid: %d", _pid);
         if (!_background) waitpid( _pid, 0, 0 );
