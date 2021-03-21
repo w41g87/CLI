@@ -102,7 +102,7 @@ argument:
       free(exp);
     } else if ($1->c_str()[0] == '~') {
       if ($1->find('/') != std::string::npos) {
-        char * home = tilExp($1->substr(1, $1->find('/')).c_str());
+        char * home = tilExp($1->substr(0, $1->find('/')).c_str());
         std::string * newArg = new std::string();
         newArg->append(home);
         free(home);
@@ -365,7 +365,7 @@ char ** expandedPaths(const char * dirA, const char * arg) {
 
 char * tilExp(const char * input) {
   char * dir;
-  if(*input == 0) {
+  if(*input == '~') {
     char * home = getenv("HOME");
     dir = (char *)calloc(strlen(home) + 1, sizeof(char));
     strcpy(dir, home);
@@ -395,8 +395,8 @@ char ** dirExp(const char * input) {
     return output;
   } else if (*input == '~') {
     // isolate the username
-    char * home = (char *)calloc(strchr(input, '/') - input, sizeof(char));
-    strncpy(home, input + 1, strchr(input, '/') - input - 1);
+    char * home = (char *)calloc(strchr(input, '/') - input + 1, sizeof(char));
+    strncpy(home, input, strchr(input, '/') - input);
     // get tilda expansion
     char * dir = tilExp(home);
     free(home);
