@@ -9,19 +9,7 @@ int yyparse(void);
 void swtchBfr(char*);
 void initBfr();
 void flushBfr();
-
-void destroy(char** args) {
-    int i = 0;
-    while(args[i++]) free(args[i]);
-    free(args);
-}
-
-void * recallocarray(void * ptr, size_t nmemb, size_t size) {
-  void * temp = calloc(nmemb, size);
-  memcpy(temp, ptr, sizeof(ptr));
-  free(ptr);
-  return temp;
-}
+extern char ** history;
 
 void Shell::prompt() {
   if ( isatty(0) && isatty(1) && Shell::isPrompt) {
@@ -71,6 +59,9 @@ int main(int argc, char* argv[], char* envp[]) {
     free(input);
     exit(0);
   }
+
+  // initialize history
+  history = (char**) calloc(8, sizeof(char*));
 
   // store argv[0];
   Shell::argv = argv[0];
