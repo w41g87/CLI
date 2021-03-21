@@ -68,6 +68,10 @@ commandline:
     //printf("   Yacc: Empty Line\n");
     Shell::_currentCommand.execute(); 
   }
+  | commands ambio bgmodifier NEWLINE{
+    Shell::_currentCommand.clear();
+    printf("Ambiguous output redirect.);
+  }
   | error NEWLINE { yyerrok; }
   ;
 
@@ -130,6 +134,11 @@ command_word:
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument( $1 );
   }
+  ;
+
+ambio:
+  ambio iomodifiers
+  | iomodifiers iomodifiers
   ;
 
 iomodifiers:
