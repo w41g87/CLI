@@ -90,7 +90,7 @@ char * read_line() {
       line_buffer[0]=0;
       break;
     }
-    else if (ch == 127) {
+    else if (ch == 127 && cursor > 0) {
       // <backspace> was typed. Remove previous character read.
       // Remove one character from buffer
       line_length--;
@@ -100,7 +100,7 @@ char * read_line() {
       while(line_buffer[i]) line_buffer[i] = line_buffer[++i];
       ch = ' ';
       write(1,&ch,1);
-      write(1, line_buffer + cursor, line_length - cursor);
+      if (line_length != cursor) write(1, line_buffer + cursor, line_length - cursor);
       // Write a space to erase the last character read
       for (i = line_length; i >= cursor; i--) write(1,&ch,1);
 
