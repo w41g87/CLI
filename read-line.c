@@ -172,8 +172,7 @@ char * read_line() {
         char ch3;
         read(0, &ch3, 1);
         if (ch3 == 126 && cursor < line_length) {
-          ch = 8;
-          write(1,&ch,1);
+
           line_length--;
 
           //printf("cursor: %d\n", cursor);
