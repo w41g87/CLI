@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+
 /*
  * Example that shows how to read one line with simple editing
  * using raw terminal.

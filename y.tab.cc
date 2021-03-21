@@ -1797,7 +1797,7 @@ char ** expandedPaths(const char * dirA, const char * arg) {
         if(outputI == outputSize) {
             outputSize *= 2;
             char ** temp = (char **)calloc(outputSize, sizeof(char *));
-            memcpy(temp, output, outputSize / 2);
+            memcpy(temp, output, outputSize * 4);
             free(output);
             output = temp;
         }
@@ -1826,7 +1826,7 @@ char ** expandedPaths(const char * dirA, const char * arg) {
           if(outputI == outputSize) {
             outputSize *= 2;
             char ** temp = (char **)calloc(outputSize, sizeof(char *));
-            memcpy(temp, output, outputSize / 2);
+            memcpy(temp, output, outputSize * 4);
             free(output);
             output = temp;
           }

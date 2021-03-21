@@ -1,5 +1,6 @@
-
+#include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 void tty_raw_mode(void);
 
