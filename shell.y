@@ -144,6 +144,10 @@ iomodifiers:
 iomodifier_in:
   LESS WORD {
     //printf("   Yacc: insert input \"%s\"\n", $2->c_str());
+    if (Shell::_currentCommand._inFile) {
+      printf("Ambiguous output redirect.\n");
+      Shell::_currentCommand.clear();
+    }
     Shell::_currentCommand._inFile = $2;
   }
   | /*can be empty*/
@@ -155,7 +159,6 @@ iomodifier_out:
     if (Shell::_currentCommand._outFile) {
       printf("Ambiguous output redirect.\n");
       Shell::_currentCommand.clear();
-      return;
     }
     Shell::_currentCommand._outFile = $2;
   }
@@ -164,18 +167,25 @@ iomodifier_out:
     if (Shell::_currentCommand._outFile || Shell::_currentCommand._errFile) {
       printf("Ambiguous output redirect.\n");
       Shell::_currentCommand.clear();
-      return;
     }
     Shell::_currentCommand._outFile = $2;
     Shell::_currentCommand._errFile = $2;
   }
   | GGREAT WORD {
     //printf("   Yacc: insert append output \"%s\"\n", $2->c_str());
+    if (Shell::_currentCommand._outFile) {
+      printf("Ambiguous output redirect.\n");
+      Shell::_currentCommand.clear();
+    }
     Shell::_currentCommand._outFile = $2;
     Shell::_currentCommand._appendO = true;
   }
   | GGCONT WORD {
     //printf("   Yacc: insert append background output \"%s\"\n", $2->c_str());
+    if (Shell::_currentCommand._outFile || Shell::_currentCommand._errFile) {
+      printf("Ambiguous output redirect.\n");
+      Shell::_currentCommand.clear();
+    }
     Shell::_currentCommand._outFile = $2;
     Shell::_currentCommand._errFile = $2;
     Shell::_currentCommand._appendO = true;
@@ -187,6 +197,10 @@ iomodifier_out:
 iomodifier_err:
   GREAT2 WORD {
     //printf("   Yacc: insert error output \"%s\"\n", $2->c_str());
+    if (Shell::_currentCommand._errFile) {
+      printf("Ambiguous output redirect.\n");
+      Shell::_currentCommand.clear();
+    }
     Shell::_currentCommand._errFile = $2;
   }
   | /*can be empty*/

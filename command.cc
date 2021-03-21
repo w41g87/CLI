@@ -124,6 +124,7 @@ void Command::execute() {
 
     // Don't do anything if there are no simple commands
     if ( _simpleCommands.size() == 0 ) {
+        clear();
         Shell::prompt();
         return;
     }
