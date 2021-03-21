@@ -1796,10 +1796,7 @@ char ** expandedPaths(const char * dirA, const char * arg) {
         outputI++;
         if(outputI == outputSize) {
             outputSize *= 2;
-            char ** temp = (char **)calloc(outputSize, sizeof(char *));
-            memcpy(temp, output, outputSize * 4);
-            free(output);
-            output = temp;
+            output = recallocarray(output, outputSize, sizeof(char *));
         }
       } else if (type == DT_DIR) {
         int i = 0;
@@ -1825,10 +1822,7 @@ char ** expandedPaths(const char * dirA, const char * arg) {
           outputI++;
           if(outputI == outputSize) {
             outputSize *= 2;
-            char ** temp = (char **)calloc(outputSize, sizeof(char *));
-            memcpy(temp, output, outputSize * 4);
-            free(output);
-            output = temp;
+            output = recallocarray(output, outputSize, sizeof(char *));
           }
         }
         free(recOut);

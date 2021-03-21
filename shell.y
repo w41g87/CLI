@@ -317,7 +317,7 @@ char ** expandedPaths(const char * dirA, const char * arg) {
         outputI++;
         if(outputI == outputSize) {
             outputSize *= 2;
-            output = recallocarray(output, outputSize, sizeof(char *));
+            output = (char **)recallocarray(output, outputSize, sizeof(char *));
         }
       } else if (type == DT_DIR) {
         int i = 0;
@@ -343,7 +343,7 @@ char ** expandedPaths(const char * dirA, const char * arg) {
           outputI++;
           if(outputI == outputSize) {
             outputSize *= 2;
-            output = recallocarray(output, outputSize, sizeof(char *));
+            output = (char **)recallocarray(output, outputSize, sizeof(char *));
           }
         }
         free(recOut);
