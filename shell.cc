@@ -38,6 +38,7 @@ void Shell::elimination(int signum) {
     printf("%d exited\n", e);
     Shell::lstPid = e;
   }
+  if (WEXITSTATUS(r) && secure_getenv("ON_ERROR")) putstr("ON_ERROR");
 }
 
 int main(int argc, char* argv[], char* envp[]) {
