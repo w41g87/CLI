@@ -28,7 +28,7 @@ void del() {
 
   if (line_length != cursor) write(1, line_buffer + cursor, line_length - cursor);
   // Write a space to erase the last character read
-  ch = ' ';
+  char ch = ' ';
   write(1,&ch,1);
 
   ch = 8;
