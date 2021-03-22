@@ -1702,7 +1702,7 @@ void inplaceMerge(char ** ptr, size_t len) {
   if (len < 2) return;
   if (len == 2) {
     int i = 0;
-    printf("%u %u\n", ptr[0], ptr[1]);
+    //printf("%u %u\n", ptr[0], ptr[1]);
     while(ptr[0][i] == ptr[1][i]) i++;
     if (ptr[0][i] > ptr[1][i]) {
       char* temp = ptr[0];
@@ -1713,7 +1713,7 @@ void inplaceMerge(char ** ptr, size_t len) {
   }
   char ** ptr1 = ptr;
   char ** ptr2 = ptr + (len / 2);
-  printf("len / 2: %d, floor: %d\n", len/2, floor((float)len / 2));
+  //printf("len / 2: %d, floor: %d\n", len/2, floor((float)len / 2));
   inplaceMerge(ptr1, len / 2);
   inplaceMerge(ptr2, (int)ceil((float)len / 2));
   while(ptr1 != ptr + (len/2) && ptr2 != ptr + len) {
