@@ -1255,86 +1255,90 @@ YY_RULE_SETUP
   //printf("input: %s\n", word);
   char * out = envExp(word);
   //printf("output: %s\n", out);
-  yylval.cpp_string = new std::string(out);
+  if (!strcmp(input, "_")) {
+    yylval.cpp_string = new std::string(out);
+    free(out);
+    free(word);
+    return WORD;
+  }
+  unputStr(out);
   free(out);
   free(word);
-
-  return WORD;
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 269 "shell.l"
+#line 273 "shell.l"
 {
   /* Discard spaces and tabs */
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 273 "shell.l"
+#line 277 "shell.l"
 {
   return GUARD;
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 277 "shell.l"
+#line 281 "shell.l"
 {
   return GREAT2;
 }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 281 "shell.l"
+#line 285 "shell.l"
 {
   return GGCONT;
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 285 "shell.l"
+#line 289 "shell.l"
 {
   return GCONT;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 289 "shell.l"
+#line 293 "shell.l"
 {
   return LCONT;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 293 "shell.l"
+#line 297 "shell.l"
 {
   return GGREAT;
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 297 "shell.l"
+#line 301 "shell.l"
 {
   return GREAT;
 }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 301 "shell.l"
+#line 305 "shell.l"
 {
   return LESS;
 }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 305 "shell.l"
+#line 309 "shell.l"
 {
   return CONT;
 }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 309 "shell.l"
+#line 313 "shell.l"
 {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = removeE(yytext);
@@ -1345,7 +1349,7 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 318 "shell.l"
+#line 322 "shell.l"
 {
   //printf("EOF\n");
   YY_FLUSH_BUFFER;
@@ -1359,10 +1363,10 @@ case YY_STATE_EOF(INITIAL):
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 329 "shell.l"
+#line 333 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1366 "lex.yy.cc"
+#line 1370 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2377,6 +2381,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 329 "shell.l"
+#line 333 "shell.l"
 
 

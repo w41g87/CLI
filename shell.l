@@ -259,7 +259,7 @@ char * subshell (char ** input) {
   //printf("input: %s\n", word);
   char * out = envExp(word);
   //printf("output: %s\n", out);
-  if (!strcmp(input, "_")) {
+  if (!strcmp(word, "_")) {
     yylval.cpp_string = new std::string(out);
     free(out);
     free(word);
