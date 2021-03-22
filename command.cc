@@ -160,6 +160,9 @@ void Command::execute() {
         //printf("Lower case: %s\n", cmd);
         //printf("%s %d\n", cmd, strcmp(cmd, "exit"));
         if (!strcmp(cmd, "exit")) {
+            close(0);
+            close(1);
+            close(2);
             free(cmd);
             clear();
             //destroy(history);
@@ -317,8 +320,9 @@ void Command::execute() {
                 const char * cmd = simpleCommand->_arguments.front()->c_str();
                 if (!strcmp(cmd, "printenv")) {
                     while(environ[i]) cout << environ[i++] << endl;
-                    destroy(args);
-                    clear();
+                    close(0);
+                    close(1);
+                    close(2);
                     exit(0);
                 }
 
