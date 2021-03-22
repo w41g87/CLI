@@ -164,7 +164,7 @@ void Command::execute() {
             clear();
             //destroy(history);
             termBfr();
-            exit(0);
+            exit(Shell::lstRtn);
         }
         
         if (!strcmp(cmd, "setenv")) {
@@ -195,7 +195,7 @@ void Command::execute() {
             //printf("%d\n", i);
             if (i > 3) cout << "cd: too many arguments." << endl;
             else if (i == 2) chdir(getenv("HOME"));
-            else if (chdir(arg[1]) != 0) perror("cd");
+            else if (chdir(arg[1]) != 0) printf("can't cd to %s\n", arg[1]);
             destroy(arg);
             free(cmd);
             clear();
