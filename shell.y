@@ -95,7 +95,6 @@ argument:
   WORD {
     if ($1->find('?') != std::string::npos || $1->find('*') != std::string::npos) {
       char ** exp = dirExp($1->c_str());
-      delete $1;
       
       // iterate through the array and put everything into arguement
       int i = 0;
@@ -103,6 +102,7 @@ argument:
       if (i == 1) {
         Command::_currentSimpleCommand->insertArgument( $1 );
       } else {
+        delete $1;
         //printf("i: %d\n", i);
         inplaceMerge(exp, i - 1);
         i = 0;
