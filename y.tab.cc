@@ -1891,7 +1891,8 @@ char ** expandedPaths(const char * dirA, const char * arg) {
       } 
     }
   }
-
+  free(re);
+  free(dir);
   free(rest);
   free(regExp);
   return output;
