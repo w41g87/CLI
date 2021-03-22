@@ -32,7 +32,7 @@ void Shell::termination(int signum) {
 
 void Shell::elimination(int signum) {
   int r;
-  int e = waitpid(-1, &r, WNOHANG);
+  int e = waitpid(-1, &r, 0);
   printf("exit: %d\n", WEXITSTATUS(r));
   if (e == -1) Shell::lstRtn = WEXITSTATUS(r);
   else {
