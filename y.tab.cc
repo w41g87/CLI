@@ -1699,6 +1699,7 @@ yyerror(const char * s)
 }
 
 void inplaceMerge(char ** ptr, size_t len) {
+  printf("len = %d\n", len);
   if (len < 2) return;
   if (len == 2) {
     int i = 0;
