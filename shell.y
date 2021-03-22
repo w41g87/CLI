@@ -262,10 +262,10 @@ char * w2r (char * input) {
   reg.push_back('^');
   switch(*input) {
     case '*':
-      reg.append("([^\\. ][^ ]*|\"\")");
+      reg.append("([^\\.].*|\"\")");
       break;
     case '?':
-      reg.append("[^\\. ]");
+      reg.append("[^\\.]");
       break;
     case '+':
       reg.append("\\+");
@@ -292,10 +292,10 @@ char * w2r (char * input) {
   for (int i = 1; i < strlen(input); i++) {
     switch(input[i]) {
       case '*':
-        reg.append("[^\\. ]?[^ ]*");
+        reg.append(".*");
         break;
       case '?':
-        reg.append("[^\\. ]");
+        reg.append(".");
         break;
       case '+':
         reg.append("\\+");
