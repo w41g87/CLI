@@ -1842,9 +1842,7 @@ char ** expandedPaths(const char * dirA, const char * arg) {
     char *name = ent->d_name;
     unsigned char type = ent->d_type;
     //printf("\n%s: ", name);
-    if (regexec( &re, name, 1, &match, 0) == 0 
-      && strcmp(name, ".")
-      && strcmp(name, "..")) {
+    if (regexec( &re, name, 1, &match, 0) == 0) {
       //printf("match\n");
       if (rest == NULL) {
         //printf("strlen 1\n");
@@ -1855,7 +1853,9 @@ char ** expandedPaths(const char * dirA, const char * arg) {
             outputSize *= 2;
             output = (char **)recallocarray(output, outputSize, sizeof(char *), outputSize / 2);
         }
-      } else if (type == DT_DIR) {
+      } else if (type == DT_DIR
+        && strcmp(name, ".")
+        && strcmp(name, "..")) {
         int i = 0;
         //printf("strlen 2\n");
         char * newDir = (char *)calloc(strlen(dirA) + strlen(name) + 2, sizeof(char));
