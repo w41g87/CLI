@@ -175,7 +175,7 @@ void Command::execute() {
             destroy(arg);
             free(cmd);
             clear();
-            Shell::Prompt();
+            Shell::prompt();
             return;
         }
         if (!strcmp(cmd, "unsetenv")) {
@@ -186,7 +186,7 @@ void Command::execute() {
             destroy(arg);
             free(cmd);
             clear();
-            Shell::Prompt();
+            Shell::prompt();
             return;
         }
         if (!strcmp(cmd, "cd")) {
@@ -199,7 +199,7 @@ void Command::execute() {
             destroy(arg);
             free(cmd);
             clear();
-            Shell::Prompt();
+            Shell::prompt();
             return;
         }
         if (!strcmp(cmd, "source")) {
@@ -213,7 +213,7 @@ void Command::execute() {
             destroy(arg);
             free(cmd);
             clear();
-            Shell::Prompt();
+            Shell::prompt();
             return;
         } else free(cmd);
         
