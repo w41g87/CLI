@@ -213,7 +213,7 @@ void Command::execute() {
             destroy(arg);
             free(cmd);
             clear();
-            Shell::prompt();
+            if (!_init) Shell::prompt();
             return;
         } else free(cmd);
         
