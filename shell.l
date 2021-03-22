@@ -306,7 +306,7 @@ char * subshell (char ** input) {
   return CONT;
 }
 
-(\\.|[^>&<\|\\ \t\n])+  {
+(\\.|[^>&<\|\\ \t\n$\{\}`\(\)])+  {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = removeE(yytext);
 

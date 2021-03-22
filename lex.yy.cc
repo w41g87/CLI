@@ -933,7 +933,7 @@ std::string * removeE(char * s) {
   bool isEscaped;
   for(int i = 0; i < strlen(s); i++) {
     if (!isEscaped && s[i] == '\\') isEscaped = !isEscaped;
-    if (isEscaped || (s[i] != '\"' && s[i] != '\\')) {
+    else if (isEscaped || (s[i] != '\"' && s[i] != '\\')) {
       isEscaped = false;
       str->push_back(s[i]);
       //printf("%c", s[i]);
