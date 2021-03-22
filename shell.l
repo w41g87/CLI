@@ -267,39 +267,39 @@ char * subshell (char ** input) {
   /* Discard spaces and tabs */
 }
 
-"""|" {
+"|" {
   return GUARD;
 }
 
-"""2>" {
+"2>" {
   return GREAT2;
 }
 
-""">>&" {
+">>&" {
   return GGCONT;
 }
 
-""">&" {
+">&" {
   return GCONT;
 }
 
-"""<&" {
+"<&" {
   return LCONT;
 }
 
-""">>" {
+">>" {
   return GGREAT;
 }
 
-""">" {
+">" {
   return GREAT;
 }
 
-"""<" {
+"<" {
   return LESS;
 }
 
-"""&" {
+"&" {
   return CONT;
 }
 
