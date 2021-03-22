@@ -1319,7 +1319,6 @@ yyreduce:
     {
     if ((yyvsp[0].cpp_string)->find('?') != std::string::npos || (yyvsp[0].cpp_string)->find('*') != std::string::npos) {
       char ** exp = dirExp((yyvsp[0].cpp_string)->c_str());
-      delete (yyvsp[0].cpp_string);
       
       // iterate through the array and put everything into arguement
       int i = 0;
@@ -1327,6 +1326,7 @@ yyreduce:
       if (i == 1) {
         Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
       } else {
+        delete (yyvsp[0].cpp_string);
         //printf("i: %d\n", i);
         inplaceMerge(exp, i - 1);
         i = 0;
