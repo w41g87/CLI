@@ -337,7 +337,11 @@ void Command::execute() {
             destroy(args);
         }
         //printf("pid: %d", _pid);
-        if (!_background) waitpid( _pid, 0, 0 );
+        if (!_background) {
+            int r;
+            waitpid( _pid, &r, 0 );
+            Shell::lstRtn = WEXITSTATUS(r);
+        }
         else {_bgpid = _pid;}
         //printf("terminated\n");
         dup2( defaultin , 0);
