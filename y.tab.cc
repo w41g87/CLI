@@ -1701,7 +1701,7 @@ void inplaceMerge(char ** ptr, size_t len) {
   if (len < 2) return;
   if (len == 2) {
     int i = 0;
-    printf("%ud %ud\n", *(ptr[0]), *(ptr[1]));
+    printf("%u %u\n", ptr[0], ptr[1]);
     while(ptr[0][i] == ptr[1][i]) i++;
     if (ptr[0][i] > ptr[1][i]) {
       char* temp = ptr[0];
