@@ -1715,14 +1715,14 @@ void inplaceMerge(char ** ptr, size_t len) {
   inplaceMerge(ptr2, floor(len / 2) + 1);
   while(ptr1 != ptr + (len/2) && ptr2 != ptr + len) {
     int i = 0;
-    while((*ptr1)[i] == (*ptr2)[i]) i++;
-    if ((*ptr1)[i] < (*ptr2)[i]) ptr1++;
+    while((*ptr)[i] == (*ptr2)[i]) i++;
+    if ((*ptr)[i] < (*ptr2)[i]) ptr1++;
     else {
       char * temp = *ptr2;
       char ** tmpPtr = ptr2;
       for (i = 0; i < ptr2 - ptr1; i++) *(tmpPtr - i) = *(tmpPtr - i - 1);
       *ptr = temp;
-      ptr1++;
+      ptr++;
       ptr2++;
     }
   }
