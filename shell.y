@@ -424,9 +424,9 @@ char * tilExp(const char * input) {
     dir = (char *)calloc(strlen(home) + 1, sizeof(char));
     strcpy(dir, home);
   } else {
-    dir = (char *)calloc(strlen(input) + 6, sizeof(char));
-    strcpy(dir, "/home/");
-    strcpy(dir + 6, input);
+    dir = (char *)calloc(strlen(input) + 7, sizeof(char));
+    strcpy(dir, "/homes/");
+    strcpy(dir + 7, input);
   }
   return dir;
 }

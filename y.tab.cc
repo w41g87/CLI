@@ -1828,7 +1828,7 @@ char ** expandedPaths(const char * dirA, const char * arg) {
 
   // regex conversion
   char * regExp = w2r(currentDir);
-  printf("regExp: %s\n", regExp);
+  //printf("regExp: %s\n", regExp);
   free(currentDir);
   currentDir = NULL;
   regex_t re;	
