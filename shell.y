@@ -47,7 +47,7 @@ char ** dirExp(const char *);
 
 void yyerror(const char * s);
 int yylex();
-char ** inplaceMerge(char**, size_t);
+void inplaceMerge(char**, size_t);
 
 extern "C" void * recallocarray(void *, size_t, size_t, size_t);
 
@@ -217,11 +217,9 @@ yyerror(const char * s)
   yyparse();
 }
 
-char ** inplaceMerge(char ** ptr, size_t len) {
-  if (len < 2) return ptr;
+void inplaceMerge(char ** ptr, size_t len) {
+  if (len < 2) return;
   if (len == 2) {
-    int len1 = strlen(*ptr);
-    int len2 = strlen(ptr[1]);
     int i = 0;
     while(ptr[0][i] == ptr[1][i]) i++;
     if (ptr[0][i] > ptr[1][i]) {
@@ -229,11 +227,12 @@ char ** inplaceMerge(char ** ptr, size_t len) {
       ptr[0] = ptr[1];
       ptr[1] = temp;
     }
-    return ptr;
+    return;
   }
 
-  char ** ptr1 = inplaceMerge(ptr, len / 2);
-  char ** ptr2 = inplaceMerge(ptr + (len / 2), floor(len / 2) + 1);
+  char ** ptr2 = ptr + (len / 2);
+  inplaceMerge(ptr, len / 2);
+  inplaceMerge(ptr2, floor(len / 2) + 1);
   while(ptr1 != ptr + (len/2) && ptr2 != ptr + len) {
     int i = 0;
     while((*ptr1)[i] == (*ptr2)[i]) i++;
@@ -247,7 +246,7 @@ char ** inplaceMerge(char ** ptr, size_t len) {
       ptr2++;
     }
   }
-  return ptr;
+  return;
 }
 
 char * w2r (char * input) {
