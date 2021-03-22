@@ -100,13 +100,17 @@ argument:
       // iterate through the array and put everything into arguement
       int i = 0;
       while(exp[i++]);
-      //printf("i: %d\n", i);
-      inplaceMerge(exp, i - 1);
-      i = 0;
-      while(exp[i]) {
-        Command::_currentSimpleCommand->insertArgument( new std::string(exp[i]) );
-        free(exp[i]);
-        i++;
+      if (i == 1) {
+        Command::_currentSimpleCommand->insertArgument( $1 );
+      } else {
+        //printf("i: %d\n", i);
+        inplaceMerge(exp, i - 1);
+        i = 0;
+        while(exp[i]) {
+          Command::_currentSimpleCommand->insertArgument( new std::string(exp[i]) );
+          free(exp[i]);
+          i++;
+        }
       }
       free(exp);
     } else if ($1->c_str()[0] == '~') {
