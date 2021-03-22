@@ -1699,7 +1699,6 @@ yyerror(const char * s)
 }
 
 void inplaceMerge(char ** ptr, size_t len) {
-  printf("len = %d\n", len);
   if (len < 2) return;
   if (len == 2) {
     int i = 0;
@@ -1717,6 +1716,7 @@ void inplaceMerge(char ** ptr, size_t len) {
   //printf("len / 2: %d, floor: %d\n", len/2, floor((float)len / 2));
   inplaceMerge(ptr1, len / 2);
   inplaceMerge(ptr2, (int)ceil((float)len / 2));
+  printf("len = %d\n", len);
   while(ptr1 != ptr + (len/2) && ptr2 != ptr + len) {
     int i = 0;
     printf("%s - %s\n", *ptr1, *ptr2);
