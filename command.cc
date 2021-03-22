@@ -317,6 +317,7 @@ void Command::execute() {
                 const char * cmd = simpleCommand->_arguments.front()->c_str();
                 if (!strcmp(cmd, "printenv")) {
                     while(environ[i]) cout << environ[i++] << endl;
+                    destroy(args);
                     clear();
                     exit(0);
                 }
@@ -326,7 +327,7 @@ void Command::execute() {
 
                 // exec() is not suppose to return, something went wrong
                 perror( "shell: Execution error");
-                //embedDest(args);
+                destroy(args);
                 exit( 2 );
             }
             destroy(args);
