@@ -1716,10 +1716,10 @@ void inplaceMerge(char ** ptr, size_t len) {
   //printf("len / 2: %d, floor: %d\n", len/2, floor((float)len / 2));
   inplaceMerge(ptr1, len / 2);
   inplaceMerge(ptr2, (int)ceil((float)len / 2));
-  printf("len = %d\n", len);
+  //printf("len = %d\n", len);
   while(ptr1 != ptr2 && ptr2 != ptr + len) {
     int i = 0;
-    printf("%s - %s\n", *ptr1, *ptr2);
+    //printf("%s - %s\n", *ptr1, *ptr2);
     while((*ptr1)[i] == (*ptr2)[i]) i++;
     if ((*ptr1)[i] < (*ptr2)[i]) ptr1++;
     else {
