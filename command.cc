@@ -117,8 +117,8 @@ void Command::print() {
 
 void Command::execute() {
     if (_init && access(".shellrc", R_OK) != -1) {
-        clear();
         source(".shellrc");
+        clear();
         return;
     }
 
