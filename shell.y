@@ -351,6 +351,7 @@ char ** expandedPaths(const char * dirA, const char * arg) {
     fprintf( stderr, "Bad regular expresion \"%s\"\n", regExp );
     exit( -1 );
   }
+  printf("regex: %s\n", regExp);
 
   // recursive calls
   DIR * dir = opendir(dirA);
@@ -359,10 +360,11 @@ char ** expandedPaths(const char * dirA, const char * arg) {
     regmatch_t match;
     char *name = ent->d_name;
     unsigned char type = ent->d_type;
+    printf("\n%s: ", name);
     if (regexec( &re, name, 1, &match, 0) == 0 
       && strcmp(name, ".")
       && strcmp(name, "..")) {
-      //printf("name: %s\n", name);
+      printf("match\n");
       if (rest == NULL) {
         //printf("strlen 1\n");
         output[outputI] = (char *)calloc(strlen(name) + 1, sizeof(char));
