@@ -1324,7 +1324,7 @@ yyreduce:
       // iterate through the array and put everything into arguement
       int i = 0;
       while(exp[i++]);
-      printf("i: %d", i);
+      printf("i: %d\n", i);
       inplaceMerge(exp, i - 1);
       i = 0;
       while(exp[i]) {

@@ -233,6 +233,7 @@ void inplaceMerge(char ** ptr, size_t len) {
   }
   char ** ptr1 = ptr;
   char ** ptr2 = ptr + (len / 2);
+  printf("len / 2: %d, floor: %d\n", len/2, floor((double)len / 2));
   inplaceMerge(ptr1, len / 2);
   inplaceMerge(ptr2, floor((double)len / 2) + 1);
   while(ptr1 != ptr + (len/2) && ptr2 != ptr + len) {
