@@ -86,8 +86,11 @@ void source(char * file) {
 
 std::string * removeE(char * s) {
   std::string* str = new std::string();
+  bool isEscaped;
   for(int i = 0; i < strlen(s); i++) {
-    if ((i > 0 && s[i - 1] == '\\') || (s[i] != '\"' && s[i] != '\\')) {
+    if (!isEscaped && s[i] == '\\') isEscaped = !isEscaped;
+    if (isEscaped || (s[i] != '\"' && s[i] != '\\')) {
+      isEscaped = false;
       str->push_back(s[i]);
       //printf("%c", s[i]);
     }
