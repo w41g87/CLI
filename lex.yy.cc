@@ -781,7 +781,7 @@ void source(char * file) {
 
 std::string * removeE(char * s) {
   std::string* str = new std::string();
-  bool isEscaped;
+  bool isEscaped = false;
   for(int i = 0; i < strlen(s); i++) {
     if (!isEscaped && s[i] == '\\') isEscaped = !isEscaped;
     else if (isEscaped || (s[i] != '\"' && s[i] != '\\')) {

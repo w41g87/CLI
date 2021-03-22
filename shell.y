@@ -62,7 +62,7 @@ goal:
 
 
 commandline:
-  commands io bgmodifier NEWLINE {
+  commands bgmodifier NEWLINE {
     //printf("   Yacc: Execute command\n");
     Shell::_currentCommand.execute();
   }
@@ -80,7 +80,7 @@ commands: simple_command
        ;
 
 simple_command:	
-  command_word argument_list {
+  command_word argument_list io {
     Shell::_currentCommand.
     insertSimpleCommand( Command::_currentSimpleCommand );
   }
