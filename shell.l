@@ -118,19 +118,19 @@ char * envExp(char * input) {
   char * env;
   if (!strcmp(input, "$")) {
     pid_t pid = getpid();
-    int lengthD = pid == 0 ? 1 : floor(log10(abs(pid))) + 1;
+    int lengthD = pid == 0 ? 1 : (int)floor(log10(abs(pid))) + 1;
     char * output = (char*)calloc(lengthD + 1, sizeof(char));
     sprintf(output, "%d", pid);
     return output;
   }
   if (!strcmp(input, "?")) {
-    int lengthD = Shell::lstRtn == 0 ? 1 : floor(log10(abs(Shell::lstRtn))) + 1;
+    int lengthD = Shell::lstRtn == 0 ? 1 : (int)floor(log10(abs(Shell::lstRtn))) + 1;
     char * output = (char*)calloc(lengthD + 1, sizeof(char));
     sprintf(output, "%d", Shell::lstRtn);
     return output;
   }
   if (!strcmp(input, "!")) {
-    int lengthD = Shell::lstPid == 0 ? 1 : floor(log10(abs(Shell::lstPid))) + 1;
+    int lengthD = Shell::lstPid == 0 ? 1 : (int)floor(log10(abs(Shell::lstPid))) + 1;
     char * output = (char*)calloc(lengthD + 1, sizeof(char));
     sprintf(output, "%d", Shell::lstPid);
     return output;
