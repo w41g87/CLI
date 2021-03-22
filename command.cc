@@ -195,7 +195,10 @@ void Command::execute() {
             //printf("%d\n", i);
             if (i > 3) cout << "cd: too many arguments." << endl;
             else if (i == 2) chdir(getenv("HOME"));
-            else if (chdir(arg[1]) != 0) perror("cd");
+            else if (chdir(arg[1]) != 0) {
+                write(2, "cd: can't cd to ", 16);
+                write(2, arg[1], strlen(arg[1]) + 1);
+            }
             destroy(arg);
             free(cmd);
             clear();
