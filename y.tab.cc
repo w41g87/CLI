@@ -1716,11 +1716,11 @@ void inplaceMerge(char ** ptr, size_t len) {
   while(ptr != ptr + (len/2) && ptr2 != ptr + len) {
     int i = 0;
     while((*ptr)[i] == (*ptr2)[i]) i++;
-    if ((*ptr)[i] < (*ptr2)[i]) ptr1++;
+    if ((*ptr)[i] < (*ptr2)[i]) ptr++;
     else {
       char * temp = *ptr2;
       char ** tmpPtr = ptr2;
-      for (i = 0; i < ptr2 - ptr1; i++) *(tmpPtr - i) = *(tmpPtr - i - 1);
+      for (i = 0; i < ptr2 - ptr; i++) *(tmpPtr - i) = *(tmpPtr - i - 1);
       *ptr = temp;
       ptr++;
       ptr2++;
