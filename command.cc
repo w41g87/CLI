@@ -283,11 +283,13 @@ void Command::execute() {
                 exit( 2 );
             }
 
-            if (++i > 1) {
-                dup2(fdpipe[i - 2][0], 0);
-                close(fdpipe[i - 2][0]);
-            }
-            if (i == _simpleCommands.size()) {
+            if (i > 0) {
+                dup2(fdpipe[i - 1][0], 0);
+                close(fdpipe[i - 1][0]);
+            } 
+            if (++i == _simpleCommands.size()) {
+                close(fdpipe[i - 1][1]);
+                close(fdpipe[i - 1][0]);
                 if (_outFile) {
                     dup2(outF, 1);
                     close(outF);
