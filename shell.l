@@ -276,7 +276,7 @@ char * subshell (char ** input) {
 }
 
 <<EOF>> {
-  printf("EOF\n");
+  //printf("EOF\n");
   YY_FLUSH_BUFFER;
   yypop_buffer_state();
   if (fp) fclose(fp);
