@@ -13,6 +13,7 @@ extern char ** history;
 extern "C" void resetLine();
 
 void Shell::prompt() {
+  // prompt only when IO are console and excludes special occasions
   if ( isatty(0) && isatty(1) && Shell::isPrompt) {
     char * p = secure_getenv("PROMPT");
     if (p) printf("%s ", p);
@@ -21,13 +22,18 @@ void Shell::prompt() {
   }
 }
 
+// prompt function for read-line.c
 extern "C" void prompt() {
   Shell::prompt();
 }
 
+// signal handler for ctrl-C
 void Shell::termination(int signum) {
+  // if a command is running, kill it
   if (_currentCommand._pid != 0) kill(_currentCommand._pid, SIGINT);
-  else{
+  // if not, clear the current command, reset input buffer
+  // and start a new input line
+  else {
     flushBfr();
     _currentCommand.clear();
     
@@ -39,6 +45,7 @@ void Shell::termination(int signum) {
   }
 }
 
+// signal handler for zombie elimination
 void Shell::elimination(int signum) {
   int r;
   int e;
@@ -49,21 +56,16 @@ void Shell::elimination(int signum) {
 }
 
 int main(int argc, char* argv[], char* envp[]) {
-  
-  // {
-  //   int i = 0;
-  //   printf("envp:\n");
-  //   while (envp[i]) printf("%s\n", envp[i++]);
-  //   printf("args:\n");
-  //   for (i = 0; i < argc ; i++) printf("%s\n", argv[i]);
-  // }
 
+  // Extra functionality: allows commands to be passed as arguments
+  // and execute without entering the shell
   if (argc > 1) {
     Shell::isPrompt = false;
     char * input = (char *) malloc(strlen(argv[1]) + 2);
     strcpy(input, argv[1]);
+    // add newline to trigger command execution
     input[strlen(argv[1])] = '\n';
-    //printf("subshell: %s %s\n", argv[1], input);
+    // using input stirng as buffer for flex scanner
     swtchBfr(input);
     yyparse();
     free(input);
@@ -73,10 +75,10 @@ int main(int argc, char* argv[], char* envp[]) {
   // initialize history
   history = (char**) calloc(8, sizeof(char*));
 
-  // store argv[0];
+  // store argv[0] for env exp
   Shell::argv = argv[0];
 
-  // Signal handling
+  // Signal handling for ctrl-c
   struct sigaction c, d;
   c.sa_handler = Shell::termination;
   sigemptyset(&c.sa_mask);
@@ -87,6 +89,7 @@ int main(int argc, char* argv[], char* envp[]) {
       exit(2);
   }
 
+  // Signal handling for child exiting
   d.sa_handler = Shell::elimination;
   sigemptyset(&d.sa_mask);
   c.sa_flags = SA_RESTART;
@@ -98,6 +101,7 @@ int main(int argc, char* argv[], char* envp[]) {
 
   // init stdin buffer
   initBfr();
+  // Extra functionality: first time execution runs .shellrc
   Shell::_currentCommand.execute();
   //Shell::prompt();
   yyparse();
@@ -108,4 +112,4 @@ bool Shell::isPrompt = true;
 int Shell::lstRtn = 0;
 int Shell::lstPid = 0;
 char * Shell::lstArg = NULL;
-char * Shell::argv;
+char * Shell::argv = NULL;

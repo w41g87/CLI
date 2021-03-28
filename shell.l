@@ -59,11 +59,12 @@ FILE * fp = NULL;
 void myunputc(int c) {
   unput(c);
 }
-
+// initialize stdin input buffer
 void initBfr() {
   yypush_buffer_state(yy_create_buffer(stdin, YY_BUF_SIZE));
 }
 
+// pop all buffers off buffer stack
 void termBfr() {
   while ( YY_CURRENT_BUFFER ) {
     YY_FLUSH_BUFFER;
@@ -71,40 +72,48 @@ void termBfr() {
   }
 }
 
+// YY_FLUSH_BUFFER but could be called externally
 void flushBfr() { YY_FLUSH_BUFFER; }
 
 void swtchBfr(char * input) {
   yy_switch_to_buffer(yy_scan_string(input));
 }
 
+// source function
 void source(char * file) {
   if (!(fp = fopen(file, "r"))) {
     perror("IO");
     return;
   }
+  // create a new buffer and push it onto the stack
   yypush_buffer_state(yy_create_buffer(fp, YY_BUF_SIZE));
   return;
 }
 
+// remove escape
 std::string * removeE(char * s) {
   std::string* str = new std::string();
   bool isEscaped = false;
   for(int i = 0; i < strlen(s); i++) {
+    // if the current char is unescaped and is backslash
+    // mark next char as escaped
     if (!isEscaped && s[i] == '\\') isEscaped = !isEscaped;
+    // if there is an escaped character, or a character
+    // that is neither quote or backslash, add it into the string
     else if (isEscaped || (s[i] != '\"' && s[i] != '\\')) {
       isEscaped = false;
       str->push_back(s[i]);
-      //printf("%c", s[i]);
     }
   }
   return str;
 }
 
+// unput a 0-terminated string
 void unputStr(char * input) {
   int i = 0;
   while(input[i] != '\0') {
+    // replace newline with space
     if (input[i] == '\n') input[i] = ' ';
-    //printf("%c", input[i]);
     i++;
   }
   if (i == 0) printf("shell: subshell execution error\n");
