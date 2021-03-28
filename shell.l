@@ -75,13 +75,14 @@ void swtchBfr(char * input) {
   yy_switch_to_buffer(yy_scan_string(input));
 }
 
-void source(char * file) {
+FILE * source(char * file) {
   FILE * fp;
   if (!(fp = fopen(file, "r"))) {
     perror("IO");
     return;
   }
   yypush_buffer_state(yy_create_buffer(fp, YY_BUF_SIZE));
+  return fp;
 }
 
 std::string * removeE(char * s) {
