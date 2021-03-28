@@ -17,6 +17,7 @@ struct termios tty_raw_mode(void)
 	struct termios tty_old;
      
 	tcgetattr(0,&tty_attr);
+	tcgetattr(0,&tty_old);
 
 	/* Set raw mode. */
 	tty_attr.c_lflag &= (~(ICANON|ECHO));
