@@ -341,6 +341,7 @@ void Command::execute() {
             int r;
             waitpid( _pid, &r, 0 );
             Shell::lstRtn = WEXITSTATUS(r);
+            if (WEXITSTATUS(r) && secure_getenv("ON_ERROR")) puts(secure_getenv("ON_ERROR"));
         }
         else {_bgpid = _pid;}
         //printf("terminated\n");
