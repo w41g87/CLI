@@ -98,43 +98,44 @@ argument_list:
 
 argument:
   WORD {
-    if ($1->find('?') != std::string::npos || $1->find('*') != std::string::npos) {
-      char ** exp = dirExp($1->c_str());
+    std::string * env = envExp($1);
+    if (env->find('?') != std::string::npos || env->find('*') != std::string::npos) {
+      char ** exp = dirExp(env->c_str());
       
       // iterate through the array and put everything into arguement
       int i = 0;
       while(exp[i++]);
       if (i == 1) {
-        Command::_currentSimpleCommand->insertArgument( envExp($1) );
+        Command::_currentSimpleCommand->insertArgument( env );
       } else {
-        delete $1;
+        delete env;
         //printf("i: %d\n", i);
         inplaceMerge(exp, i - 1);
         i = 0;
         while(exp[i]) {
-          Command::_currentSimpleCommand->insertArgument( envExp(new std::string(exp[i])) );
+          Command::_currentSimpleCommand->insertArgument( new std::string(exp[i]) );
           free(exp[i]);
           i++;
         }
       }
       free(exp);
-    } else if ($1->c_str()[0] == '~') {
-      if ($1->find('/') != std::string::npos) {
-        char * home = tilExp($1->substr(0, $1->find('/')).c_str());
+    } else if (env->c_str()[0] == '~') {
+      if (env->find('/') != std::string::npos) {
+        char * home = tilExp(env->substr(0, env->find('/')).c_str());
         std::string * newArg = new std::string();
         newArg->append(home);
         free(home);
-        newArg->append($1->substr($1->find('/')));
-        delete $1;
-        Command::_currentSimpleCommand->insertArgument( envExp(newArg) );
+        newArg->append(env->substr(env->find('/')));
+        delete env;
+        Command::_currentSimpleCommand->insertArgument( newArg );
       } else {
-        char * home = tilExp($1->substr(0).c_str());
-        delete $1;
-        Command::_currentSimpleCommand->insertArgument( envExp(new std::string(home)) );
+        char * home = tilExp(env->substr(0).c_str());
+        delete env;
+        Command::_currentSimpleCommand->insertArgument( new std::string(home) );
         free(home);
       }
     } else {
-      Command::_currentSimpleCommand->insertArgument( envExp($1) );
+      Command::_currentSimpleCommand->insertArgument( env );
     }
     //printf("   Yacc: insert argument \"%s\"\n", $1->c_str());
   }
