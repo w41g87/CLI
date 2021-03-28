@@ -10,6 +10,7 @@ void swtchBfr(char*);
 void initBfr();
 void flushBfr();
 extern char ** history;
+extern "C" void resetLine();
 
 void Shell::prompt() {
   if ( isatty(0) && isatty(1) && Shell::isPrompt) {
@@ -24,8 +25,10 @@ void Shell::termination(int signum) {
   if (_currentCommand._pid != 0) kill(_currentCommand._pid, SIGINT);
   else{
     flushBfr();
-    printf("\n");
     _currentCommand.clear();
+    resetLine();
+    
+    if ( isatt(0) && isatty(1) && Shell::isPrompt) printf("\n");
     Shell::prompt();
   }
 }
