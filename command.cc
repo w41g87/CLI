@@ -132,13 +132,6 @@ void Command::execute() {
     }
     // If exit is entered then exit shell
 
-    int defaultin = dup( 0 );
-	int defaultout = dup( 1 );
-	int defaulterr = dup( 2 );
-    int inF = 0;
-    int outF = 0;
-    int errF = 0;
-    
     // save the last argument
     {
         const char * lstArg = _simpleCommands.back()->_arguments.back()->c_str();
@@ -232,9 +225,17 @@ void Command::execute() {
     // For every simple command fork a new process
     // Setup i/o redirection
     // and call exec
+    
+    int defaultin = dup( 0 );
+	int defaultout = dup( 1 );
+	int defaulterr = dup( 2 );
+    int inF = 0;
+    int outF = 0;
+    int errF = 0;
 
     // IO modification
     {
+
         if (_errFile) {
             if (_appendE) errF = open(_errFile->c_str(), O_CREAT|O_WRONLY|O_APPEND, 0666);
             else errF = creat(_errFile->c_str(), 0666);
