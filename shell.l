@@ -53,6 +53,7 @@ int mygetc(FILE * f) {
 ///////////////////////// End of Edit Mode Code /////////////////////////
 
 static  void yyunput (int c,char *buf_ptr  );
+void * recallocarray(void *, size_t, size_t, size_t)
 
 FILE * fp = NULL;
 
@@ -125,10 +126,12 @@ void unputStr(char * input) {
   }
 }
 
+// subshell implementation
 char * subshell (char ** input) {
-  //printf("subshell function call: %s\n", input[0]);
+  // initial output buffer size is 8
   int size = 8;
   char* out = (char*)malloc(size);
+  // only one pipe is initialized to gather output from child
   int p[2];
   if ( pipe(p) == -1) {
     perror( "shell: pipe");
@@ -141,7 +144,7 @@ char * subshell (char ** input) {
   }
 
   if (pid == 0) {
-    //printf("input: %s\n", input[0]);
+    // child, writes to pipe
     dup2(p[1], 1);
     close(p[0]);
     close(p[1]);
@@ -153,24 +156,20 @@ char * subshell (char ** input) {
 
   int i, c;
   i = 0;
+  // parent reads from pipe
   FILE* file = fdopen (p[0], "r");
   while ((c = fgetc (file)) != EOF) {
-    if (i == size - 1) {
-      size *= 2;
-      out = (char*)realloc(out, size);
-    }
     out[i++] = c;
-    //putchar(c);
+    // dynamically resize buffer
+    if (i == size) {
+      size *= 2;
+      out = (char*)recallocarray(out, size, sizeof(char), size / 2);
+    }
   }
-  out[i] = 0;
-
-  //printf("size: %d\n", size);
-  //printf("str: %s\n", out);
   
   fclose(file);
   close(p[0]);
-  
-  //printf("print ended\n");
+
   return out;
 }
 
