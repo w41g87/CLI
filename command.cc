@@ -167,7 +167,7 @@ void Command::execute() {
             close(2);
             free(cmd);
             clear();
-            history = destroy(history);
+            history = (char **)destroy(history);
             termBfr();
             exit(Shell::lstRtn);
         }
@@ -177,7 +177,7 @@ void Command::execute() {
             while(arg[i++] != 0);
             if (i != 4) cout << "setenv: argument number mismatch." << endl;
             else if (setenv(arg[1], arg[2], 1) != 0) perror("setenv");
-            arg = destroy(arg);
+            arg = (char **)destroy(arg);
             free(cmd);
             clear();
             Shell::prompt();
@@ -188,7 +188,7 @@ void Command::execute() {
             while(arg[i++]);
             if (i != 3) cout << "unsetenv: argument number mismatch." << endl;
             else if (unsetenv(arg[1]) != 0) perror("unsetenv");
-            arg = destroy(arg);
+            arg = (char **)destroy(arg);
             free(cmd);
             clear();
             Shell::prompt();
@@ -204,7 +204,7 @@ void Command::execute() {
                 write(2, "cd: can't cd to ", 16);
                 write(2, arg[1], strlen(arg[1]) + 1);
             }
-            arg = destroy(arg);
+            arg = (char **)destroy(arg);
             free(cmd);
             clear();
             Shell::prompt();
@@ -218,7 +218,7 @@ void Command::execute() {
                 clear();
                 source(arg[1]);
             }
-            arg = destroy(arg);
+            arg = (char **)destroy(arg);
             free(cmd);
             clear();
             Shell::prompt();
@@ -333,10 +333,10 @@ void Command::execute() {
 
                 // exec() is not suppose to return, something went wrong
                 perror( "shell: Execution error");
-                args = destroy(args);
+                args = (char **)destroy(args);
                 exit( 2 );
             }
-            args = destroy(args);
+            args = (char **)destroy(args);
         }
         //printf("pid: %d", _pid);
         if (!_background) {
