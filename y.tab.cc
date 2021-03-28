@@ -1907,8 +1907,14 @@ char ** expandedPaths(const char * dirA, const char * arg, int mode) {
       //printf("match\n");
       if (rest == NULL) {
         //printf("strlen 1\n");
-        output[outputI] = (char *)calloc(strlen(name) + 1, sizeof(char));
-        strcpy(output[outputI], name);
+        if (mode == 1 && type == DT_DIR) {
+          output[outputI] = (char *)calloc(strlen(name) + 2, sizeof(char));
+          strcpy(output[outputI], name);
+          output[outputI][strlen(name)] = '/';
+        } else {
+          output[outputI] = (char *)calloc(strlen(name) + 1, sizeof(char));
+          strcpy(output[outputI], name);
+        }
         outputI++;
         if(outputI == outputSize) {
             outputSize *= 2;
