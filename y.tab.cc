@@ -1810,7 +1810,7 @@ char * w2r (char * input) {
   return(output);
 }
 
-char * mallocEnvExp(char * input) {
+char * mallocEnvExp(const char * input) {
   char * env;
   if (!strcmp(input, "$")) {
     pid_t pid = getpid();
