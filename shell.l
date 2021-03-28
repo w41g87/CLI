@@ -70,7 +70,7 @@ void termBfr() {
     YY_FLUSH_BUFFER;
     YY_BUFFER_STATE bfr = YY_CURRENT_BUFFER;
     yypop_buffer_state();
-    yylex_destroy(bfr);
+    yylex_destroy();
   }
 }
 
