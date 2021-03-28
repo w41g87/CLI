@@ -411,7 +411,7 @@ char ** expandedPaths(const char * dirA, const char * arg) {
       } 
     }
   }
-  //free(re);
+  regfree(&re);
   free(dir);
   free(rest);
   free(regExp);
@@ -419,6 +419,7 @@ char ** expandedPaths(const char * dirA, const char * arg) {
 }
 
 char * tilExp(const char * input) {
+  printf("input: %s\n", input);
   char * dir;
   if(*input == '~') {
     char * home = getenv("HOME");
