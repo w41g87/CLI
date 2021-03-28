@@ -172,7 +172,7 @@ int yyparse (void);
 #include <dirent.h>
 #include <regex.h>
 #include <math.h>
-#include <sys/wait.h> 
+#include <unistd.h>
 #include <sys/types.h>
 #include "shell.hh"
 

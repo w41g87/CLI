@@ -40,6 +40,7 @@
 #include <regex.h>
 #include <math.h>
 #include <unistd.h>
+#include <sys/wait.h> 
 #include <sys/types.h>
 #include "shell.hh"
 
