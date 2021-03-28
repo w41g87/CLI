@@ -169,6 +169,7 @@ void Command::execute() {
             clear();
             history = (char **)destroy(history);
             termBfr();
+            free(Shell::lstArg);
             exit(Shell::lstRtn);
         }
         
