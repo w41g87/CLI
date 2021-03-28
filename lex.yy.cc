@@ -681,6 +681,7 @@ int mygetc(FILE * f) {
 ///////////////////////// End of Edit Mode Code /////////////////////////
 
 static  void yyunput (int c,char *buf_ptr  );
+void * recallocarray(void *, size_t, size_t, size_t)
 
 FILE * fp = NULL;
 
@@ -753,10 +754,12 @@ void unputStr(char * input) {
   }
 }
 
+// subshell implementation
 char * subshell (char ** input) {
-  //printf("subshell function call: %s\n", input[0]);
+  // initial output buffer size is 8
   int size = 8;
   char* out = (char*)malloc(size);
+  // only one pipe is initialized to gather output from child
   int p[2];
   if ( pipe(p) == -1) {
     perror( "shell: pipe");
@@ -769,7 +772,7 @@ char * subshell (char ** input) {
   }
 
   if (pid == 0) {
-    //printf("input: %s\n", input[0]);
+    // child, writes to pipe
     dup2(p[1], 1);
     close(p[0]);
     close(p[1]);
@@ -781,30 +784,26 @@ char * subshell (char ** input) {
 
   int i, c;
   i = 0;
+  // parent reads from pipe
   FILE* file = fdopen (p[0], "r");
   while ((c = fgetc (file)) != EOF) {
-    if (i == size - 1) {
-      size *= 2;
-      out = (char*)realloc(out, size);
-    }
     out[i++] = c;
-    //putchar(c);
+    // dynamically resize buffer
+    if (i == size) {
+      size *= 2;
+      out = (char*)recallocarray(out, size, sizeof(char), size / 2);
+    }
   }
-  out[i] = 0;
-
-  //printf("size: %d\n", size);
-  //printf("str: %s\n", out);
   
   fclose(file);
   close(p[0]);
-  
-  //printf("print ended\n");
+
   return out;
 }
 
 
+#line 806 "lex.yy.cc"
 #line 807 "lex.yy.cc"
-#line 808 "lex.yy.cc"
 
 #define INITIAL 0
 
@@ -1021,10 +1020,10 @@ YY_DECL
 		}
 
 	{
-#line 182 "shell.l"
+#line 181 "shell.l"
 
 
-#line 1028 "lex.yy.cc"
+#line 1027 "lex.yy.cc"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1094,14 +1093,14 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 184 "shell.l"
+#line 183 "shell.l"
 {
   return NEWLINE;
 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 188 "shell.l"
+#line 187 "shell.l"
 {
   yylval.cpp_string = removeE(yytext);
   return WORD;
@@ -1110,7 +1109,7 @@ YY_RULE_SETUP
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 193 "shell.l"
+#line 192 "shell.l"
 {
   char ** word = (char**) malloc(3);
   word[2] = 0;
@@ -1131,7 +1130,7 @@ YY_RULE_SETUP
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 210 "shell.l"
+#line 209 "shell.l"
 {
   char ** word = (char**) malloc(3);
   word[2] = 0;
@@ -1153,77 +1152,77 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 229 "shell.l"
+#line 228 "shell.l"
 {
   /* Discard spaces and tabs */
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 233 "shell.l"
+#line 232 "shell.l"
 {
   return GUARD;
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 237 "shell.l"
+#line 236 "shell.l"
 {
   return GREAT2;
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 241 "shell.l"
+#line 240 "shell.l"
 {
   return GGCONT;
 }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 245 "shell.l"
+#line 244 "shell.l"
 {
   return GCONT;
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 249 "shell.l"
+#line 248 "shell.l"
 {
   return LCONT;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 253 "shell.l"
+#line 252 "shell.l"
 {
   return GGREAT;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 257 "shell.l"
+#line 256 "shell.l"
 {
   return GREAT;
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 261 "shell.l"
+#line 260 "shell.l"
 {
   return LESS;
 }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 265 "shell.l"
+#line 264 "shell.l"
 {
   return CONT;
 }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 269 "shell.l"
+#line 268 "shell.l"
 {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = removeE(yytext);
@@ -1234,7 +1233,7 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 278 "shell.l"
+#line 277 "shell.l"
 {
   //printf("EOF\n");
   YY_FLUSH_BUFFER;
@@ -1250,10 +1249,10 @@ case YY_STATE_EOF(INITIAL):
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 291 "shell.l"
+#line 290 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1257 "lex.yy.cc"
+#line 1256 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2268,6 +2267,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 291 "shell.l"
+#line 290 "shell.l"
 
 
