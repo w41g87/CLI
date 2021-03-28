@@ -1230,7 +1230,7 @@ case YY_STATE_EOF(INITIAL):
   //printf("EOF\n");
   YY_FLUSH_BUFFER;
   yypop_buffer_state();
-  fclose(fp);
+  if (fp) fclose(fp);
   fp = NULL;
   if ( !YY_CURRENT_BUFFER ) {
     Shell::_currentCommand.execute();
