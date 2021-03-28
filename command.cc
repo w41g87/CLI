@@ -33,11 +33,13 @@ using namespace std;
 
 extern char ** environ;
 
+extern char ** history;
+
 void source(char * file);
 
 void termBfr();
 
-extern "C" void destroy(char**);
+extern "C" void * destroy(char**);
 
 Command::Command() {
     // Initialize a new vector of Simple Commands
@@ -165,7 +167,7 @@ void Command::execute() {
             close(2);
             free(cmd);
             clear();
-            //destroy(history);
+            history = destroy(history);
             termBfr();
             exit(Shell::lstRtn);
         }
@@ -175,7 +177,7 @@ void Command::execute() {
             while(arg[i++] != 0);
             if (i != 4) cout << "setenv: argument number mismatch." << endl;
             else if (setenv(arg[1], arg[2], 1) != 0) perror("setenv");
-            destroy(arg);
+            arg = destroy(arg);
             free(cmd);
             clear();
             Shell::prompt();
@@ -186,7 +188,7 @@ void Command::execute() {
             while(arg[i++]);
             if (i != 3) cout << "unsetenv: argument number mismatch." << endl;
             else if (unsetenv(arg[1]) != 0) perror("unsetenv");
-            destroy(arg);
+            arg = destroy(arg);
             free(cmd);
             clear();
             Shell::prompt();
@@ -202,7 +204,7 @@ void Command::execute() {
                 write(2, "cd: can't cd to ", 16);
                 write(2, arg[1], strlen(arg[1]) + 1);
             }
-            destroy(arg);
+            arg = destroy(arg);
             free(cmd);
             clear();
             Shell::prompt();
@@ -216,7 +218,7 @@ void Command::execute() {
                 clear();
                 source(arg[1]);
             }
-            destroy(arg);
+            arg = destroy(arg);
             free(cmd);
             clear();
             Shell::prompt();
@@ -331,10 +333,10 @@ void Command::execute() {
 
                 // exec() is not suppose to return, something went wrong
                 perror( "shell: Execution error");
-                destroy(args);
+                args = destroy(args);
                 exit( 2 );
             }
-            destroy(args);
+            args = destroy(args);
         }
         //printf("pid: %d", _pid);
         if (!_background) {

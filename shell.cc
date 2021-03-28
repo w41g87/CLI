@@ -26,9 +26,11 @@ void Shell::termination(int signum) {
   else{
     flushBfr();
     _currentCommand.clear();
-    resetLine();
     
-    if ( isatty(0) && isatty(1) && Shell::isPrompt) printf("\n");
+    if ( isatty(0) && isatty(1) && Shell::isPrompt) {
+      resetLine();
+      printf("\n");
+    }
     Shell::prompt();
   }
 }
@@ -40,7 +42,6 @@ void Shell::elimination(int signum) {
     if (isatty(0)) printf("%d exited\n", e);
     Shell::lstPid = e;
   }
-  if (e == -1) Shell::lstRtn = WEXITSTATUS(r);
   if (WEXITSTATUS(r) && secure_getenv("ON_ERROR")) puts(secure_getenv("ON_ERROR"));
 }
 
