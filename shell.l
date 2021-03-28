@@ -53,7 +53,7 @@ int mygetc(FILE * f) {
 ///////////////////////// End of Edit Mode Code /////////////////////////
 
 static  void yyunput (int c,char *buf_ptr  );
-void * recallocarray(void *, size_t, size_t, size_t);
+extern "C" void * recallocarray(void *, size_t, size_t, size_t);
 
 FILE * fp = NULL;
 
