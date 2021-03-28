@@ -40,7 +40,7 @@ void Shell::elimination(int signum) {
     if (isatty(0)) printf("%d exited\n", e);
     Shell::lstPid = e;
   }
-  Shell::lstRtn = WEXITSTATUS(r);
+  if (e == -1) Shell::lstRtn = WEXITSTATUS(r);
   if (WEXITSTATUS(r) && secure_getenv("ON_ERROR")) puts(secure_getenv("ON_ERROR"));
 }
 
