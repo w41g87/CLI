@@ -100,15 +100,14 @@ argument:
       int i = 0;
       while(exp[i++]);
       if (i == 1) {
-        free(exp);
-        Command::_currentSimpleCommand->insertArgument( $1 );
+        Command::_currentSimpleCommand->insertArgument( envExp($1) );
       } else {
         delete $1;
         //printf("i: %d\n", i);
         inplaceMerge(exp, i - 1);
         i = 0;
         while(exp[i]) {
-          Command::_currentSimpleCommand->insertArgument( new std::string(exp[i]) );
+          Command::_currentSimpleCommand->insertArgument( envExp(new std::string(exp[i])) );
           free(exp[i]);
           i++;
         }
@@ -122,15 +121,15 @@ argument:
         free(home);
         newArg->append($1->substr($1->find('/')));
         delete $1;
-        Command::_currentSimpleCommand->insertArgument( newArg );
+        Command::_currentSimpleCommand->insertArgument( envExp(newArg) );
       } else {
         char * home = tilExp($1->substr(0).c_str());
         delete $1;
-        Command::_currentSimpleCommand->insertArgument( new std::string(home) );
+        Command::_currentSimpleCommand->insertArgument( envExp(new std::string(home)) );
         free(home);
       }
     } else {
-      Command::_currentSimpleCommand->insertArgument( $1 );
+      Command::_currentSimpleCommand->insertArgument( envExp($1) );
     }
     //printf("   Yacc: insert argument \"%s\"\n", $1->c_str());
   }
@@ -325,6 +324,57 @@ char * w2r (char * input) {
   char * output = (char *)calloc(strlen(reg.c_str()) + 1, sizeof(char));
   strcpy(output, reg.c_str());
   return(output);
+}
+
+char * mallocEnvExp(char * input) {
+  char * env;
+  if (!strcmp(input, "$")) {
+    pid_t pid = getpid();
+    int lengthD = pid == 0 ? 1 : (int)floor(log10(abs(pid))) + 1;
+    char * output = (char*)calloc(lengthD + 1, sizeof(char));
+    sprintf(output, "%d", pid);
+    return output;
+  }
+  if (!strcmp(input, "?")) {
+    int lengthD = Shell::lstRtn == 0 ? 1 : (int)floor(log10(abs(Shell::lstRtn))) + 1;
+    char * output = (char*)calloc(lengthD + 1, sizeof(char));
+    sprintf(output, "%d", Shell::lstRtn);
+    return output;
+  }
+  if (!strcmp(input, "!")) {
+    int lengthD = Shell::lstPid == 0 ? 1 : (int)floor(log10(abs(Shell::lstPid))) + 1;
+    char * output = (char*)calloc(lengthD + 1, sizeof(char));
+    sprintf(output, "%d", Shell::lstPid);
+    return output;
+  }
+  if (!strcmp(input, "_")) {
+    if (Shell::lstArg != NULL) {
+      char * output = (char*)calloc(strlen(Shell::lstArg) + 1, sizeof(char));
+      strcpy(output, Shell::lstArg);
+      return output;
+    } else return (char*)calloc(1, sizeof(char));
+  }
+  if (!strcmp(input, "SHELL")) {
+    return realpath(Shell::argv, NULL);
+  }
+  if ((env = getenv(input)) != NULL) {
+    char * output = (char*)calloc(strlen(env) + 1, sizeof(char));
+    strcpy(output, env);
+    return output;
+  } else return (char *)calloc(1, sizeof(char));
+}
+
+std::string * envExp(std::string* input) {
+  int a = input->find('$');
+  int b = input->find('{');
+  int c = input->find('}')
+  if ((a != std::string::npos) && (b == a + 1) && (c > b)) {
+      char * exp = mallocEnvExp(input->substr(b + 1, c - b - 1));
+      input->erase(a, c - a + 1);
+      input->insert(a, exp);
+      free(exp);
+      return envExp(input);
+  } else return input;
 }
 
 char ** expandedPaths(const char * dirA, const char * arg) {

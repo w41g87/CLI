@@ -32,11 +32,12 @@ void Shell::termination(int signum) {
 
 void Shell::elimination(int signum) {
   int r;
-  int e = wait(&r);
-  if (e != -1) {
+  int e;
+  while((e = wait(&r) > 0) {
     if (isatty(0)) printf("%d exited\n", e);
     Shell::lstPid = e;
   }
+  Shell::lstRtn = WEXITSTATUS(r);
   if (WEXITSTATUS(r) && secure_getenv("ON_ERROR")) puts(secure_getenv("ON_ERROR"));
 }
 
