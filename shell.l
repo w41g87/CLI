@@ -54,6 +54,8 @@ int mygetc(FILE * f) {
 
 static  void yyunput (int c,char *buf_ptr  );
 
+FILE * fp = NULL;
+
 void myunputc(int c) {
   unput(c);
 }
@@ -75,14 +77,13 @@ void swtchBfr(char * input) {
   yy_switch_to_buffer(yy_scan_string(input));
 }
 
-FILE * source(char * file) {
-  FILE * fp;
+void source(char * file) {
   if (!(fp = fopen(file, "r"))) {
     perror("IO");
-    return NULL;
+    return;
   }
   yypush_buffer_state(yy_create_buffer(fp, YY_BUF_SIZE));
-  return fp;
+  return;
 }
 
 std::string * removeE(char * s) {
@@ -269,6 +270,8 @@ char * subshell (char ** input) {
   //printf("EOF\n");
   YY_FLUSH_BUFFER;
   yypop_buffer_state();
+  fclose(fp);
+  fp = NULL;
   if ( !YY_CURRENT_BUFFER ) {
     Shell::_currentCommand.execute();
     yyterminate();

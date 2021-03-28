@@ -35,7 +35,7 @@ extern char ** environ;
 
 extern char ** history;
 
-FILE * source(char *);
+void source(char *);
 
 void termBfr();
 
@@ -119,7 +119,7 @@ void Command::print() {
 
 void Command::execute() {
     if (_init && access(".shellrc", R_OK) != -1) {
-        fclose(source(".shellrc"));
+        source(".shellrc");
         clear();
         return;
     }
