@@ -66,6 +66,7 @@ int main(int argc, char* argv[], char* envp[]) {
     // add newline to trigger command execution
     input[strlen(argv[1])] = '\n';
     // using input stirng as buffer for flex scanner
+    printf("%s\n", input);
     swtchBfr(input);
     yyparse();
     free(input);
