@@ -114,44 +114,6 @@ void unputStr(char * input) {
   }
 }
 
-char * envExp(char * input) {
-  char * env;
-  if (!strcmp(input, "$")) {
-    pid_t pid = getpid();
-    int lengthD = pid == 0 ? 1 : (int)floor(log10(abs(pid))) + 1;
-    char * output = (char*)calloc(lengthD + 1, sizeof(char));
-    sprintf(output, "%d", pid);
-    return output;
-  }
-  if (!strcmp(input, "?")) {
-    int lengthD = Shell::lstRtn == 0 ? 1 : (int)floor(log10(abs(Shell::lstRtn))) + 1;
-    char * output = (char*)calloc(lengthD + 1, sizeof(char));
-    sprintf(output, "%d", Shell::lstRtn);
-    return output;
-  }
-  if (!strcmp(input, "!")) {
-    int lengthD = Shell::lstPid == 0 ? 1 : (int)floor(log10(abs(Shell::lstPid))) + 1;
-    char * output = (char*)calloc(lengthD + 1, sizeof(char));
-    sprintf(output, "%d", Shell::lstPid);
-    return output;
-  }
-  if (!strcmp(input, "_")) {
-    if (Shell::lstArg != NULL) {
-      char * output = (char*)calloc(strlen(Shell::lstArg) + 1, sizeof(char));
-      strcpy(output, Shell::lstArg);
-      return output;
-    } else return (char*)calloc(1, sizeof(char));
-  }
-  if (!strcmp(input, "SHELL")) {
-    return realpath(Shell::argv, NULL);
-  }
-  if ((env = getenv(input)) != NULL) {
-    char * output = (char*)calloc(strlen(env) + 1, sizeof(char));
-    strcpy(output, env);
-    return output;
-  } else return (char *)calloc(1, sizeof(char));
-}
-
 char * subshell (char ** input) {
   //printf("subshell function call: %s\n", input[0]);
   int size = 8;
@@ -251,23 +213,6 @@ char * subshell (char ** input) {
 
   unputStr(out);
   free(out);
-}
-
-"${"(\\.|[^\}\\])*"}" {
-  char * word = (char *)calloc(strlen(yytext) - 2, sizeof(char));
-  memcpy(word, yytext + 2, strlen(yytext) - 3);
-  //printf("input: %s\n", word);
-  char * out = envExp(word);
-  //printf("output: %s\n", out);
-  if (!strcmp(word, "_") || !strcmp(word, "$")) {
-    yylval.cpp_string = new std::string(out);
-    free(out);
-    free(word);
-    return WORD;
-  }
-  unputStr(out);
-  free(out);
-  free(word);
 }
 
 [ \t] {

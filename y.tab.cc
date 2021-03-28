@@ -484,8 +484,8 @@ static const yytype_uint8 yytranslate[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    59,    59,    60,    65,    69,    73,    76,    77,    83,
-      90,    91,    95,   140,   148,   149,   153,   161,   169,   178,
-     187,   198,   209,   213
+      90,    91,    95,   139,   147,   148,   152,   160,   168,   177,
+     186,   197,   208,   212
 };
 #endif
 
@@ -1324,15 +1324,14 @@ yyreduce:
       int i = 0;
       while(exp[i++]);
       if (i == 1) {
-        free(exp);
-        Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
+        Command::_currentSimpleCommand->insertArgument( envExp((yyvsp[0].cpp_string)) );
       } else {
         delete (yyvsp[0].cpp_string);
         //printf("i: %d\n", i);
         inplaceMerge(exp, i - 1);
         i = 0;
         while(exp[i]) {
-          Command::_currentSimpleCommand->insertArgument( new std::string(exp[i]) );
+          Command::_currentSimpleCommand->insertArgument( envExp(new std::string(exp[i])) );
           free(exp[i]);
           i++;
         }
@@ -1346,33 +1345,33 @@ yyreduce:
         free(home);
         newArg->append((yyvsp[0].cpp_string)->substr((yyvsp[0].cpp_string)->find('/')));
         delete (yyvsp[0].cpp_string);
-        Command::_currentSimpleCommand->insertArgument( newArg );
+        Command::_currentSimpleCommand->insertArgument( envExp(newArg) );
       } else {
         char * home = tilExp((yyvsp[0].cpp_string)->substr(0).c_str());
         delete (yyvsp[0].cpp_string);
-        Command::_currentSimpleCommand->insertArgument( new std::string(home) );
+        Command::_currentSimpleCommand->insertArgument( envExp(new std::string(home)) );
         free(home);
       }
     } else {
-      Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
+      Command::_currentSimpleCommand->insertArgument( envExp((yyvsp[0].cpp_string)) );
     }
     //printf("   Yacc: insert argument \"%s\"\n", $1->c_str());
   }
-#line 1362 "y.tab.cc" /* yacc.c:1646  */
+#line 1361 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 140 "shell.y" /* yacc.c:1646  */
+#line 139 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert command \"%s\"\n", $1->c_str());
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
   }
-#line 1372 "y.tab.cc" /* yacc.c:1646  */
+#line 1371 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 153 "shell.y" /* yacc.c:1646  */
+#line 152 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert input \"%s\"\n", $2->c_str());
     if (Shell::_currentCommand._inFile) {
@@ -1381,11 +1380,11 @@ yyreduce:
     }
     Shell::_currentCommand._inFile = (yyvsp[0].cpp_string);
   }
-#line 1385 "y.tab.cc" /* yacc.c:1646  */
+#line 1384 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 161 "shell.y" /* yacc.c:1646  */
+#line 160 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert output \"%s\"\n", $2->c_str());
     if (Shell::_currentCommand._outFile) {
@@ -1394,11 +1393,11 @@ yyreduce:
     }
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
   }
-#line 1398 "y.tab.cc" /* yacc.c:1646  */
+#line 1397 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 169 "shell.y" /* yacc.c:1646  */
+#line 168 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert background output \"%s\"\n", $2->c_str());
     if (Shell::_currentCommand._outFile || Shell::_currentCommand._errFile) {
@@ -1408,11 +1407,11 @@ yyreduce:
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
     Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
   }
-#line 1412 "y.tab.cc" /* yacc.c:1646  */
+#line 1411 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 178 "shell.y" /* yacc.c:1646  */
+#line 177 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert append output \"%s\"\n", $2->c_str());
     if (Shell::_currentCommand._outFile) {
@@ -1422,11 +1421,11 @@ yyreduce:
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
     Shell::_currentCommand._appendO = true;
   }
-#line 1426 "y.tab.cc" /* yacc.c:1646  */
+#line 1425 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 187 "shell.y" /* yacc.c:1646  */
+#line 186 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert append background output \"%s\"\n", $2->c_str());
     if (Shell::_currentCommand._outFile || Shell::_currentCommand._errFile) {
@@ -1438,11 +1437,11 @@ yyreduce:
     Shell::_currentCommand._appendO = true;
     Shell::_currentCommand._appendE = true;
   }
-#line 1442 "y.tab.cc" /* yacc.c:1646  */
+#line 1441 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 198 "shell.y" /* yacc.c:1646  */
+#line 197 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: insert error output \"%s\"\n", $2->c_str());
     if (Shell::_currentCommand._errFile) {
@@ -1451,20 +1450,20 @@ yyreduce:
     }
     Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
   }
-#line 1455 "y.tab.cc" /* yacc.c:1646  */
+#line 1454 "y.tab.cc" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 209 "shell.y" /* yacc.c:1646  */
+#line 208 "shell.y" /* yacc.c:1646  */
     {
     //printf("   Yacc: The command will be ran in the background\n");
     Shell::_currentCommand._background = true;
   }
-#line 1464 "y.tab.cc" /* yacc.c:1646  */
+#line 1463 "y.tab.cc" /* yacc.c:1646  */
     break;
 
 
-#line 1468 "y.tab.cc" /* yacc.c:1646  */
+#line 1467 "y.tab.cc" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1692,7 +1691,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 216 "shell.y" /* yacc.c:1906  */
+#line 215 "shell.y" /* yacc.c:1906  */
 
 
 void
@@ -1805,6 +1804,57 @@ char * w2r (char * input) {
   char * output = (char *)calloc(strlen(reg.c_str()) + 1, sizeof(char));
   strcpy(output, reg.c_str());
   return(output);
+}
+
+char * mallocEnvExp(char * input) {
+  char * env;
+  if (!strcmp(input, "$")) {
+    pid_t pid = getpid();
+    int lengthD = pid == 0 ? 1 : (int)floor(log10(abs(pid))) + 1;
+    char * output = (char*)calloc(lengthD + 1, sizeof(char));
+    sprintf(output, "%d", pid);
+    return output;
+  }
+  if (!strcmp(input, "?")) {
+    int lengthD = Shell::lstRtn == 0 ? 1 : (int)floor(log10(abs(Shell::lstRtn))) + 1;
+    char * output = (char*)calloc(lengthD + 1, sizeof(char));
+    sprintf(output, "%d", Shell::lstRtn);
+    return output;
+  }
+  if (!strcmp(input, "!")) {
+    int lengthD = Shell::lstPid == 0 ? 1 : (int)floor(log10(abs(Shell::lstPid))) + 1;
+    char * output = (char*)calloc(lengthD + 1, sizeof(char));
+    sprintf(output, "%d", Shell::lstPid);
+    return output;
+  }
+  if (!strcmp(input, "_")) {
+    if (Shell::lstArg != NULL) {
+      char * output = (char*)calloc(strlen(Shell::lstArg) + 1, sizeof(char));
+      strcpy(output, Shell::lstArg);
+      return output;
+    } else return (char*)calloc(1, sizeof(char));
+  }
+  if (!strcmp(input, "SHELL")) {
+    return realpath(Shell::argv, NULL);
+  }
+  if ((env = getenv(input)) != NULL) {
+    char * output = (char*)calloc(strlen(env) + 1, sizeof(char));
+    strcpy(output, env);
+    return output;
+  } else return (char *)calloc(1, sizeof(char));
+}
+
+std::string * envExp(std::string* input) {
+  int a = input->find('$');
+  int b = input->find('{');
+  int c = input->find('}')
+  if ((a != std::string::npos) && (b == a + 1) && (c > b)) {
+      char * exp = mallocEnvExp(input->substr(b + 1, c - b - 1));
+      input->erase(a, c - a + 1);
+      input->insert(a, exp);
+      free(exp);
+      return envExp(input);
+  } else return input;
 }
 
 char ** expandedPaths(const char * dirA, const char * arg) {
