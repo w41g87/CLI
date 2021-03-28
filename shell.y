@@ -40,11 +40,14 @@
 #include <regex.h>
 #include <math.h>
 #include <sys/wait.h> 
+#include <sys/types.h>
 #include "shell.hh"
 
 char * tilExp(const char *);
 
 char ** dirExp(const char *);
+
+std::string * envExp(std::sting*);
 
 void yyerror(const char * s);
 int yylex();
@@ -370,7 +373,7 @@ std::string * envExp(std::string* input) {
   int b = input->find('{');
   int c = input->find('}');
   if ((a != std::string::npos) && (b == a + 1) && (c > b)) {
-      char * exp = mallocEnvExp(input->substr(b + 1, c - b - 1));
+      char * exp = mallocEnvExp(input->substr(b + 1, c - b - 1)->c_str());
       input->erase(a, c - a + 1);
       input->insert(a, exp);
       free(exp);
