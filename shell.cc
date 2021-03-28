@@ -65,6 +65,7 @@ int main(int argc, char* argv[], char* envp[]) {
     strcpy(input, argv[1]);
     // add newline to trigger command execution
     input[strlen(argv[1])] = '\n';
+    Shell::_currentCommand._init = false;
     // using input stirng as buffer for flex scanner
     swtchBfr(input);
     yyparse();
