@@ -383,7 +383,7 @@ std::string * envExp(std::string* input) {
   } else return input;
 }
 
-char ** expandedPaths(const char * dirA, const char * arg) {
+char ** expandedPaths(const char * dirA, const char * arg, int mode) {
   //printf("dir address: %s\nrest: %s\n", dirA, arg);
   char ** output = (char **)calloc(8, sizeof(char*));
   int outputI = 0;
@@ -447,13 +447,17 @@ char ** expandedPaths(const char * dirA, const char * arg) {
         newDir[strlen(dirA) + strlen(name)] = '/';
         char ** recOut = expandedPaths(newDir, rest);
         while(recOut[i]) {
-          //printf("strlen 5\n");
-          output[outputI] = (char *)calloc(strlen(recOut[i]) + strlen(name) + 2, sizeof(char));
-          strcpy(output[outputI], name);
-          //printf("strlen 6\n");
-          output[outputI][strlen(name)] = '/';
-          //printf("strlen 7\n");
-          strcpy(output[outputI] + strlen(name) + 1, recOut[i]);
+          switch (mode) {
+            case 0:
+              output[outputI] = (char *)calloc(strlen(recOut[i]) + strlen(name) + 2, sizeof(char));
+              strcpy(output[outputI], name);
+              output[outputI][strlen(name)] = '/';
+              strcpy(output[outputI] + strlen(name) + 1, recOut[i]);
+              break;
+            case 1:
+              output[outputI] = (char *)calloc(strlen(recOut[i]) + 1, sizeof(char));
+              strcpy(output[outputI], recOut[i]);
+          }
           free(recOut[i]);
 
           i++;
@@ -475,9 +479,6 @@ char ** expandedPaths(const char * dirA, const char * arg) {
   return output;
 }
 
-extern "C" char ** expPaths(const char * dirA, const char * arg) {
-  return expandedPaths(dirA, arg);
-}
 
 char * tilExp(const char * input) {
   //printf("input: %s\n", input);
@@ -494,12 +495,14 @@ char * tilExp(const char * input) {
   return dir;
 }
 
-char ** dirExp(const char * input) {
+char ** dirExp(const char * input, int mode) {
+  // mode: 0-full expansion 1-leaf expansion
   char ** exp;
   char ** output;
   int len = 0;
   if (*input == '/') {
-    exp = expandedPaths("/", input + 1);
+    exp = expandedPaths("/", input + 1, mode);
+    if (mode == 1) return exp;
     while(exp[len]) len++;
     output = (char **)calloc(len + 1, sizeof(char *));
     for(int i = 0; i < len; i++) {
@@ -524,8 +527,14 @@ char ** dirExp(const char * input) {
     // get the rest of the argument
     char * rest = (char *)calloc(strchr(input, '/') - input, sizeof(char));
     strcpy(rest, strchr(input, '/') + 1);
-    exp = expandedPaths(dir, rest);
+    exp = expandedPaths(dir, rest, mode);
+
     free(rest);
+
+    if (mode == 1) {
+      free(dir);
+      return exp;
+    }
     // append and return
     while(exp[len]) len++;
     output = (char **)calloc(len + 1, sizeof(char *));
@@ -539,7 +548,11 @@ char ** dirExp(const char * input) {
     free(exp);
     free(dir);
     return output;
-  } else return expandedPaths(".", input);
+  } else return expandedPaths(".", input, mode);
+}
+
+extern "C" char ** expPath(const char * input, int mode) {
+  return dirExp(input, mode);
 }
 
 #if 0
