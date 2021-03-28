@@ -1324,7 +1324,7 @@ yyreduce:
     {
     std::string * env = envExp((yyvsp[0].cpp_string));
     if (env->find('?') != std::string::npos || env->find('*') != std::string::npos) {
-      char ** exp = dirExp(env->c_str());
+      char ** exp = dirExp(env->c_str(), 0);
       
       // iterate through the array and put everything into arguement
       int i = 0;

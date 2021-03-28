@@ -46,7 +46,7 @@
 
 char * tilExp(const char *);
 
-char ** dirExp(const char *);
+char ** dirExp(const char *, int);
 
 std::string * envExp(std::string*);
 
