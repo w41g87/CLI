@@ -68,9 +68,7 @@ void initBfr() {
 void termBfr() {
   while ( YY_CURRENT_BUFFER ) {
     YY_FLUSH_BUFFER;
-    YY_BUFFER_STATE bfr = YY_CURRENT_BUFFER;
     yypop_buffer_state();
-    yylex_destroy();
   }
 }
 
