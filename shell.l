@@ -267,7 +267,6 @@ char * subshell (char ** input) {
 <<EOF>> {
   //printf("EOF\n");
   YY_FLUSH_BUFFER;
-  printf("EOF reached, popping buffer state\n");
   yypop_buffer_state();
   if ( !YY_CURRENT_BUFFER ) {
     Shell::_currentCommand.execute();
