@@ -33,7 +33,7 @@ void Shell::termination(int signum) {
 void Shell::elimination(int signum) {
   int r;
   int e;
-  while((e = wait(&r) > 0) {
+  while((e = wait(&r)) > 0) {
     if (isatty(0)) printf("%d exited\n", e);
     Shell::lstPid = e;
   }
