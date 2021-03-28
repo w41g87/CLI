@@ -53,7 +53,6 @@ Command::Command() {
     _appendE = false;
     _init = true;
     _pid = 0;
-    _bgpid = 0;
 }
 
 void Command::insertSimpleCommand( SimpleCommand * simpleCommand ) {
@@ -349,7 +348,6 @@ void Command::execute() {
             Shell::lstRtn = WEXITSTATUS(r);
             if (WEXITSTATUS(r) && secure_getenv("ON_ERROR")) puts(secure_getenv("ON_ERROR"));
         } else Shell::lstPid = _pid;
-        else {_bgpid = _pid;}
         //printf("terminated\n");
         dup2( defaultin , 0);
         dup2( defaultout , 1);
