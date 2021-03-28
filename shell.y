@@ -100,6 +100,7 @@ argument:
       int i = 0;
       while(exp[i++]);
       if (i == 1) {
+        free(exp);
         Command::_currentSimpleCommand->insertArgument( $1 );
       } else {
         delete $1;
@@ -123,7 +124,7 @@ argument:
         delete $1;
         Command::_currentSimpleCommand->insertArgument( newArg );
       } else {
-        char * home = tilExp($1->substr(1).c_str());
+        char * home = tilExp($1->substr(0).c_str());
         delete $1;
         Command::_currentSimpleCommand->insertArgument( new std::string(home) );
         free(home);
@@ -421,14 +422,14 @@ char ** expandedPaths(const char * dirA, const char * arg) {
 char * tilExp(const char * input) {
   printf("input: %s\n", input);
   char * dir;
-  if(*input == '~') {
+  if(!strcmp(input, "~")) {
     char * home = getenv("HOME");
     dir = (char *)calloc(strlen(home) + 1, sizeof(char));
     strcpy(dir, home);
   } else {
     dir = (char *)calloc(strlen(input) + 7, sizeof(char));
     strcpy(dir, "/homes/");
-    strcpy(dir + 7, input);
+    strcpy(dir + 7, input + 1);
   }
   return dir;
 }
