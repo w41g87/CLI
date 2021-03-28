@@ -1847,7 +1847,7 @@ char * mallocEnvExp(char * input) {
 std::string * envExp(std::string* input) {
   int a = input->find('$');
   int b = input->find('{');
-  int c = input->find('}')
+  int c = input->find('}');
   if ((a != std::string::npos) && (b == a + 1) && (c > b)) {
       char * exp = mallocEnvExp(input->substr(b + 1, c - b - 1));
       input->erase(a, c - a + 1);

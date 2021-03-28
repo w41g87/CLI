@@ -39,6 +39,7 @@
 #include <dirent.h>
 #include <regex.h>
 #include <math.h>
+#include <sys/wait.h> 
 #include "shell.hh"
 
 char * tilExp(const char *);

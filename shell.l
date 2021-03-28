@@ -12,7 +12,6 @@
 #include <cstring>
 #include <unistd.h>
 #include <sys/types.h> 
-#include <sys/wait.h> 
 #include <iostream>
 #include <limits.h>
 #include <stdlib.h>
