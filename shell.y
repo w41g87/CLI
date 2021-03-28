@@ -445,7 +445,7 @@ char ** expandedPaths(const char * dirA, const char * arg, int mode) {
         strcpy(newDir + strlen(dirA), name);
         //printf("strlen 4\n");
         newDir[strlen(dirA) + strlen(name)] = '/';
-        char ** recOut = expandedPaths(newDir, rest);
+        char ** recOut = expandedPaths(newDir, rest, mode);
         while(recOut[i]) {
           switch (mode) {
             case 0:
