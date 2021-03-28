@@ -103,7 +103,6 @@ int main(int argc, char* argv[], char* envp[]) {
   initBfr();
   // Extra functionality: first time execution runs .shellrc
   Shell::_currentCommand.execute();
-  //Shell::prompt();
   yyparse();
 }
 

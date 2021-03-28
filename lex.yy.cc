@@ -687,11 +687,12 @@ FILE * fp = NULL;
 void myunputc(int c) {
   unput(c);
 }
-
+// initialize stdin input buffer
 void initBfr() {
   yypush_buffer_state(yy_create_buffer(stdin, YY_BUF_SIZE));
 }
 
+// pop all buffers off buffer stack
 void termBfr() {
   while ( YY_CURRENT_BUFFER ) {
     YY_FLUSH_BUFFER;
@@ -699,40 +700,48 @@ void termBfr() {
   }
 }
 
+// YY_FLUSH_BUFFER but could be called externally
 void flushBfr() { YY_FLUSH_BUFFER; }
 
 void swtchBfr(char * input) {
   yy_switch_to_buffer(yy_scan_string(input));
 }
 
+// source function
 void source(char * file) {
   if (!(fp = fopen(file, "r"))) {
     perror("IO");
     return;
   }
+  // create a new buffer and push it onto the stack
   yypush_buffer_state(yy_create_buffer(fp, YY_BUF_SIZE));
   return;
 }
 
+// remove escape
 std::string * removeE(char * s) {
   std::string* str = new std::string();
   bool isEscaped = false;
   for(int i = 0; i < strlen(s); i++) {
+    // if the current char is unescaped and is backslash
+    // mark next char as escaped
     if (!isEscaped && s[i] == '\\') isEscaped = !isEscaped;
+    // if there is an escaped character, or a character
+    // that is neither quote or backslash, add it into the string
     else if (isEscaped || (s[i] != '\"' && s[i] != '\\')) {
       isEscaped = false;
       str->push_back(s[i]);
-      //printf("%c", s[i]);
     }
   }
   return str;
 }
 
+// unput a 0-terminated string
 void unputStr(char * input) {
   int i = 0;
   while(input[i] != '\0') {
+    // replace newline with space
     if (input[i] == '\n') input[i] = ' ';
-    //printf("%c", input[i]);
     i++;
   }
   if (i == 0) printf("shell: subshell execution error\n");
@@ -794,8 +803,8 @@ char * subshell (char ** input) {
 }
 
 
-#line 798 "lex.yy.cc"
-#line 799 "lex.yy.cc"
+#line 807 "lex.yy.cc"
+#line 808 "lex.yy.cc"
 
 #define INITIAL 0
 
@@ -1012,10 +1021,10 @@ YY_DECL
 		}
 
 	{
-#line 173 "shell.l"
+#line 182 "shell.l"
 
 
-#line 1019 "lex.yy.cc"
+#line 1028 "lex.yy.cc"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1085,14 +1094,14 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 175 "shell.l"
+#line 184 "shell.l"
 {
   return NEWLINE;
 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 179 "shell.l"
+#line 188 "shell.l"
 {
   yylval.cpp_string = removeE(yytext);
   return WORD;
@@ -1101,7 +1110,7 @@ YY_RULE_SETUP
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 184 "shell.l"
+#line 193 "shell.l"
 {
   char ** word = (char**) malloc(3);
   word[2] = 0;
@@ -1122,7 +1131,7 @@ YY_RULE_SETUP
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 201 "shell.l"
+#line 210 "shell.l"
 {
   char ** word = (char**) malloc(3);
   word[2] = 0;
@@ -1144,77 +1153,77 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 220 "shell.l"
+#line 229 "shell.l"
 {
   /* Discard spaces and tabs */
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 224 "shell.l"
+#line 233 "shell.l"
 {
   return GUARD;
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 228 "shell.l"
+#line 237 "shell.l"
 {
   return GREAT2;
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 232 "shell.l"
+#line 241 "shell.l"
 {
   return GGCONT;
 }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 236 "shell.l"
+#line 245 "shell.l"
 {
   return GCONT;
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 240 "shell.l"
+#line 249 "shell.l"
 {
   return LCONT;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 244 "shell.l"
+#line 253 "shell.l"
 {
   return GGREAT;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 248 "shell.l"
+#line 257 "shell.l"
 {
   return GREAT;
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 252 "shell.l"
+#line 261 "shell.l"
 {
   return LESS;
 }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 256 "shell.l"
+#line 265 "shell.l"
 {
   return CONT;
 }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 260 "shell.l"
+#line 269 "shell.l"
 {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = removeE(yytext);
@@ -1225,7 +1234,7 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 269 "shell.l"
+#line 278 "shell.l"
 {
   //printf("EOF\n");
   YY_FLUSH_BUFFER;
@@ -1241,10 +1250,10 @@ case YY_STATE_EOF(INITIAL):
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 282 "shell.l"
+#line 291 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1248 "lex.yy.cc"
+#line 1257 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2259,6 +2268,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 282 "shell.l"
+#line 291 "shell.l"
 
 
