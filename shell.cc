@@ -28,7 +28,7 @@ void Shell::termination(int signum) {
     _currentCommand.clear();
     resetLine();
     
-    if ( isatt(0) && isatty(1) && Shell::isPrompt) printf("\n");
+    if ( isatty(0) && isatty(1) && Shell::isPrompt) printf("\n");
     Shell::prompt();
   }
 }
