@@ -21,6 +21,10 @@ void Shell::prompt() {
   }
 }
 
+extern "C" void prompt() {
+  Shell::prompt();
+}
+
 void Shell::termination(int signum) {
   if (_currentCommand._pid != 0) kill(_currentCommand._pid, SIGINT);
   else{

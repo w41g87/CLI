@@ -1955,7 +1955,9 @@ char ** expandedPaths(const char * dirA, const char * arg) {
   return output;
 }
 
-extern "C" char ** expPaths(const char * dirA, const char * arg) return expandedPaths(dirA, arg);
+extern "C" char ** expPaths(const char * dirA, const char * arg) {
+  return expandedPaths(dirA, arg);
+}
 
 char * tilExp(const char * input) {
   //printf("input: %s\n", input);
