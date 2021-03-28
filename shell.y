@@ -37,6 +37,7 @@
 #include <string>
 #include <string.h>
 #include <dirent.h>
+#include <regex.h>
 #include <math.h>
 #include <unistd.h>
 #include <sys/wait.h> 
@@ -53,7 +54,7 @@ void yyerror(const char * s);
 int yylex();
 void inplaceMerge(char**, size_t);
 
-extern "C" char ** expandedPaths(const char *, const char *);
+extern "C" void * recallocarray(void *, size_t, size_t, size_t);
 
 %}
 
@@ -381,6 +382,100 @@ std::string * envExp(std::string* input) {
       return envExp(input);
   } else return input;
 }
+
+char ** expandedPaths(const char * dirA, const char * arg) {
+  //printf("dir address: %s\nrest: %s\n", dirA, arg);
+  char ** output = (char **)calloc(8, sizeof(char*));
+  int outputI = 0;
+  int outputSize = 8;
+  char * currentDir;
+  char * rest = NULL;
+
+  // terminating cases
+  if (!strchr(arg, '/')) {
+    currentDir = (char *)calloc(strlen(arg) + 1, sizeof(char));
+    strcpy(currentDir, arg);
+  } else {
+    int len = strchr(arg, '/') - arg;
+    currentDir = (char *)calloc(len + 1, sizeof(char));
+    strncpy(currentDir, arg, len);
+    rest = (char *)calloc(strlen(arg) - len, sizeof(char));
+    strcpy(rest, arg + len + 1);
+  }
+
+  // regex conversion
+  char * regExp = w2r(currentDir);
+  //printf("regExp: %s\n", regExp);
+  free(currentDir);
+  currentDir = NULL;
+  regex_t re;	
+  int result = regcomp( &re, regExp,  REG_EXTENDED|REG_NOSUB);
+  if( result != 0 ) {
+    fprintf( stderr, "Bad regular expresion \"%s\"\n", regExp );
+    exit( -1 );
+  }
+
+  // recursive calls
+  DIR * dir = opendir(dirA);
+  struct dirent * ent;
+  while ((ent = readdir(dir)) != NULL) {
+    regmatch_t match;
+    char *name = ent->d_name;
+    unsigned char type = ent->d_type;
+    //printf("\n%s: ", name);
+    if (regexec( &re, name, 1, &match, 0) == 0) {
+      //printf("match\n");
+      if (rest == NULL) {
+        //printf("strlen 1\n");
+        output[outputI] = (char *)calloc(strlen(name) + 1, sizeof(char));
+        strcpy(output[outputI], name);
+        outputI++;
+        if(outputI == outputSize) {
+            outputSize *= 2;
+            output = (char **)recallocarray(output, outputSize, sizeof(char *), outputSize / 2);
+        }
+      } else if (type == DT_DIR
+        && strcmp(name, ".")
+        && strcmp(name, "..")) {
+        int i = 0;
+        //printf("strlen 2\n");
+        char * newDir = (char *)calloc(strlen(dirA) + strlen(name) + 2, sizeof(char));
+        strcpy(newDir, dirA);
+        //printf("strlen 3\n");
+        strcpy(newDir + strlen(dirA), name);
+        //printf("strlen 4\n");
+        newDir[strlen(dirA) + strlen(name)] = '/';
+        char ** recOut = expandedPaths(newDir, rest);
+        while(recOut[i]) {
+          //printf("strlen 5\n");
+          output[outputI] = (char *)calloc(strlen(recOut[i]) + strlen(name) + 2, sizeof(char));
+          strcpy(output[outputI], name);
+          //printf("strlen 6\n");
+          output[outputI][strlen(name)] = '/';
+          //printf("strlen 7\n");
+          strcpy(output[outputI] + strlen(name) + 1, recOut[i]);
+          free(recOut[i]);
+
+          i++;
+          outputI++;
+          if(outputI == outputSize) {
+            outputSize *= 2;
+            output = (char **)recallocarray(output, outputSize, sizeof(char *), outputSize / 2);
+          }
+        }
+        free(recOut);
+        free(newDir);
+      } 
+    }
+  }
+  regfree(&re);
+  free(dir);
+  free(rest);
+  free(regExp);
+  return output;
+}
+
+extern "C" char ** expPaths(const char * dirA, const char * arg) return expandedPaths(dirA, arg);
 
 char * tilExp(const char * input) {
   //printf("input: %s\n", input);
