@@ -35,7 +35,7 @@ extern char ** environ;
 
 extern char ** history;
 
-void source(char * file);
+FILE * source(char *);
 
 void termBfr();
 

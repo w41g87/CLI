@@ -707,7 +707,7 @@ FILE * source(char * file) {
   FILE * fp;
   if (!(fp = fopen(file, "r"))) {
     perror("IO");
-    return;
+    return NULL;
   }
   yypush_buffer_state(yy_create_buffer(fp, YY_BUF_SIZE));
   return fp;
