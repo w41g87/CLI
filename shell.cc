@@ -61,7 +61,7 @@ int main(int argc, char* argv[], char* envp[]) {
   // and execute without entering the shell
   if (argc > 1) {
     Shell::isPrompt = false;
-    char * input = (char *) calloc(strlen(argv[1]) + 2);
+    char * input = (char *) calloc(strlen(argv[1]) + 2, sizeof(char));
     strcpy(input, argv[1]);
     // add newline to trigger command execution
     input[strlen(argv[1])] = '\n';
