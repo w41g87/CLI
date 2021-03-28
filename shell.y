@@ -479,7 +479,7 @@ char ** expandedPaths(const char * dirA, const char * arg, int mode) {
     }
   }
   regfree(&re);
-  free(dir);
+  close(dir);
   free(rest);
   free(regExp);
   return output;
