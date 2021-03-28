@@ -44,9 +44,8 @@ void Shell::elimination(int signum) {
   int e;
   while((e = wait(&r)) > 0) {
     if (isatty(0)) printf("%d exited\n", e);
-    Shell::lstPid = e;
+    if (WEXITSTATUS(r) && secure_getenv("ON_ERROR")) puts(secure_getenv("ON_ERROR"));
   }
-  if (WEXITSTATUS(r) && secure_getenv("ON_ERROR")) puts(secure_getenv("ON_ERROR"));
 }
 
 int main(int argc, char* argv[], char* envp[]) {
