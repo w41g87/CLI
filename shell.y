@@ -420,7 +420,7 @@ char ** expandedPaths(const char * dirA, const char * arg) {
 }
 
 char * tilExp(const char * input) {
-  printf("input: %s\n", input);
+  //printf("input: %s\n", input);
   char * dir;
   if(!strcmp(input, "~")) {
     char * home = getenv("HOME");
