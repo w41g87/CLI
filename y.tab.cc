@@ -1708,12 +1708,17 @@ yyerror(const char * s)
   yyparse();
 }
 
+// inplace Mergesort for string
 void inplaceMerge(char ** ptr, size_t len) {
+  // if only 1 string to sort, dont bother
   if (len < 2) return;
+
+  // comparing between two strings
   if (len == 2) {
     int i = 0;
-    //printf("%u %u\n", ptr[0], ptr[1]);
+    // iterate until the first character mismatch
     while(ptr[0][i] == ptr[1][i]) i++;
+    // if their place is reversed, switch back
     if (ptr[0][i] > ptr[1][i]) {
       char* temp = ptr[0];
       ptr[0] = ptr[1];
@@ -1721,17 +1726,23 @@ void inplaceMerge(char ** ptr, size_t len) {
     }
     return;
   }
+
+  // ptr1 and ptr2 point to the head of their respective sorted subarrays
   char ** ptr1 = ptr;
   char ** ptr2 = ptr + (len / 2);
-  //printf("len / 2: %d, floor: %d\n", len/2, floor((float)len / 2));
   inplaceMerge(ptr1, len / 2);
   inplaceMerge(ptr2, (int)ceil((float)len / 2));
-  //printf("len = %d\n", len);
+  // if ptr1 reaches ptr2 (array 1 is empty) or
+  // ptr2 reaches the end (array 2 is empty)
+  // the entire array is then sorted.
   while(ptr1 != ptr2 && ptr2 != ptr + len) {
     int i = 0;
-    //printf("%s - %s\n", *ptr1, *ptr2);
+    // since all entries are unique, we dont have to worry about SEGEV here
     while((*ptr1)[i] == (*ptr2)[i]) i++;
+    // if the first element is smaller, simply increment
     if ((*ptr1)[i] < (*ptr2)[i]) ptr1++;
+    // if the second is smaller, shift the array right and
+    // insert it at the first pointer location
     else {
       char * temp = *ptr2;
       for (i = 0; i < ptr2 - ptr1; i++) *(ptr2 - i) = *(ptr2 - i - 1);
@@ -1743,11 +1754,13 @@ void inplaceMerge(char ** ptr, size_t len) {
   return;
 }
 
+// wildcard to regex
 char * w2r (char * input) {
   std::string reg = std::string();
   reg.push_back('^');
   switch(*input) {
     case '*':
+    // "non-blank character" my ass
       reg.append("([^\\.].*|\"\")");
       break;
     case '?':
@@ -1812,6 +1825,7 @@ char * w2r (char * input) {
   return(output);
 }
 
+// environment variable expansion for specific input
 char * mallocEnvExp(const char * input) {
   char * env;
   if (!strcmp(input, "$")) {
@@ -1850,6 +1864,7 @@ char * mallocEnvExp(const char * input) {
   } else return (char *)calloc(1, sizeof(char));
 }
 
+// environment variable expansion within arbitrary string
 std::string * envExp(std::string* input) {
   int a = input->find('$');
   int b = input->find('{');
@@ -1863,16 +1878,17 @@ std::string * envExp(std::string* input) {
   } else return input;
 }
 
+// takes a directory and wildcard arg and recursively expands all subdir
 char ** expandedPaths(const char * dirA, const char * arg, int mode) {
-  //printf("dir address: %s\nrest: %s\n", dirA, arg);
   char ** output = (char **)calloc(8, sizeof(char*));
   int outputI = 0;
   int outputSize = 8;
   char * currentDir;
   char * rest = NULL;
 
-  // terminating cases
+  // extract the wildcard to expand in the current dir
   if (!strchr(arg, '/')) {
+    // terminating case
     currentDir = (char *)calloc(strlen(arg) + 1, sizeof(char));
     strcpy(currentDir, arg);
   } else {
@@ -1885,9 +1901,10 @@ char ** expandedPaths(const char * dirA, const char * arg, int mode) {
 
   // regex conversion
   char * regExp = w2r(currentDir);
-  //printf("regExp: %s\n", regExp);
   free(currentDir);
   currentDir = NULL;
+
+  // regex init
   regex_t re;	
   int result = regcomp( &re, regExp,  REG_EXTENDED|REG_NOSUB);
   if( result != 0 ) {
@@ -1902,11 +1919,9 @@ char ** expandedPaths(const char * dirA, const char * arg, int mode) {
     regmatch_t match;
     char *name = ent->d_name;
     unsigned char type = ent->d_type;
-    //printf("\n%s: ", name);
     if (regexec( &re, name, 1, &match, 0) == 0) {
-      //printf("match\n");
       if (rest == NULL) {
-        //printf("strlen 1\n");
+        // terminating case
         if (mode == 1 && type == DT_DIR) {
           output[outputI] = (char *)calloc(strlen(name) + 2, sizeof(char));
           strcpy(output[outputI], name);
@@ -1916,6 +1931,7 @@ char ** expandedPaths(const char * dirA, const char * arg, int mode) {
           strcpy(output[outputI], name);
         }
         outputI++;
+        // dynamically sized array
         if(outputI == outputSize) {
             outputSize *= 2;
             output = (char **)recallocarray(output, outputSize, sizeof(char *), outputSize / 2);
@@ -1923,24 +1939,27 @@ char ** expandedPaths(const char * dirA, const char * arg, int mode) {
       } else if (type == DT_DIR
         && strcmp(name, ".")
         && strcmp(name, "..")) {
+        // recursive case
         int i = 0;
-        //printf("strlen 2\n");
+        // construct a new dir to recurse on
         char * newDir = (char *)calloc(strlen(dirA) + strlen(name) + 2, sizeof(char));
         strcpy(newDir, dirA);
-        //printf("strlen 3\n");
         strcpy(newDir + strlen(dirA), name);
-        //printf("strlen 4\n");
         newDir[strlen(dirA) + strlen(name)] = '/';
+        // recursively acquire the expansion under new dir
         char ** recOut = expandedPaths(newDir, rest, mode);
+
         while(recOut[i]) {
           switch (mode) {
             case 0:
+              // append output to new dir and return
               output[outputI] = (char *)calloc(strlen(recOut[i]) + strlen(name) + 2, sizeof(char));
               strcpy(output[outputI], name);
               output[outputI][strlen(name)] = '/';
               strcpy(output[outputI] + strlen(name) + 1, recOut[i]);
               break;
             case 1:
+              // only return the leaf nodes
               output[outputI] = (char *)calloc(strlen(recOut[i]) + 1, sizeof(char));
               strcpy(output[outputI], recOut[i]);
           }
@@ -1948,6 +1967,7 @@ char ** expandedPaths(const char * dirA, const char * arg, int mode) {
 
           i++;
           outputI++;
+          // dynamically sized array
           if(outputI == outputSize) {
             outputSize *= 2;
             output = (char **)recallocarray(output, outputSize, sizeof(char *), outputSize / 2);
@@ -1960,15 +1980,13 @@ char ** expandedPaths(const char * dirA, const char * arg, int mode) {
   }
   regfree(&re);
   closedir(dir);
-  //free(dir);
   free(rest);
   free(regExp);
   return output;
 }
 
-
+// tilda expansion
 char * tilExp(const char * input) {
-  //printf("input: %s\n", input);
   char * dir;
   if(!strcmp(input, "~")) {
     char * home = getenv("HOME");
@@ -1982,12 +2000,15 @@ char * tilExp(const char * input) {
   return dir;
 }
 
+// takes dir with wildcard and tilda and expands it
+// mode: 0-full expansion 1-leaf expansion
 char ** dirExp(const char * input, int mode) {
-  // mode: 0-full expansion 1-leaf expansion
   char ** exp;
   char ** output;
   int len = 0;
+
   if (*input == '/') {
+    // starting from root dir
     exp = expandedPaths("/", input + 1, mode);
     if (mode == 1) return exp;
     while(exp[len]) len++;
@@ -2001,32 +2022,38 @@ char ** dirExp(const char * input, int mode) {
     free(exp);
     return output;
   } else if (*input == '~') {
+    // expand home first
+
     // isolate the username
     char * home = (char *)calloc(strchr(input, '/') - input + 1, sizeof(char));
     strncpy(home, input, strchr(input, '/') - input);
+    
     // get tilda expansion
     char * dir = tilExp(home);
     free(home);
+    
     // adding slash to the end
     dir = (char *)realloc(dir, strlen(dir) + 1);
     dir[strlen(dir) + 1] = 0;
     dir[strlen(dir)] = '/';
+    
     // get the rest of the argument
     char * rest = (char *)calloc(strchr(input, '/') - input, sizeof(char));
     strcpy(rest, strchr(input, '/') + 1);
+
+    // acquire expanded result
     exp = expandedPaths(dir, rest, mode);
-
     free(rest);
-
+    
     if (mode == 1) {
+      // only leaf nodes required
       free(dir);
       return exp;
     }
-    // append and return
+    // full expansion: append and return
     while(exp[len]) len++;
     output = (char **)calloc(len + 1, sizeof(char *));
     for(int i = 0; i < len; i++) {
-      //printf("length: %d\n", len);
       output[i] = (char *)calloc(strlen(exp[i]) + strlen(dir) + 1, sizeof(char));
       strcpy(output[i], dir);
       strcpy(output[i] + strlen(dir), exp[i]);
@@ -2038,6 +2065,7 @@ char ** dirExp(const char * input, int mode) {
   } else return expandedPaths(".", input, mode);
 }
 
+// dir expansion for read-line.c
 extern "C" char ** expPath(const char * input, int mode) {
   return dirExp(input, mode);
 }

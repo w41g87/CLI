@@ -794,7 +794,6 @@ char * subshell (char ** input) {
       out = (char*)recallocarray(out, size, sizeof(char), size / 2);
     }
   }
-  
   fclose(file);
   close(p[0]);
 
@@ -802,8 +801,8 @@ char * subshell (char ** input) {
 }
 
 
+#line 805 "lex.yy.cc"
 #line 806 "lex.yy.cc"
-#line 807 "lex.yy.cc"
 
 #define INITIAL 0
 
@@ -1020,10 +1019,10 @@ YY_DECL
 		}
 
 	{
-#line 181 "shell.l"
+#line 180 "shell.l"
 
 
-#line 1027 "lex.yy.cc"
+#line 1026 "lex.yy.cc"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1093,14 +1092,14 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 183 "shell.l"
+#line 182 "shell.l"
 {
   return NEWLINE;
 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 187 "shell.l"
+#line 186 "shell.l"
 {
   yylval.cpp_string = removeE(yytext);
   return WORD;
@@ -1109,8 +1108,9 @@ YY_RULE_SETUP
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 192 "shell.l"
+#line 191 "shell.l"
 {
+  // $(subshell) needs the third to the second last char
   char ** word = (char**) malloc(3);
   word[2] = 0;
   word[1] = (char *)malloc(strlen(yytext) - 2);
@@ -1132,6 +1132,7 @@ case 4:
 YY_RULE_SETUP
 #line 209 "shell.l"
 {
+  // `subshell` needs the second to the second last char
   char ** word = (char**) malloc(3);
   word[2] = 0;
   word[1] = (char *)malloc(strlen(yytext) - 1);
@@ -1139,7 +1140,6 @@ YY_RULE_SETUP
   word[1][strlen(yytext) - 2] = '\0';
   word[0] = (char *)malloc(6);
   strcpy(*word, "shell\0");
-  //printf("yytext: %s\n", yytext);
 
   char * out = subshell(word);
   free(*word);
@@ -1226,21 +1226,18 @@ YY_RULE_SETUP
 {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = removeE(yytext);
-
-  //printf("lex scanned: %s\n", yytext);
-  //cout << *yylval.cpp_string << endl;
   return WORD;
 }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 277 "shell.l"
+#line 274 "shell.l"
 {
-  //printf("EOF\n");
   YY_FLUSH_BUFFER;
   yypop_buffer_state();
   if (fp) fclose(fp);
   fp = NULL;
   if ( !YY_CURRENT_BUFFER ) {
+    // if no buffer left, execute what we have and terminate
     Shell::_currentCommand.execute();
     yyterminate();
   }
@@ -1249,10 +1246,10 @@ case YY_STATE_EOF(INITIAL):
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 290 "shell.l"
+#line 287 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1256 "lex.yy.cc"
+#line 1253 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2267,6 +2264,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 290 "shell.l"
+#line 287 "shell.l"
 
 
