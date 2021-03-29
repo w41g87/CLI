@@ -166,7 +166,6 @@ char * subshell (char ** input) {
       out = (char*)recallocarray(out, size, sizeof(char), size / 2);
     }
   }
-  
   fclose(file);
   close(p[0]);
 
@@ -190,6 +189,7 @@ char * subshell (char ** input) {
 }
 
 "$("(\\.|[^\)\\])*")" {
+  // $(subshell) needs the third to the second last char
   char ** word = (char**) malloc(3);
   word[2] = 0;
   word[1] = (char *)malloc(strlen(yytext) - 2);
@@ -207,6 +207,7 @@ char * subshell (char ** input) {
 }
 
 "`"(\\.|[^`\\])*"`" {
+  // `subshell` needs the second to the second last char
   char ** word = (char**) malloc(3);
   word[2] = 0;
   word[1] = (char *)malloc(strlen(yytext) - 1);
@@ -214,7 +215,6 @@ char * subshell (char ** input) {
   word[1][strlen(yytext) - 2] = '\0';
   word[0] = (char *)malloc(6);
   strcpy(*word, "shell\0");
-  //printf("yytext: %s\n", yytext);
 
   char * out = subshell(word);
   free(*word);
@@ -268,19 +268,16 @@ char * subshell (char ** input) {
 (\\.|[^>&<\|\\ \t\n`\(\)])+  {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = removeE(yytext);
-
-  //printf("lex scanned: %s\n", yytext);
-  //cout << *yylval.cpp_string << endl;
   return WORD;
 }
 
 <<EOF>> {
-  //printf("EOF\n");
   YY_FLUSH_BUFFER;
   yypop_buffer_state();
   if (fp) fclose(fp);
   fp = NULL;
   if ( !YY_CURRENT_BUFFER ) {
+    // if no buffer left, execute what we have and terminate
     Shell::_currentCommand.execute();
     yyterminate();
   }

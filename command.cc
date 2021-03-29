@@ -118,6 +118,7 @@ void Command::print() {
 
 void Command::execute() {
     if (_init && access(".shellrc", R_OK) != -1) {
+        // first time call and not subshell
         source(".shellrc");
         clear();
         return;
@@ -129,7 +130,7 @@ void Command::execute() {
         Shell::prompt();
         return;
     }
-    // If exit is entered then exit shell
+    
 
     // save the last argument
     {
@@ -144,15 +145,17 @@ void Command::execute() {
     // Embedded commands
 
     {    
+        // If exit is entered then exit shell
+
         char * cmd = (char *) malloc(_simpleCommands.front()->_arguments.front()->length() + 1);
         int i = 0;
+
+        // cast to lower case for more general pattern matching
         *(cmd + _simpleCommands.front()->_arguments.front()->length()) = '\0';
         std::transform(_simpleCommands.front()->_arguments.front()->begin(), 
             _simpleCommands.front()->_arguments.front()->end(), 
             cmd, ::tolower);
-        
-        //printf("Lower case: %s\n", cmd);
-        //printf("%s %d\n", cmd, strcmp(cmd, "exit"));
+
         if (!strcmp(cmd, "exit")) {
             close(0);
             close(1);
@@ -275,7 +278,6 @@ void Command::execute() {
 
         for ( auto & simpleCommand : _simpleCommands ) {
             char ** args = simpleCommand->toString();
-            //printf("%d, %s", i, simpleCommand->_arguments.front()->c_str());
 
             if ( pipe(fdpipe[i]) == -1) {
                 perror( "shell: pipe");
@@ -309,19 +311,7 @@ void Command::execute() {
             
             if (_pid == 0) {
                 //Child
-                //const char * cmd = simpleCommand->_arguments.front()->c_str();
-                //close file descriptors that are not needed
-                // close(fdpipe[0]);
-                // close(fdpipe[1]);
                 
-                //printf("Params:\n");
-                //printf("pid = %d\n", _pid);
-                //printf("cmd: %s\n", simpleCommand->_arguments.front()->c_str());
-
-                // for (unsigned int j = 0; j < simpleCommand->_arguments.size(); j++) {
-                //     printf("%d: %s\n", j, args[j]);
-                // }
-                // You can use execvp() instead if the arguments are stored in an array
                 const char * cmd = simpleCommand->_arguments.front()->c_str();
                 if (!strcmp(cmd, "printenv")) {
                     while(environ[i]) cout << environ[i++] << endl;
@@ -341,8 +331,9 @@ void Command::execute() {
             }
             args = (char **)destroy(args);
         }
-        //printf("pid: %d", _pid);
+
         if (!_background) {
+            // process run in foreground
             int r;
             waitpid( _pid, &r, 0 );
             Shell::lstRtn = WEXITSTATUS(r);
